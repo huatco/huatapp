@@ -2,30 +2,31 @@
   	<title>Huat</title>
 </head>
 
-<body>	
-</body>
-
 <template name="layout">
-	{{> topbar}}
-  	<div class="expanded row">
-	  <div class="small-2 columns sidebar">{{> sidebar}}</div>
-	  <div class="small-10 columns">{{> yield}}</div>
+	<div class="application">
+		{{> topbar}}
+	  	<div class="expanded row" id="side-content">
+		  <div class="small-2 columns sidebar">{{> sidebar}}</div>
+		  <div class="small-10 columns content">
+		  	{{#if currentUser}}
+		  		{{> yield}}
+		  	{{else}}
+		  		{{> atForm}}
+		  	{{/if}}
+		  </div>
+		</div>
 	</div>
 </template>
 
 <template name="topbar">
   	<div class="top-bar">
 	  <div class="top-bar-left">
-	    <ul class="menu">
-	      <li class="menu-text">HUAT</li>
-	      <li><input type="search" placeholder="Search"></li>
-	      <li><button type="button" class="button">Search</button></li>
-	    </ul>
+	    <img src="/huat_white.png">
 	  </div>
 	  <div class="top-bar-right">
 	    <ul class="menu">
-	    	<li><a href="{{pathFor route='add-goal'}}" class="button">Add Goal</a></li>
-	      	<li><a href="{{pathFor route='profile'}}" class="button">Profile</a></li>
+	    	<li><a href="{{pathFor route='add-goal'}}" class="button"><i class="fa fa-plus"></i>Add Goal</a></li>
+	      	<li><a href="{{pathFor route='profile'}}" class="button"><i class="fa fa-user"></i>Profile</a></li>
 	    </ul>
 	  </div>
 	</div>
@@ -33,8 +34,9 @@
 
 <template name="sidebar">
   	<ul class="menu vertical">
-	  <li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
-	  <li><a href="{{pathFor route='bucketlist'}}">Bucketlist</a></li>
-	  <li><a href="{{pathFor route='portfolio'}}">Portfolio</a></li>
+	  <li><a href="{{pathFor route='dashboard'}}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+	  <li><a href="{{pathFor route='bucketlist'}}"><i class="fa fa-star-o"></i>Bucketlist</a></li>
+	  <li><a href="{{pathFor route='portfolio'}}"><i class="fa  fa-bar-chart"></i>Portfolio</a></li>
+	  <li>{{> atNavButton}}</li>
 	</ul>
 </template>

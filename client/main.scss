@@ -1,9 +1,42 @@
 @import '{zurb:foundation-sites}/scss/foundation';
 @include foundation-everything;
 
-.sidebar {
-	background-color: gray;
-	a {
-		color: #fff;
+$huat-pink: #e50b4f;
+$huat-orange: #f85130;
+$active-black: #1f1f20;
+$subtle-black: #3a3a3c;
+$shady-gray: #999;
+$inactive-gray: #ccc;
+
+.application {
+	height: 100vh;
+}
+.top-bar {
+	height: 8%;
+	background: linear-gradient($huat-orange, $huat-pink);
+	padding-top: 17px;
+	padding-left: 20px;
+
+	img {
+		height: 50px;
+	}
+}
+#side-content {
+	height: 92%;
+	.sidebar {
+		background-color: $huat-pink;
+		height: 100%;
+		a {
+			color: #fff;
+			padding: 20px 0 20px 10px;
+			width: 100%;
+			font-size: 18px;
+		}
+
+		li {
+			:hover {
+				background-color: $huat-orange;
+			}
+		}
 	}
 }

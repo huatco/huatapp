@@ -26,3 +26,9 @@ Router.route('/add-goal', {
 Router.configure({
   layoutTemplate: 'layout'
 });
+
+AccountsTemplates.configure({
+    defaultLayout: 'layout',
+});
+
+AccountsTemplates.configureRoute('signIn');

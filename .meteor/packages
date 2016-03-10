@@ -21,3 +21,8 @@ insecure                # Allow all DB writes from clients (for prototyping)
 iron:router
 fourseven:scss
 zurb:foundation-sites
+fortawesome:fontawesome
+accounts-ui
+useraccounts:foundation
+accounts-password
+useraccounts:iron-routing
