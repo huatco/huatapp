@@ -1,0 +1,9 @@
+@import '{zurb:foundation-sites}/scss/foundation';
+@include foundation-everything;
+
+.sidebar {
+	background-color: gray;
+	a {
+		color: #fff;
+	}
+}

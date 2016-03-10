@@ -1,0 +1,40 @@
+<head>
+  	<title>Huat</title>
+</head>
+
+<body>	
+</body>
+
+<template name="layout">
+	{{> topbar}}
+  	<div class="expanded row">
+	  <div class="small-2 columns sidebar">{{> sidebar}}</div>
+	  <div class="small-10 columns">{{> yield}}</div>
+	</div>
+</template>
+
+<template name="topbar">
+  	<div class="top-bar">
+	  <div class="top-bar-left">
+	    <ul class="menu">
+	      <li class="menu-text">HUAT</li>
+	      <li><input type="search" placeholder="Search"></li>
+	      <li><button type="button" class="button">Search</button></li>
+	    </ul>
+	  </div>
+	  <div class="top-bar-right">
+	    <ul class="menu">
+	    	<li><a href="{{pathFor route='add-goal'}}" class="button">Add Goal</a></li>
+	      	<li><a href="{{pathFor route='profile'}}" class="button">Profile</a></li>
+	    </ul>
+	  </div>
+	</div>
+</template>
+
+<template name="sidebar">
+  	<ul class="menu vertical">
+	  <li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
+	  <li><a href="{{pathFor route='bucketlist'}}">Bucketlist</a></li>
+	  <li><a href="{{pathFor route='portfolio'}}">Portfolio</a></li>
+	</ul>
+</template>
