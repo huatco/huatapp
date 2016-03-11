@@ -1,36 +1,54 @@
 <template name="add_goal">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<h1>Add Goal</h1>
 
-	<h1>Add Goal</h1>
-	<form class="add-goal">
-	  <div class="col-xs-4">
-	    
-	    <label for="Goal">Goal</label>
-	    <input type="text" class="form-control" id="Goal" name="goal" placeholder="Enter your goal">
-	    
-	    <label for="Details">Details</label>
-	    <input type="text" class="form-control" id="Details" name="details" placeholder="Enter details of your goal">
+	<form>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>Goal<input type="text" placeholder="large-12.columns" /></label>
+    </div>
+  </div>
 
-	    <label for="Priority">Priority</label>
-	    <select class="form-control" id="Priority" name="priority">
-	      <option>1</option>
-	      <option>2</option>
-	      <option>3</option>
-	      <option>4</option>
-	      <option>5</option>
-	    </select>
 
-	    <label class="sr-only" for="exampleInputAmount">Amount (in SGD)</label><br>
-	    <div class="input-group">
-	      <div class="input-group-addon">$</div>
-	      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
-	      <div class="input-group-addon">.00</div>
-	    </div>
+  <div class="row">
+    <div class="large-3 columns">
+      <label>Priority
+        <select>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </label>
+    </div>
+  </div>
 
-	  	<button type="submit" class="btn btn-primary">Add Goal</button>
+	<div class="row">
+    <div class="large-3 columns">
+      <label>Amount (in SGD)<input type="text" placeholder="$$ 0.00" /></label>
+    </div>
+  </div>
 
-	  </div>
+  <div class="row"> 
+    <div class="large-6 columns">
+      <label>Category</label>
+      <input id="checkbox1" type="checkbox"><label for="checkbox1">Life</label>
+      <input id="checkbox2" type="checkbox"><label for="checkbox2">Whim</label>
+      <input id="checkbox3" type="checkbox"><label for="checkbox3">Travel</label>
+      <input id="checkbox4" type="checkbox"><label for="checkbox4">Marriage</label>
+    </div>
+  </div>
 
-	</form>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>Details
+        <textarea placeholder="Enter the details of your goal"></textarea>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+  	<input type="submit" value="Add Goal" >
+  </div>
+</form>
 </template>
 
