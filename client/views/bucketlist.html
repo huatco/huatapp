@@ -1,3 +1,15 @@
 <template name="bucketlist">
 	<h1>Bucketlist</h1>
+	<ul>
+		{{#each goals}}
+		<li>
+			<b> Goal: {{title}} <br> </b>
+			{{details}} <br>
+			Amount: {{amount}} SGD<br>
+			Progress: {{progress}}% <br>
+			Since: {{createdAt}} <br>
+			<br>
+		</li>
+		{{/each}}
+	</ul>
 </template>

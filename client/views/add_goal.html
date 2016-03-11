@@ -1,0 +1,36 @@
+<template name="add_goal">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<h1>Add Goal</h1>
+	<form class="add-goal">
+	  <div class="col-xs-4">
+	    
+	    <label for="Goal">Goal</label>
+	    <input type="text" class="form-control" id="Goal" name="goal" placeholder="Enter your goal">
+	    
+	    <label for="Details">Details</label>
+	    <input type="text" class="form-control" id="Details" name="details" placeholder="Enter details of your goal">
+
+	    <label for="Priority">Priority</label>
+	    <select class="form-control" id="Priority" name="priority">
+	      <option>1</option>
+	      <option>2</option>
+	      <option>3</option>
+	      <option>4</option>
+	      <option>5</option>
+	    </select>
+
+	    <label class="sr-only" for="exampleInputAmount">Amount (in SGD)</label><br>
+	    <div class="input-group">
+	      <div class="input-group-addon">$</div>
+	      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+	      <div class="input-group-addon">.00</div>
+	    </div>
+
+	  	<button type="submit" class="btn btn-primary">Add Goal</button>
+
+	  </div>
+
+	</form>
+</template>
+

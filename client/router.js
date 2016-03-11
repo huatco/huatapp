@@ -18,9 +18,9 @@ Router.route('/profile', {
   template: 'profile'
 });
 
-Router.route('/add-goal', {
-  name: 'add-goal',
-  template: 'add-goal'
+Router.route('/add_goal', {
+  name: 'add_goal',
+  template: 'add_goal'
 });
 
 Router.configure({
