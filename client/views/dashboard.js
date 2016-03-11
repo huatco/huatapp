@@ -1,3 +1,8 @@
+/*
+TODO
+1. sort the list according to priority
+2. only show top 3;
+*/
 Goals = new Mongo.Collection("goals");
 
 if (Meteor.isClient) {

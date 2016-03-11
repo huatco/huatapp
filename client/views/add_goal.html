@@ -1,18 +1,17 @@
 <template name="add_goal">
 <h1>Add Goal</h1>
 
-	<form>
+	<form class="add-goal">
   <div class="row">
     <div class="large-6 columns">
-      <label>Goal<input type="text" placeholder="large-12.columns" /></label>
+      <label>Goal<input type="text" name="title" placeholder="Enter your goal" /></label>
     </div>
   </div>
-
 
   <div class="row">
     <div class="large-3 columns">
       <label>Priority
-        <select>
+        <select name="priority">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -25,24 +24,24 @@
 
 	<div class="row">
     <div class="large-3 columns">
-      <label>Amount (in SGD)<input type="text" placeholder="$$ 0.00" /></label>
+      <label>Amount (in SGD)<input type="text" placeholder="$$ 0.00" name="amount" /></label>
     </div>
   </div>
 
   <div class="row"> 
     <div class="large-6 columns">
       <label>Category</label>
-      <input id="checkbox1" type="checkbox"><label for="checkbox1">Life</label>
-      <input id="checkbox2" type="checkbox"><label for="checkbox2">Whim</label>
-      <input id="checkbox3" type="checkbox"><label for="checkbox3">Travel</label>
-      <input id="checkbox4" type="checkbox"><label for="checkbox4">Marriage</label>
+      <input id="checkbox1" type="radio" name="category"><label for="checkbox1">Life</label>
+      <input id="checkbox2" type="radio" name="category"><label for="checkbox2">Whim</label>
+      <input id="checkbox3" type="radio" name="category"><label for="checkbox3">Travel</label>
+      <input id="checkbox4" type="radio" name="category"><label for="checkbox4">Marriage</label>
     </div>
   </div>
 
   <div class="row">
     <div class="large-6 columns">
       <label>Details
-        <textarea placeholder="Enter the details of your goal"></textarea>
+        <textarea placeholder="Enter the details of your goal" name="details"></textarea>
       </label>
     </div>
   </div>
