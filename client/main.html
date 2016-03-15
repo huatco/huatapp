@@ -1,18 +1,18 @@
 <head>
   	<title>Huat</title>
+  	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 </head>
 
 <template name="layout">
 	<div class="application">
-		{{> topbar}}
 	  	<div class="expanded row" id="side-content">
 		  <div class="small-2 columns sidebar">{{> sidebar}}</div>
 		  <div class="small-10 columns content">
-		  
+			{{> topbar}}
 		  	{{#if currentUser}}
 		  		{{> yield}}
 		  	{{else}}
-		  		{{> atForm}}
+		  		<div>{{> atForm}}</div>
 		  	{{/if}}
 		  </div>
 		</div>
@@ -21,9 +21,6 @@
 
 <template name="topbar">
   	<div class="top-bar">
-	  <div class="top-bar-left">
-	    <img src="/huat_white.png">
-	  </div>
 	  <div class="top-bar-right">
 	    <ul class="menu">
 	    	<li><a href="{{pathFor route='add_goal'}}" class="button"><i class="fa fa-plus"></i>Add Goal</a></li>
@@ -34,10 +31,17 @@
 </template>
 
 <template name="sidebar">
+	<img src="/huat_gradient.png">
   	<ul class="menu vertical">
-	  <li><a href="{{pathFor route='dashboard'}}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-	  <li><a href="{{pathFor route='bucketlist'}}"><i class="fa fa-star-o"></i>Bucketlist</a></li>
-	  <li><a href="{{pathFor route='portfolio'}}"><i class="fa  fa-bar-chart"></i>Portfolio</a></li>
+	  <li class="{{ isActiveRoute 'dashboard'}}">
+	  	<a href="{{pathFor route='dashboard'}}"><i class="fa fa-dashboard"></i>Dashboard</a>
+	  </li>
+	  <li class="{{ isActiveRoute 'bucketlist'}}">
+	  	<a href="{{pathFor route='bucketlist'}}"><i class="fa fa-star-o"></i>Bucketlist</a>
+	  </li>
+	  <li class="{{ isActiveRoute 'portfolio'}}">
+	  	<a href="{{pathFor route='portfolio'}}"><i class="fa  fa-bar-chart"></i>Portfolio</a>
+	  </li>
 	  <li>{{> atNavButton}}</li>
 	</ul>
 </template>

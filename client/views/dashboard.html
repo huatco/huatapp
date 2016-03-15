@@ -1,6 +1,6 @@
 <template name="dashboard">
 	<h1>Dashboard</h1>
-	<h2>Welcome back {{username}}, here are your most important goals</h2>
+	<h3>Welcome back {{username}}, here are your most important goals</h3>
 	<ul>
 		{{#each goals}}
 			<li><a href="{{pathFor route='bucketlist'}}"> {{title}}</a>: {{progress}}%</li>

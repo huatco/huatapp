@@ -26,3 +26,4 @@ accounts-ui
 useraccounts:foundation
 accounts-password
 useraccounts:iron-routing
+zimme:active-route

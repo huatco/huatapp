@@ -26,7 +26,7 @@ Template.add_goal.events({
       
       Goals.insert({ title: title,
         createdAt: new Date(),  priority: priority, 
-        amount: amount, progress: 0, 
+        amount: amount, progress: 10, 
         //category: "Entertainment", tags: ["Jay Chou", "Concert"], 
         user: this_user, 
         details: details });

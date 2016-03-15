@@ -1,5 +1,8 @@
+@import 'settings';
 @import '{zurb:foundation-sites}/scss/foundation';
 @include foundation-everything;
+@include add-foundation-colors;
+
 
 $huat-pink: #e50b4f;
 $huat-orange: #f85130;
@@ -7,36 +10,53 @@ $active-black: #1f1f20;
 $subtle-black: #3a3a3c;
 $shady-gray: #999;
 $inactive-gray: #ccc;
+$nearly-white: #f2f2f2;
+
+$primary-color: $huat-pink;
 
 .application {
 	height: 100vh;
 }
+
 .top-bar {
 	height: 8%;
-	background: linear-gradient($huat-orange, $huat-pink);
+	background: $nearly-white;
+	border-bottom: 1px solid $inactive-gray;
 	padding-top: 17px;
 	padding-left: 20px;
 
-	img {
-		height: 50px;
-	}
 }
+
+.content {
+	background-color: $nearly-white;
+	height: 100%;
+}
+
 #side-content {
-	height: 92%;
+	height: 100%;
 	.sidebar {
-		background-color: $huat-pink;
+		background-color: #fff;
 		height: 100%;
+		padding: 0;
+		text-align: center;
+
+		img {
+			height: 100px;
+		}
+
 		a {
-			color: #fff;
 			padding: 20px 0 20px 10px;
 			width: 100%;
 			font-size: 18px;
+
+			i {
+				font-size: 30px;
+				padding-right: 20px;
+			}
 		}
 
 		li {
-			:hover {
-				background-color: $huat-orange;
-			}
+			text-align: left;
 		}
 	}
 }
