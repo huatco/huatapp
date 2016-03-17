@@ -12,6 +12,15 @@ Template.profile.helpers({
   	increment: function () {
  		return Meteor.user().profile.increment;
   	}, 
+  	expected: function() {
+  		var goals = Goals.find({user: Meteor.user().username});
+  		var amt = 0;
+  		goals.forEach(function(goal){
+  			console.log(goal.amount);
+  			amt += +(goal.amount);
+  		});
+  		return amt;
+  	},
 });
 
 Template.profile.events({
@@ -20,13 +29,11 @@ Template.profile.events({
 		var amt = +(Meteor.user().profile.increment);
 		var newval = current+amt;
 		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
-		console.log("clicked");
 	},
 	"click .decrease": function() {
 		var current = +(Meteor.user().profile.amount);
 		var amt = +(Meteor.user().profile.increment);
 		var newval = current-amt;
 		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
-		console.log("clicked");
 	}
 });

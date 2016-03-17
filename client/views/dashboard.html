@@ -1,15 +1,17 @@
 <template name="dashboard">
 	<h1>Dashboard</h1>
-	<h3>Welcome back {{username}}, here are your most important goals</h3>
-	<ul>
+	<h4>Welcome back {{username}}, here are your most important goals</h4>
+	<div class="row">
 		{{#each goals}}
-			<li><a href="{{pathFor route='bucketlist'}}"> {{title}}</a>: {{progress}}%</li>
+		<div class="large-4 columns">
 			{{> goalchart}}
+		</div>
 		{{/each}}
-	</ul>
+	</div>
 </template>
 
 <template name="goalchart">
+	<h5><a href="{{pathFor route='bucketlist'}}"> {{title}}</a></h5>
 	<canvas id="{{_id}}" height="100" width="100"></canvas>
 </template>
 
