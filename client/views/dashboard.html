@@ -4,6 +4,12 @@
 	<ul>
 		{{#each goals}}
 			<li><a href="{{pathFor route='bucketlist'}}"> {{title}}</a>: {{progress}}%</li>
+			{{> goalchart}}
 		{{/each}}
 	</ul>
 </template>
+
+<template name="goalchart">
+	<canvas id="{{_id}}" height="100" width="100"></canvas>
+</template>
+
