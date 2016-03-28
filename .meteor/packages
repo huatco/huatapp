@@ -28,3 +28,5 @@ accounts-password
 useraccounts:iron-routing
 zimme:active-route
 chart:chart
+aldeed:autoform
+forwarder:autoform-wizard

@@ -23,6 +23,11 @@ Router.route('/add_goal', {
   template: 'add_goal'
 });
 
+Router.route('/risk_profile', {
+  name: 'risk_profile',
+  template: 'risk_profile'
+});
+
 Router.configure({
   layoutTemplate: 'layout'
 });
