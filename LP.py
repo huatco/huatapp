@@ -1,7 +1,7 @@
 import numpy
 import copy
 
-def data_variable_creator(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target):
+def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target):
 
     ere = []
     y = []
@@ -75,8 +75,6 @@ def data_variable_creator(no_of_goals, Completion_time, current_time, previous_p
                 k = i
                 break
         
-        
-
         if k == -1:
             optimum = True
             break
@@ -129,8 +127,8 @@ def data_variable_creator(no_of_goals, Completion_time, current_time, previous_p
         A = numpy.transpose(A)
         c_bar = numpy.dot(y_b,A)
         
-    print x_b
-    print b_bar
+    return (x_b,b_bar)
+    
     
     
 def main():
@@ -143,4 +141,31 @@ def main():
     portfolio_value = Principal + sum(Earnings)
     weights = [1, 2]
     target = [300,150]
-    data_variable_creator(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
+    objectives = ()
+    objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
+    x_b = []
+    x_b = objectives[0]
+
+    b_bar = []
+    b_bar = objectives[1]
+
+    z_indices = []
+    p_indices = []
+    z = []
+    p = []
+    
+    for i in range(no_of_goals):
+        z.append(0)
+        p.append(0)
+    for i in range(no_of_goals):
+        z_indices.append(i)
+        p_indices.append(i+no_of_goals)
+    for i in range(len(x_b)):
+        if x_b[i] in z_indices:
+            z[i] = b_bar[i,0]
+        elif x_b[i] in p_indices:
+            p[i - (no_of_goals-1)] = b_bar[i,0]
+    print z,p
+            
+        
+        
