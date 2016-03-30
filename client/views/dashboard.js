@@ -5,16 +5,16 @@ TODO
 */
 Goals = new Mongo.Collection("goals");
 
-Template.myReveal.onRendered(function () {
-  this.myRevealInstance = new Foundation.Reveal($('#myReveal'));
-});
+// Template.myReveal.onRendered(function () {
+//   this.myRevealInstance = new Foundation.Reveal($('#myReveal'));
+// });
 
-Template.myReveal.onDestroyed(function () {
-  let reveal = this.myRevealInstance;
-  if (reveal) {
-    reveal.destroy();
-  }
-});
+// Template.myReveal.onDestroyed(function () {
+//   let reveal = this.myRevealInstance;
+//   if (reveal) {
+//     reveal.destroy();
+//   }
+// });
 
 Template.dashboard.helpers({
 	username: function () {
