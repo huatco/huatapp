@@ -1,5 +1,5 @@
 if (Meteor.isClient) {
-
+	//Meteor.call("call_python", function(error) {});
   // This code only runs on the client
  Template.bucketlist.helpers({
     goals: function () {

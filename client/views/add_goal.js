@@ -36,6 +36,6 @@ Template.add_goal.events({
       event.target.details.value = "";
       event.target.amount.value = "";
       event.target.priority.value = "";
-      
+      Meteor.call("call_python", function(error) {});
     }
   });

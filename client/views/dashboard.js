@@ -45,13 +45,13 @@ function drawChart(goalid){
 	console.log(goal);
   	var data = [
 	    {
-	        value: (prog/100)*amt,
+	        value: (prog)*amt,
 	        color:"#e50b4f",
 	        highlight: "#e50b4f",
 	        label: "Current Value"
 	    },
 	    {
-	        value: ((100 - prog)/100)*amt,
+	        value: ((1 - prog))*amt,
 	        color: "#ccc",
 	        highlight: "#ccc",
 	        label: "Remaining Value"

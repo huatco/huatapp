@@ -1,3 +1,11 @@
 <template name="portfolio">
 	<h1>Portfolio</h1>
+		<h3>Portfolio Amount: {{amount}}</h3>	
+		<h3>Allocations:</h3>
+		{{#each goals}}
+		<li>
+			<b> {{title}}: {{current}} SGD<br> </b>
+		</li>
+		{{/each}}	
+
 </template>
