@@ -1,0 +1,13 @@
+<template name="risk_profile">
+	<h1>Risk Profiling</h1>
+	<div class="risk_profile">
+		{{#if question}}
+			<h3>{{question.title}}</h3>
+			<button type="button" class="button opt1">{{question.option1}}</button>
+			<button type="button" class="button opt2">{{question.option2}}</button>
+		{{else}}
+			<h3>Your Risk Score is:</h3>
+			<h2>{{riskscore}}%</h2>
+		{{/if}}
+	</div>
+</template>
