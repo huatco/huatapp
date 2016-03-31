@@ -1,16 +1,15 @@
 <template name="bucketlist">
 	<h1>Bucketlist</h1>
-	<ul>
-		{{#each goals}}
-		<li>
-			<b> Goal: {{title}} <br> </b>
-			{{details}} <br>
-			Amount: {{amount}} SGD<br>
-			Current amount: {{current}} SGD <br>
-			Progress: {{progress}}% <br>
-			Since: {{createdAt}} <br>
-			<br>
-		</li>
-		{{/each}}
-	</ul>
+	
+	{{#each goals}}
+	<div class="bucket_goal">
+		<h3>{{title}}</h3>
+		<p>{{details}}</p>
+		<p class="date">Since: {{format_date _id}}</p>
+		<div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100">
+		  	<div class="progress-meter" style="width: {{progress_percent _id}}%"></div>
+		</div>
+	</div>
+	{{/each}}
+	
 </template>

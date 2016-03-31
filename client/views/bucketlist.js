@@ -5,7 +5,18 @@ if (Meteor.isClient) {
     goals: function () {
     	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
     	return Goals.find({user: this_user});
-    }
+    },
+
+    progress_percent: function(goalid) {
+    	var goal = Goals.findOne({_id: goalid});
+    	return +(goal.progress)*100;
+    },
+
+    format_date: function(goalid) {
+    	var goal = Goals.findOne({_id: goalid});
+    	var date = goal.createdAt.toDateString();
+    	return date;
+    },
   });
 }
 
