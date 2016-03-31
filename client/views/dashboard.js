@@ -22,7 +22,7 @@ Template.dashboard.helpers({
 	}, 
     goals: function () {
     	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
-    	return Goals.find({user: this_user});
+    	return Goals.find({user: this_user}, {sort: {progress: -1}, limit:3});
     }
 });
 

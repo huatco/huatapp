@@ -30,6 +30,7 @@ $primary-color: $huat-pink;
 .content {
 	background-color: $nearly-white;
 	height: 100%;
+	padding-right: 0;
 	overflow-y: scroll;
 
 	h1 {
@@ -37,6 +38,13 @@ $primary-color: $huat-pink;
 		font-weight: 300;
 		margin-top: 15px;
 	}
+
+	h4 {
+		font-size: 24px;
+		font-weight: 300;
+		margin-top: -10;
+		color: $subtle-black;
+	} 
 }
 
 #side-content {
@@ -46,6 +54,7 @@ $primary-color: $huat-pink;
 		border-right: 1px solid $inactive-gray;
 		height: 100%;
 		padding: 0;
+		position: fixed;
 		text-align: center;
 
 		img {
@@ -107,5 +116,34 @@ $primary-color: $huat-pink;
 	.date {
 		font-size: 12px;
 		color: $shady-gray;
+	}
+}
+
+.dashboard_item {
+	background-color: #fff;
+	border: 1px solid $inactive-gray;
+	margin: 10px;
+
+	.dashboard_header {
+		padding: 10px 15px;
+		border-bottom: 1px solid $inactive-gray;
+		margin-bottom: 10px;
+		h2 {
+			font-size: 24px;
+			font-weight: 700;
+			color: $subtle-black;
+		}
+	}
+}
+.top_goal {
+	width: 30%;
+	padding: 20px;
+	display: inline-block;
+	text-align: center;
+
+	h3 {
+		font-size: 20px;
+		font-weight: 300;
+		color: $huat-pink;
 	}
 }

@@ -1,10 +1,13 @@
 <template name="dashboard">
 	<h1>Dashboard</h1>
-	<h4>Welcome back {{username}}, here are your most important goals</h4>
+	<h4>Welcome back <strong>{{username}}</strong></h4>
 	<hr>
-	<div class="row">
+	<div class="dashboard_item">
+		<div class="dashboard_header">
+			<h2>Your Top Goals</h2>
+		</div>
 		{{#each goals}}
-		<div class="large-4 columns">
+		<div class="top_goal">
 			{{> goalchart}}
 		</div>
 		{{/each}}
@@ -12,8 +15,8 @@
 </template>
 
 <template name="goalchart">
-	<h5><a href="{{pathFor route='bucketlist'}}"> {{title}}</a></h5>
-	<canvas id="{{_id}}" height="100" width="100"></canvas>
+	<canvas id="{{_id}}" height="150" width="150"></canvas>
+	<h3><a href="{{pathFor route='bucketlist'}}"> {{title}}</a></h3>
 </template>
 
 <!-- <template name="myReveal">
