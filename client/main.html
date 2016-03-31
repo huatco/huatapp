@@ -32,7 +32,7 @@
 
 <template name="sidebar">
 	<img src="/huat_gradient.png">
-  	<ul class="menu vertical">
+  	<ul class="sidemenu">
 	  <li class="{{ isActiveRoute 'dashboard'}}">
 	  	<a href="{{pathFor route='dashboard'}}"><i class="fa fa-dashboard"></i>Dashboard</a>
 	  </li>
@@ -45,6 +45,8 @@
 	  <li class="{{ isActiveRoute 'risk_profile'}}">
 	  	<a href="{{pathFor route='risk_profile'}}"><i class="fa  fa-filter"></i>Risk Profiling</a>
 	  </li>
-	  <li>{{> atNavButton}}</li>
 	</ul>
+	{{> atNavButton}}
+<!-- 	<ul class="signout">
+	</ul> -->
 </template>
