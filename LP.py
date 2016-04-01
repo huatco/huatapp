@@ -15,7 +15,8 @@ def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, p
     
         U.append(weights[i]*(ere[i] - target[i]))
 
-    
+    print U
+    print y
     I = numpy.identity(no_of_goals)
 
     Y = numpy.identity(no_of_goals);
@@ -132,15 +133,15 @@ def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, p
     
     
 def main():
-    no_of_goals = 2
-    Completion_time = [10, 8]
+    no_of_goals = 3
+    Completion_time = [10, 8,15]
     current_time = 5
-    previous_percentage = [0.5,0.5]
+    previous_percentage = [0.3, 0.3,0.4]
     Principal = 10
     Earnings = [1,2,3,10,9]
     portfolio_value = Principal + sum(Earnings)
-    weights = [1, 2]
-    target = [300,150]
+    weights = [1, 2,1]
+    target = [300,150,650]
     objectives = ()
     objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
     x_b = []
@@ -162,9 +163,9 @@ def main():
         p_indices.append(i+no_of_goals)
     for i in range(len(x_b)):
         if x_b[i] in z_indices:
-            z[i] = b_bar[i,0]
+            z[int(x_b[i])] = b_bar[i,0]
         elif x_b[i] in p_indices:
-            p[i - (no_of_goals-1)] = b_bar[i,0]
+            p[int(x_b[i])-no_of_goals] = b_bar[i,0]
     print z,p
             
         
