@@ -146,29 +146,31 @@ def main():
     p_indices = []
     z = []
     p = []
+    if no_of_goals == 1:
+        p.append(1.0)
+    else:
+        objectives = ()
+        objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
+        x_b = []
+        x_b = objectives[0]
 
-    objectives = ()
-    objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
-    x_b = []
-    x_b = objectives[0]
-
-    b_bar = []
-    b_bar = objectives[1]
+        b_bar = []
+        b_bar = objectives[1]
 
 
-    
-    for i in range(no_of_goals):
-        z.append(0)
-        p.append(0)
-    for i in range(no_of_goals):
-        z_indices.append(i)
-        p_indices.append(i+no_of_goals)
-    for i in range(len(x_b)):
-        if x_b[i] in z_indices:
-            z[int(x_b[i])] = b_bar[i,0]
-        elif x_b[i] in p_indices:
-            p[int(x_b[i])-no_of_goals] = b_bar[i,0]
-    print z,p
+        
+        for i in range(no_of_goals):
+            z.append(0)
+            p.append(0)
+        for i in range(no_of_goals):
+            z_indices.append(i)
+            p_indices.append(i+no_of_goals)
+        for i in range(len(x_b)):
+            if x_b[i] in z_indices:
+                z[int(x_b[i])] = b_bar[i,0]
+            elif x_b[i] in p_indices:
+                p[int(x_b[i])-no_of_goals] = b_bar[i,0]
+        print z,p
             
         
         
