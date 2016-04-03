@@ -3,7 +3,7 @@
 
 	<form class="add-goal">
   <div class="row">
-    <div class="large-6 columns">
+    <div class="large-3 columns">
       <label>Goal<input type="text" name="title" placeholder="Enter your goal" /></label>
     </div>
   </div>
@@ -28,13 +28,44 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="large-3 columns">
+      <label>Achievement Year
+      <input type="text" placeholder="2017" name="year"/>
+       </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-3 columns">
+      <label>Achievement Month
+        <select name="month">
+        <option value="1">jan</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">Semptember</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+        </select>
+       </label>
+    </div>
+  </div> 
+
   <div class="row"> 
-    <div class="large-6 columns">
-      <label>Category</label>
-      <input id="checkbox1" type="radio" name="category"><label for="checkbox1">Life</label>
-      <input id="checkbox2" type="radio" name="category"><label for="checkbox2">Whim</label>
-      <input id="checkbox3" type="radio" name="category"><label for="checkbox3">Travel</label>
-      <input id="checkbox4" type="radio" name="category"><label for="checkbox4">Marriage</label>
+    <div class="large-3 columns">
+      <label>Category
+      <select name="category">
+        <option value="Life">Life</option>
+        <option value="Marriage">Marriage</option>
+        <option value="Whim">Whim</option>
+        <option value="Entertainment">Entertainment</option>
+      </select>
+      </label>
     </div>
   </div>
 
