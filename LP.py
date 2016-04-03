@@ -1,5 +1,7 @@
 import numpy
 import copy
+from pymongo import MongoClient
+import sys
 
 def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target):
 
@@ -15,8 +17,6 @@ def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, p
     
         U.append(weights[i]*(ere[i] - target[i]))
 
-    print U
-    print y
     I = numpy.identity(no_of_goals)
 
     Y = numpy.identity(no_of_goals);
@@ -133,15 +133,44 @@ def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, p
     
     
 def main():
-    no_of_goals = 3
-    Completion_time = [10, 8,15]
-    current_time = 5
-    previous_percentage = [0.3, 0.3,0.4]
-    Principal = 10
+
+    username = sys.argv[1]
+    url = sys.argv[2]
+    client = MongoClient(url)
+    #connecting to running mongoDB
+    db = client['meteor']
+    goal = db['goals']
+    user = db['users']
+
+    ids = []
+    target = [] 
+    Completion_time = []
+    previous_percentage = []
+    weights = [] #priorities
+    no_of_goals = goal.count({'user': username})
+    for g in goal.find({'user': username}):
+        target.append(float(g['target_amount']))
+        weights.append(float(g['priority']))
+        Completion_time.append(int(g['goal_month']) + 12 * int(g['goal_year']))
+        previous_percentage.append(g['progress'])
+        ids.append(g['_id'])
+    this_user = user.find({'username': username})
+    for u in this_user:
+        Principal = float(u['profile']['amount'])
+
+    #stuff SHOULD be from the database
     Earnings = [1,2,3,10,9]
+    current_time = 5
+
+    #previous_percentage = [0.3, 0.3, 0.4]
+    #no_of_goals = 3
+    #Completion_time = [10, 8, 15]
+    #Principal = 10
+    #weights = [1, 2, 1]
+    #target = [300,150,650]
+    
     portfolio_value = Principal + sum(Earnings)
-    weights = [1, 2,1]
-    target = [300,150,650]
+
     objectives = ()
     objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
     x_b = []
@@ -166,7 +195,17 @@ def main():
             z[int(x_b[i])] = b_bar[i,0]
         elif x_b[i] in p_indices:
             p[int(x_b[i])-no_of_goals] = b_bar[i,0]
-    print z,p
+    print p
+
+    for i in range(no_of_goals):
+        amount = goal.find_one({'_id': ids[i]})['amount'];
+        current = p[i] * portfolio_val
+        progress = current / float(amount)
+        print "current", current
+        print "progress", progress
+        goal.find_one_and_update({'_id': ids[i]}, {'$set': {'current_amount': current}})
+        goal.find_one_and_update({'_id': ids[i]}, {'$set': {'progress': progress}})
+main()
             
         
         
