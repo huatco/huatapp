@@ -151,7 +151,7 @@ def main():
     for g in goal.find({'user': username}):
         target.append(float(g['target_amount']))
         weights.append(float(g['priority']))
-        Completion_time.append(int(g['goal_month']) + 12 * int(g['goal_year']))
+        Completion_time.append(int(g['goal_month']) + 12 * (int(g['goal_year']) - int(g['current_year'])))
         previous_percentage.append(g['progress'])
         ids.append(g['_id'])
     this_user = user.find({'username': username})

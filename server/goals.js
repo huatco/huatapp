@@ -2,7 +2,7 @@ Goals = new Mongo.Collection("goals");
 
 
 if (Meteor.isServer) {
-
+  //Goals.remove({});
   Meteor.startup(function () {
     if (Goals.find().count() === 0) {
       var this_user;

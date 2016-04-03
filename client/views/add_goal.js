@@ -24,6 +24,8 @@ Template.add_goal.events({
       console.log(amount);
       console.log(priority);
       console.log(category);
+      console.log(year);
+      console.log(month);
 
       var time_stamp = new Date();
       Goals.insert({ title: title,
