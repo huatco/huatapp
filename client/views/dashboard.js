@@ -41,7 +41,7 @@ Template.goalchart.onRendered( function() {
 function drawChart(goalid){
 	var goal = Goals.findOne({_id: goalid});
 	var prog = +(goal.progress);
-	var amt = +(goal.amount);
+	var amt = +(goal.target_amount);
 	console.log(goal);
   	var data = [
 	    {

@@ -18,8 +18,7 @@ def lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, p
         U.append(weights[i]*(ere[i] - target[i]))
 
     I = numpy.identity(no_of_goals)
-
-    Y = numpy.identity(no_of_goals);
+    Y = numpy.identity(no_of_goals)
         
     for i in range(no_of_goals):
         Y[i,i] = y[i]
@@ -137,21 +136,23 @@ def main():
     username = sys.argv[1]
     url = sys.argv[2]
     client = MongoClient(url)
+    
     #connecting to running mongoDB
     db = client['meteor']
     goal = db['goals']
     user = db['users']
-
+    print "connection established"
     ids = []
     target = [] 
     Completion_time = []
     previous_percentage = []
     weights = [] #priorities
-    no_of_goals = goal.count({'user': username})
+    no_of_goals = goal.find({'user': username}).count()
+    print "no_of_goals", no_of_goals
     for g in goal.find({'user': username}):
         target.append(float(g['target_amount']))
         weights.append(float(g['priority']))
-        Completion_time.append(int(g['goal_month']) + 12 * (int(g['goal_year']) - int(g['current_year'])))
+        Completion_time.append(int(g['goal_month']) + 12 * (int(g['goal_year']) - int(g['created_year']) - 1900))
         previous_percentage.append(g['progress'])
         ids.append(g['_id'])
     this_user = user.find({'username': username})
@@ -183,7 +184,10 @@ def main():
         b_bar = objectives[1]
 
 
-    
+    z = []
+    p = []
+    z_indices = []
+    p_indices = []
     for i in range(no_of_goals):
         z.append(0)
         p.append(0)
@@ -198,8 +202,8 @@ def main():
     print p
 
     for i in range(no_of_goals):
-        amount = goal.find_one({'_id': ids[i]})['amount'];
-        current = p[i] * portfolio_val
+        amount = goal.find_one({'_id': ids[i]})['target_amount'];
+        current = p[i] * portfolio_value
         progress = current / float(amount)
         print "current", current
         print "progress", progress

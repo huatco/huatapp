@@ -1,25 +1,48 @@
 Goals = new Mongo.Collection("goals");
 
-
 if (Meteor.isServer) {
   //Goals.remove({});
-  Meteor.startup(function () {
-    if (Goals.find().count() === 0) {
-      var this_user;
-      //if(Meteor.user()) this_user = this.userId;
-      //else this_user = "test_user1";
-    	this_user = "user01";
-    	//Goals.insert({ title: "Go to Jay Chou's concert",createdAt: new Date(),  priority: 2, amount: 300, progress: 40, category: "Entertainment", tags: ["Jay Chou", "Concert"], user: this_user, details: "Jay Chou has always been there for me through my adolescent. "});
-			//Goals.insert({ title: "10-day Honeymoon in Japan", createdAt: new Date(),  priority: 5, amount: 10000, progress: 3, category: "Relationship", tags: ["Honeymoon", "Japan"], user: this_user, details: "My crush loves Japan, although I don't think he knows I exist i.i" });
-			//Goals.insert({ title: "Buy a condo", createdAt: new Date(),  priority: 5, amount: 2000000, progress: 30, category: "Property", tags: ["condo", "house"], user: this_user, details: "saving up for a good house." });
-    }
-  });
-  
   var exec = Npm.require('child_process').exec;
   var Fiber = Npm.require('fibers');
   var Future = Npm.require('fibers/future');
 
   Meteor.methods({
+    start_up: function() {
+      console.log(Meteor.user().username);
+      var this_user = Meteor.user().username;
+      if (Goals.find({user: this_user}).count() === 0) {
+        console.log("nothing in goal database, add two goals for testing.");
+        var time_stamp = new Date();
+        Goals.insert({ title:  "Go to Jay Chou's concert",
+          time_stamp: time_stamp, 
+          created_year: time_stamp.getYear(),
+          created_month: time_stamp.getMonth(),   
+          goal_month: 7,
+          goal_year: 2016, 
+          priority: 2, 
+          target_amount: 300, 
+          current_amount: 0.0, 
+          progress: 0.0,
+          category: "Life",
+          user: this_user, 
+          details: "love jay chou",
+        });
+        Goals.insert({ title:  "get married",
+          time_stamp: time_stamp, 
+          created_year: time_stamp.getYear(),
+          created_month: time_stamp.getMonth(),   
+          goal_month: 7,
+          goal_year: 2019, 
+          priority: 1, 
+          target_amount: 30000, 
+          current_amount: 0.0, 
+          progress: 0.0,
+          category: "Marriage",
+          user: this_user, 
+          details: "I'm lucky",
+        });
+      }
+    }, 
     call_python: function() {
       var fut = new Future();
       var allocation;
@@ -29,15 +52,6 @@ if (Meteor.isServer) {
       console.log(this_user);
       var cmd = 'python /Users/zikhan/lib/JavaScript/huatapp/LP.py ' + this_user + ' ' + url
       exec(cmd, function (error, stdout, stderr) {
-        console.log(stdout);
-        console.log(error);
-        /*
-        allocation = stdout.split('\n');
-        new Fiber(function() {
-
-          fut.return('Python was here');
-        }).run();
-        */
         console.log("insertion succeeded");
       });
       //return allocation;

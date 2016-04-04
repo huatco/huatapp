@@ -1,7 +1,7 @@
 if (Meteor.isClient) {
 	//Meteor.call("call_python", function(error) {});
   // This code only runs on the client
-  Meteor.call("call_python", function(error) {});
+  //Meteor.call("call_python", function(error) {});
  Template.bucketlist.helpers({
     goals: function () {
     	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";

@@ -26,7 +26,6 @@ Template.add_goal.events({
       console.log(category);
       console.log(year);
  
-
       var time_stamp = new Date();
       Goals.insert({ title: title,
         time_stamp: time_stamp, 
@@ -43,7 +42,7 @@ Template.add_goal.events({
         details: details,
         current_time: 0
       });
-      
+      console.log(Goals.find({user: this_user}).count());
       // Clear form
       event.target.title.value = "";
       event.target.details.value = "";
