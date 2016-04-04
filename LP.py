@@ -170,23 +170,17 @@ def main():
     #target = [300,150,650]
     
     portfolio_value = Principal + sum(Earnings)
-<<<<<<< HEAD
-    weights = [1, 2,1]
-    target = [300,150,650]
-    z_indices = []
-    p_indices = []
-    z = []
-    p = []
-=======
->>>>>>> origin/develop
 
-    objectives = ()
-    objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
-    x_b = []
-    x_b = objectives[0]
+    if no_of_goals == 1:
+        p.append(1.0)
+    else:
+        objectives = ()
+        objectives = lp_solver(no_of_goals, Completion_time, current_time, previous_percentage, portfolio_value, weights, target)
+        x_b = []
+        x_b = objectives[0]
 
-    b_bar = []
-    b_bar = objectives[1]
+        b_bar = []
+        b_bar = objectives[1]
 
 
     
