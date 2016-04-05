@@ -152,7 +152,7 @@ def main():
     for g in goal.find({'user': username}):
         target.append(float(g['target_amount']))
         weights.append(float(g['priority']))
-        Completion_time.append(int(g['goal_month']) + 12 * (int(g['goal_year']) - int(g['created_year']) - 1900))
+        Completion_time.append(int(g['goal_month'])-int(g['created_month']) + 12 * (int(g['goal_year']) - int(g['created_year']) - 1900))
         previous_percentage.append(g['progress'])
         ids.append(g['_id'])
     this_user = user.find({'username': username})
@@ -183,22 +183,22 @@ def main():
         b_bar = []
         b_bar = objectives[1]
 
-    z = []
-    p = []
-    z_indices = []
-    p_indices = []
-    for i in range(no_of_goals):
-        z.append(0)
-        p.append(0)
-    for i in range(no_of_goals):
-        z_indices.append(i)
-        p_indices.append(i+no_of_goals)
-    for i in range(len(x_b)):
-        if x_b[i] in z_indices:
-            z[int(x_b[i])] = b_bar[i,0]
-        elif x_b[i] in p_indices:
-            p[int(x_b[i])-no_of_goals] = b_bar[i,0]
-    print p
+        z = []
+        p = []
+        z_indices = []
+        p_indices = []
+        for i in range(no_of_goals):
+            z.append(0)
+            p.append(0)
+        for i in range(no_of_goals):
+            z_indices.append(i)
+            p_indices.append(i+no_of_goals)
+        for i in range(len(x_b)):
+            if x_b[i] in z_indices:
+                z[int(x_b[i])] = b_bar[i,0]
+            elif x_b[i] in p_indices:
+                p[int(x_b[i])-no_of_goals] = b_bar[i,0]
+        print p
 
     for i in range(no_of_goals):
         amount = goal.find_one({'_id': ids[i]})['target_amount'];

@@ -48,15 +48,15 @@ if (Meteor.isServer) {
       var allocation;
       var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
       var url = process.env.MONGO_URL;
-      console.log(url);
-      console.log(this_user);
-      console.log(__dirname);
-      var cmd = 'python ../../../../../LP.py ' + this_user + ' ' + url
+      console.log("Server running goal sorting optimization...")
+      console.log("Mongo url:", url);
+      console.log("Username:", this_user);
+      //console.log(__dirname);
+      var cmd = 'python ../../../../../goal_sorting.py ' + this_user + ' ' + url
       //var cmd = "ls ../../../../..";
       exec(cmd, function (error, stdout, stderr) {
+        console.log("Standard output from python script: ")
         console.log(stdout);
-        console.log(error);
-        console.log("insertion succeeded");
       });
       //return allocation;
       return fut.wait();

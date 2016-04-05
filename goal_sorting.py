@@ -46,8 +46,8 @@ def allocation(P,X,M,E,targetdiv,current_time,percentages):
     res = minimize(func, objective, constraints=cons, method = 'SLSQP', options={'disp':True, 'maxiter':300}, bounds = bds)
     sys.stdout = save_stdout
     #res = minimize(func, objective, constraints=cons)
-    for i in range(count):
-        print res.x[i] * portfolio_val 
+    #for i in range(count):
+    #    print res.x[i] * portfolio_val 
     return res
 
 
@@ -59,40 +59,49 @@ def main():
     goal = db['goals']
     user = db['users']
     ids = []
-    X = []
-    M = []
+    target = []
+    weights = []
+    Completion_time = []
+    previous_percentage = []
     no_of_goals = goal.count({'user': username})
     for g in goal.find({'user': username}):
-        X.append(float(g['amount']))
-        M.append(float(g['priority']))
+        goal_month = int(g['goal_month'])
+        created_month = int(g['created_month'])
+        created_year = int(g['created_year']) + 1900
+        goal_year = int(g['goal_year'])
+        no_of_month = 12 * (goal_year - created_year) + (goal_month - created_month)
+        target.append(float(g['target_amount']))
+        weights.append(float(g['priority']))
+        Completion_time.append(no_of_month)
+        previous_percentage.append(g['progress'])
         ids.append(g['_id'])
     this_user = user.find({'username': username})
     for u in this_user:
-        P = float(u['profile']['amount'])
-    #no_of_goals = 2
+        Principal = float(u['profile']['amount'])
     #X = [300,150] #Target value for goal i
     #M = [1,2] #Priority level for goal i
-    E = [0,0,0,0,0] #Amount earned for goal i
-    T = [10] * no_of_goals #Target time for completion of goal i
+    #T = [10] * no_of_goals #Target time for completion of goal i
     #P = 10 #Principal Amount invested by the user
-    percentages = []
+    Earnings = [1,2,3,10,9]
+    current_time = 5
+    p = []
 
     for i in range(no_of_goals):
-        percentages.append(1/float(no_of_goals))
+        p.append(1/float(no_of_goals))
     
-    current_time = 5
-    
-    div = goal_division(X,T)
-    portfolio_val = P+sum(E)
-    print "portfolio_val", portfolio_val
-    res = allocation(P,X,M,E,div,current_time,percentages)
-    print ids
+    div = goal_division(target,Completion_time)
+    portfolio_value = Principal+sum(Earnings)
+    print "portfolio_val", portfolio_value
+    print "no_of_goals", no_of_goals
+    res = allocation(Principal,target,weights,Earnings,div,current_time,p)
+    print res.x
+    #print ids
     for i in range(no_of_goals):
-        amount = goal.find_one({'_id': ids[i]})['amount'];
-        current = res.x[i] * portfolio_val
+        amount = goal.find_one({'_id': ids[i]})['target_amount'];
+        current = res.x[i] * portfolio_value
         progress = current / float(amount)
-        print "current", current
-        print "progress", progress
-        goal.find_one_and_update({'_id': ids[i]}, {'$set': {'current': current}})
+        #print "current", current
+        #print "progress", progress
+        goal.find_one_and_update({'_id': ids[i]}, {'$set': {'current_amount': current}})
         goal.find_one_and_update({'_id': ids[i]}, {'$set': {'progress': progress}})
 main()
