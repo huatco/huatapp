@@ -16,8 +16,7 @@ Template.profile.helpers({
   		var goals = Goals.find({user: Meteor.user().username});
   		var amt = 0;
   		goals.forEach(function(goal){
-  			console.log(goal.amount);
-  			amt += +(goal.amount);
+  			amt += +(goal.target_amount);
   		});
   		return amt;
   	},

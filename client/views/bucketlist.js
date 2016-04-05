@@ -2,22 +2,40 @@ if (Meteor.isClient) {
 	//Meteor.call("call_python", function(error) {});
   // This code only runs on the client
   //Meteor.call("call_python", function(error) {});
- Template.bucketlist.helpers({
-    goals: function () {
-    	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
-    	return Goals.find({user: this_user});
-    },
+    Template.bucketlist.helpers({
+        goals: function () {
+        	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
+        	return Goals.find({user: this_user});
+        },
 
-    progress_percent: function(goalid) {
-    	var goal = Goals.findOne({_id: goalid});
-    	return +(goal.progress)*100;
-    },
+    });
 
-    format_date: function(goalid) {
-    	var goal = Goals.findOne({_id: goalid});
-    	var date = goal.createdAt.toDateString();
-    	return date;
-    },
-  });
+    Template.bucket_goal.helpers({
+        progress_percent: function(goalid) {
+        	var goal = Goals.findOne({_id: goalid});
+        	return +(goal.progress)*100;
+        },
+
+        format_startdate: function(goalid) {
+        	var goal = Goals.findOne({_id: goalid});
+        	var date = goal.time_stamp.toDateString();
+        	return date;
+        },
+
+        format_enddate: function(goalid) {
+            var goal = Goals.findOne({_id: goalid});
+            var month = goal.goal_month;
+            var year = goal.goal_year;
+            var target = month +" "+year;
+            return target;
+        },
+    });
+
+    Template.bucket_goal.events({
+        "click .delete_goal": function(event, template) {
+            var goalid = template.data._id;
+            Goals.remove(goalid);
+        }
+    });
 }
 
