@@ -44,3 +44,7 @@ AccountsTemplates.addFields([
     errStr: 'Please enter minimum increment of S$50.00',
   },
 ]);
+
+AccountsTemplates.configure({
+  homeRoutePath:'/registration'
+});
