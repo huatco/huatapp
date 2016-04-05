@@ -51,7 +51,7 @@ if (Meteor.isServer) {
       console.log(url);
       console.log(this_user);
       console.log(__dirname);
-      var cmd = 'python ../../../../../LP.py ' + this_user + ' ' + url
+      var cmd = 'python ../../../../../goal_sorting.py ' + this_user + ' ' + url
       //var cmd = "ls ../../../../..";
       exec(cmd, function (error, stdout, stderr) {
         console.log(stdout);
