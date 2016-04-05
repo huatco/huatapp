@@ -1,0 +1,17 @@
+<template name="registration">
+	<h1>Registration</h1>
+	{{#if basic}}
+		{{> basic_info}}
+	{{else}}
+		{{#if risk}}
+			{{> risk_profile}}
+		{{else}}
+			{{> add_goal}}
+		{{/if}}
+	{{/if}}
+	<button type="button" class="button next">Next</button>
+</template>
+
+<template name="basic_info">
+	<h3>Basic Info</h3>
+</template>

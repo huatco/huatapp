@@ -28,6 +28,11 @@ Router.route('/risk_profile', {
   template: 'risk_profile'
 });
 
+Router.route('/registration', {
+  name: 'registration',
+  template: 'registration'
+});
+
 Router.configure({
   layoutTemplate: 'layout'
 });
