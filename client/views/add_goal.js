@@ -42,7 +42,7 @@ Template.add_goal.events({
         details: details,
         current_time: 0
       });
-      console.log(Goals.find({user: this_user}).count());
+      console.log("new goal count", Goals.find({user: this_user}).count());
       // Clear form
       event.target.title.value = "";
       event.target.details.value = "";

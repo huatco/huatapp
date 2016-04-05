@@ -46,8 +46,8 @@ def allocation(P,X,M,E,targetdiv,current_time,percentages):
     res = minimize(func, objective, constraints=cons, method = 'SLSQP', options={'disp':True, 'maxiter':300}, bounds = bds)
     sys.stdout = save_stdout
     #res = minimize(func, objective, constraints=cons)
-    for i in range(count):
-        print res.x[i] * portfolio_val 
+    #for i in range(count):
+    #    print res.x[i] * portfolio_val 
     return res
 
 
@@ -92,14 +92,16 @@ def main():
     div = goal_division(target,Completion_time)
     portfolio_value = Principal+sum(Earnings)
     print "portfolio_val", portfolio_value
+    print "no_of_goals", no_of_goals
     res = allocation(Principal,target,weights,Earnings,div,current_time,p)
-    print ids
+    print res.x
+    #print ids
     for i in range(no_of_goals):
         amount = goal.find_one({'_id': ids[i]})['target_amount'];
-        current = p[i] * portfolio_value
+        current = res.x[i] * portfolio_value
         progress = current / float(amount)
-        print "current", current
-        print "progress", progress
+        #print "current", current
+        #print "progress", progress
         goal.find_one_and_update({'_id': ids[i]}, {'$set': {'current_amount': current}})
         goal.find_one_and_update({'_id': ids[i]}, {'$set': {'progress': progress}})
 main()
