@@ -36,7 +36,6 @@ Template.registration.helpers({
 Template.registration.events({
 	"click .next": function() {
 		reg_state += 1;
-		console.log(reg_state);
 		regDep.changed();
 	},
 })

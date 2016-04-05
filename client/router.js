@@ -20,7 +20,7 @@ Router.route('/profile', {
 
 Router.route('/add_goal', {
   name: 'add_goal',
-  template: 'add_goal'
+  template: 'goal_form'
 });
 
 Router.route('/risk_profile', {
