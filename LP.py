@@ -183,7 +183,6 @@ def main():
         b_bar = []
         b_bar = objectives[1]
 
-
     z = []
     p = []
     z_indices = []

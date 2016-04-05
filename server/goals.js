@@ -50,8 +50,12 @@ if (Meteor.isServer) {
       var url = process.env.MONGO_URL;
       console.log(url);
       console.log(this_user);
-      var cmd = 'python /Users/zikhan/lib/JavaScript/huatapp/LP.py ' + this_user + ' ' + url
+      console.log(__dirname);
+      var cmd = 'python ../../../../../LP.py ' + this_user + ' ' + url
+      //var cmd = "ls ../../../../..";
       exec(cmd, function (error, stdout, stderr) {
+        console.log(stdout);
+        console.log(error);
         console.log("insertion succeeded");
       });
       //return allocation;
