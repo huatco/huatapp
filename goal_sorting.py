@@ -97,7 +97,7 @@ def main():
     print res.x
     #print ids
     for i in range(no_of_goals):
-        amount = goal.find_one({'_id': ids[i]})['target_amount'];
+        amount = float(goal.find_one({'_id': ids[i]})['target_amount'])
         current = res.x[i] * portfolio_value
         if amount < current:
             current = amount
