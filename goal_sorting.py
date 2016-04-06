@@ -99,6 +99,7 @@ def main():
     for i in range(no_of_goals):
         amount = goal.find_one({'_id': ids[i]})['target_amount'];
         current = res.x[i] * portfolio_value
+        if(amount < current) current = amount
         progress = current / float(amount)
         #print "current", current
         #print "progress", progress

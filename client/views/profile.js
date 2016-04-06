@@ -28,11 +28,13 @@ Template.profile.events({
 		var amt = +(Meteor.user().profile.increment);
 		var newval = current+amt;
 		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
+    Meteor.call("call_python", function(error) {});
 	},
 	"click .decrease": function() {
 		var current = +(Meteor.user().profile.amount);
 		var amt = +(Meteor.user().profile.increment);
 		var newval = current-amt;
 		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
+    Meteor.call("call_python", function(error) {});
 	}
 });

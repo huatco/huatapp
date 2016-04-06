@@ -35,6 +35,7 @@ if (Meteor.isClient) {
         "click .delete_goal": function(event, template) {
             var goalid = template.data._id;
             Goals.remove(goalid);
+            Meteor.call("call_python", function(error) {});
         }
     });
 }

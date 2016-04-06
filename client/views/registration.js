@@ -50,7 +50,7 @@ Template.basic_info.events({
       	var expenditure = event.target.expenditure.value;
       	var deposit = event.target.deposit.value;
       	var increment = event.target.increment.value;
-
+      	var input_valid = true;
       	Meteor.users.update(Meteor.userId(), {$set: {
       		"profile.gender": gender,
       		"profile.income": income,
