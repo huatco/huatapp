@@ -57,6 +57,7 @@ if (Meteor.isServer) {
       exec(cmd, function (error, stdout, stderr) {
         console.log("Standard output from python script: ")
         console.log(stdout);
+        console.log(stderr);
       });
       //return allocation;
       return fut.wait();
