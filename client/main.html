@@ -5,17 +5,20 @@
 
 <template name="layout">
 	<div class="application">
-	  	<div class="expanded row" id="side-content">
-		  <div class="small-2 columns sidebar">{{> sidebar}}</div>
-		  <div class="small-10 columns content">
-			{{> topbar}}
-		  	{{#if currentUser}}
-		  		{{> yield}}
-		  	{{else}}
-		  		<div>{{> atForm}}</div>
-		  	{{/if}}
-		  </div>
-		</div>
+	  	{{#if currentUser}}
+		  	<div class="expanded row" id="side-content">
+			  <div class="small-2 columns sidebar">{{> sidebar}}</div>
+			  <div class="small-10 columns content">
+				{{> topbar}}
+	  			{{> yield}}
+			  </div>
+			</div>
+	  	{{else}}
+	  		<div class="sign_in">
+	  			<img src="/huat_logo.png">
+	  			{{> atForm}}
+	  		</div>
+	  	{{/if}}
 	</div>
 </template>
 
@@ -23,8 +26,8 @@
   	<div class="top-bar">
 	  <div class="top-bar-right">
 	    <ul class="menu">
-	    	<li><a href="{{pathFor route='add_goal'}}" class="button"><i class="fa fa-plus"></i>Add Goal</a></li>
-	      	<li><a href="{{pathFor route='profile'}}" class="button"><i class="fa fa-user"></i>Profile</a></li>
+	    	<li><a href="{{pathFor route='add_goal'}}" class="button goal_button"><i class="fa fa-plus"></i></a></li>
+	      	<li><a href="{{pathFor route='profile'}}" class="button profile_button"><i class="fa fa-user"></i>{{username}}</a></li>
 	    </ul>
 	  </div>
 	</div>
@@ -42,9 +45,9 @@
 	  <li class="{{ isActiveRoute 'portfolio'}}">
 	  	<a href="{{pathFor route='portfolio'}}"><i class="fa  fa-bar-chart"></i>Portfolio</a>
 	  </li>
-	  <li class="{{ isActiveRoute 'registration'}}">
+	  <!-- <li class="{{ isActiveRoute 'registration'}}">
 	  	<a href="{{pathFor route='registration'}}"><i class="fa  fa-filter"></i>Registration</a>
-	  </li>
+	  </li> -->
 	</ul>
 	{{> atNavButton}}
 <!-- 	<ul class="signout">

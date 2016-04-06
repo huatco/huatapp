@@ -17,34 +17,40 @@ AccountsTemplates.addFields([
     errStr: 'Invalid email',
   },
   pwd,
-  {
-    _id: "amount",
-    type: "text",
-    placeholder: "S$100.00 min",
-    displayName: "Initial Deposit Amount (SGD)",
-    required: true,
-    func: function(value){
-      if (value >= 100)
-        return false;
-      return true;
-    },
-    errStr: 'Please enter minimum deposit of S$100.00',
-  },
-  {
-    _id: "increment",
-    type: "text",
-    placeholder: "S$50.00 min",
-    displayName: "Monthly Increment Amount (SGD)",
-    required: true,
-    func: function(value){
-      if (value >= 50)
-        return false;
-      return true;
-    },
-    errStr: 'Please enter minimum increment of S$50.00',
-  },
+  // {
+  //   _id: "amount",
+  //   type: "text",
+  //   placeholder: "S$100.00 min",
+  //   displayName: "Initial Deposit Amount (SGD)",
+  //   required: true,
+  //   func: function(value){
+  //     if (value >= 100)
+  //       return false;
+  //     return true;
+  //   },
+  //   errStr: 'Please enter minimum deposit of S$100.00',
+  // },
+  // {
+  //   _id: "increment",
+  //   type: "text",
+  //   placeholder: "S$50.00 min",
+  //   displayName: "Monthly Increment Amount (SGD)",
+  //   required: true,
+  //   func: function(value){
+  //     if (value >= 50)
+  //       return false;
+  //     return true;
+  //   },
+  //   errStr: 'Please enter minimum increment of S$50.00',
+  // },
 ]);
 
 AccountsTemplates.configure({
   homeRoutePath:'/registration'
+});
+
+Template.topbar.helpers({
+  username: function () {
+    return Meteor.user() && Meteor.user().username;
+  }, 
 });

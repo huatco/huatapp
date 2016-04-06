@@ -10,6 +10,9 @@ Template.portfolio.helpers({
     },
     amount: function(){
     	return Meteor.user()['profile']['amount'];
-    }
+    },
+    riskscore: function(){
+        return Meteor.user()['profile']['riskscore'];
+    },
 });
 }

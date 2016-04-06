@@ -1,17 +1,56 @@
 <template name="registration">
-	<h1>Registration</h1>
+	<div class="regis_container">
 	{{#if basic}}
+		<h1>Some basic information</h1>
 		{{> basic_info}}
 	{{else}}
 		{{#if risk}}
+			<h1>Getting to know you better</h1>
 			{{> risk_profile}}
 		{{else}}
-			{{> add_goal}}
+			{{#if goal}}
+				<h1>Create your First Goal</h1>
+				{{> add_goal}}
+			{{else}}
+				<h1>Awesome</h1>
+				<h4>You are now ready to start investing in your goals.</h4>
+			{{/if}}
 		{{/if}}
 	{{/if}}
-	<button type="button" class="button next">Next</button>
+	</div>
 </template>
 
 <template name="basic_info">
-	<h3>Basic Info</h3>
+	<form class="basic_info">
+		<div class="row">
+			<fieldset class="large-6 columns">
+			    <legend>Gender</legend>
+			    <input type="radio" name="gender" value="m" id="gender_male" required><label for="gender_male">Male</label>
+			    <input type="radio" name="gender" value="f" id="gender_female"><label for="gender_female">Female</label>
+			</fieldset>
+		</div>
+		<div class="row">
+		    <div class="large-6 columns">
+		      	<label>Monthly Disposable Income (in SGD)<input type="number" placeholder="$$ 1000.00" name="income" /></label>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="large-6 columns">
+		      	<label>Average Monthly Expenditure(in SGD)<input type="number" placeholder="$$ 700.00" name="expenditure" /></label>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="large-6 columns">
+		      	<label>Initial Deposit Amount (in SGD)<input type="number" placeholder="$$ 1000.00" name="deposit" /></label>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="large-6 columns">
+		      	<label>Monthly Increment Amount (in SGD)<input type="number" placeholder="$$ 100.00" name="increment" /></label>
+		    </div>
+		</div>
+		<div class="row">
+		  	<input class="button" type="submit" value="Next">
+		</div>
+	</form>
 </template>

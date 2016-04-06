@@ -24,7 +24,7 @@ if (Meteor.isClient) {
 
         format_enddate: function(goalid) {
             var goal = Goals.findOne({_id: goalid});
-            var month = goal.goal_month;
+            var monthnum = goal.goal_month;
             var year = goal.goal_year;
             var target = month +" "+year;
             return target;

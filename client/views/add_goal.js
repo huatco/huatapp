@@ -52,5 +52,13 @@ Template.add_goal.events({
       event.target.year.value = "";
 
       Meteor.call("call_python", function(error) {});
+
+      if (reg_state==2){
+        reg_state+=1;
+        regDep.changed();
+      }else {
+        document.location.href = '/bucketlist';
+      }
+
     }
   });

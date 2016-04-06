@@ -76,4 +76,12 @@ Template.risk_profile.events ({
 		stepcount += 1;
 		questionDep.changed();
 	},
-})
+	"click .submit_risk": function() {
+		var risk_score = (score/10)*100;
+		Meteor.users.update(Meteor.userId(), {$set: {
+      		"profile.riskscore": risk_score,
+      	}});
+		reg_state+=1;
+		regDep.changed();
+	}
+});
