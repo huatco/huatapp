@@ -193,6 +193,7 @@ $primary-color: $huat-pink;
 
 	.progress {
 		background-color: $inactive-gray;
+		margin: 0;
 	}
 
 	.date {
@@ -210,6 +211,22 @@ $primary-color: $huat-pink;
 		:hover {
 			color: $huat-pink;
 		}
+	}
+
+	.curr {
+		text-align: left;
+		color: $huat-pink;
+		font-size: 12px;
+		border-left: 1px solid $huat-pink;
+		padding-left: 4px;;
+	}
+
+	.targ {
+		text-align: right;
+		color: $shady-gray;
+		font-size: 12px;
+		border-right: 1px solid $inactive-gray;
+		padding-right: 4px;
 	}
 }
 

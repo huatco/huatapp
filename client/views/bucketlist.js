@@ -24,10 +24,19 @@ if (Meteor.isClient) {
 
         format_enddate: function(goalid) {
             var goal = Goals.findOne({_id: goalid});
+            console.log(goal);
             var monthnum = goal.goal_month;
             var year = goal.goal_year;
-            var target = month +" "+year;
+            var target = monthnum +"/"+year;
             return target;
+        },
+
+        format_current: function(amt) {
+            return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+        },
+
+        format_target: function(amt) {
+            return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
         },
     });
 
