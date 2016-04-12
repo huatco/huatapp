@@ -35,7 +35,7 @@ function returnRate() {
 };
 
 function generateInvestmentReturns(rate) {
-    var initial = Meteor.user()['profile']['amount'];
+    var initial = +(Meteor.user()['profile']['amount']);
     var monthRate = Math.pow((1 + rate),(1/12)) - 1;
     var increment = +(Meteor.user()['profile']['increment']);
     var update = initial;
@@ -50,7 +50,7 @@ function generateInvestmentReturns(rate) {
 };
 
 function generateNormalReturns() {
-    var initial = Meteor.user()['profile']['amount'];
+    var initial = +(Meteor.user()['profile']['amount']);
     var increment = +(Meteor.user()['profile']['increment']);
     var update = initial;
     var data = [initial];

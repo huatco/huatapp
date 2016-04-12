@@ -63,7 +63,17 @@ Template.risk_profile.helpers ({
 	riskscore: function(){
 		var val = (score/10) * 100;
 		return val;
-	}
+	},
+	returns: function(){
+		var score = Meteor.user()['profile']['riskscore'];
+	    if (score<=30) {
+	        return 0.05;
+	    }else if(score<=60) {
+	        return 0.07;
+	    }else {
+	        return 0.09;
+	    }
+	},
 });
 
 Template.risk_profile.events ({
