@@ -40,18 +40,18 @@ Template.goalchart.onRendered( function() {
 
 function drawChart(goalid){
 	var goal = Goals.findOne({_id: goalid});
-	var prog = +(goal.progress);
+	var prog = goal.current_amount;
 	var amt = +(goal.target_amount);
 	console.log(goal);
   	var data = [
 	    {
-	        value: (prog)*amt,
+	        value: prog,
 	        color:"#e50b4f",
 	        highlight: "#e50b4f",
 	        label: "Current Value"
 	    },
 	    {
-	        value: ((1 - prog))*amt,
+	        value: amt,
 	        color: "#ccc",
 	        highlight: "#ccc",
 	        label: "Remaining Value"
@@ -61,7 +61,7 @@ function drawChart(goalid){
 	var ctx = document.getElementById(goalid).getContext("2d");
 	var myNewChart = new Chart(ctx);
 
-	new Chart(ctx).Pie(data);
+	new Chart(ctx).Doughnut(data);
 };
 
 
