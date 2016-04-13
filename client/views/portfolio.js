@@ -93,9 +93,15 @@ function drawChart() {
         ]
     };
 
+    var options = { 
+        responsive: true,
+        maintainAspectRatio: true
+    };
+
     var ctx = document.getElementById("returnschart").getContext("2d");
+
     var myReturnsChart = new Chart(ctx);
 
-    new Chart(ctx).Line(data);
+    new Chart(ctx).Line(data, options);
 
 };
