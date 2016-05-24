@@ -82,7 +82,7 @@ def main():
     #M = [1,2] #Priority level for goal i
     #T = [10] * no_of_goals #Target time for completion of goal i
     #P = 10 #Principal Amount invested by the user
-    Earnings = [1,2,3,10,9]
+    Earnings = [0,0,0,0,0]
     current_time = 5
     p = []
 

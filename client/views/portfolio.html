@@ -2,5 +2,10 @@
 	<h1>Portfolio</h1>
 	<h4>Current Investment: ${{amount}}</h4>
 	<hr>	
-	<h3>Your risk score is: {{riskscore}}</h3>
+	<h4>Average Rate of Return: <strong>{{returnRate}}</strong></h4>
+	{{> returnsChart}}
+</template>
+
+<template name="returnsChart">
+	<canvas id="returnschart" height="400" width="700"></canvas>
 </template>
