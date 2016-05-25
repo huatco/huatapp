@@ -10,8 +10,7 @@
 <template name="bucket_goal">
 	<div class="bucket_goal">
 		<button type="button" class="button delete_goal"><i class="fa fa-trash-o"></i></button>
-		<h3>{{title}}</h3>
-		<p>{{details}}</p>
+		<a href="/goal/{{_id}}"><h3>{{title}}</h3></a>
 		<p class="date">Started: {{format_startdate _id}}</p>
 		<p class="date">Target: {{format_enddate _id}}</p>
 		<br>

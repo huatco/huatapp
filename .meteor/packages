@@ -31,3 +31,4 @@ aldeed:autoform
 forwarder:autoform-wizard
 standard-minifier-css
 standard-minifier-js
+momentjs:moment

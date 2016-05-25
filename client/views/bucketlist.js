@@ -18,17 +18,17 @@ if (Meteor.isClient) {
 
         format_startdate: function(goalid) {
         	var goal = Goals.findOne({_id: goalid});
-        	var date = goal.time_stamp.toDateString();
+        	var date = moment(goal.timestamp).format("dddd, MMMM Do YYYY");
         	return date;
         },
 
         format_enddate: function(goalid) {
             var goal = Goals.findOne({_id: goalid});
-            console.log(goal);
             var monthnum = goal.goal_month;
             var year = goal.goal_year;
-            var target = monthnum +"/"+year;
-            return target;
+            var date = moment([year, monthnum]);
+            return date.format("MMMM YYYY");
+
         },
 
         format_current: function(amt) {

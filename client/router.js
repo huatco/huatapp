@@ -33,6 +33,14 @@ Router.route('/registration', {
   template: 'registration'
 });
 
+Router.route('/goal/:_id', function() {
+  this.render('goal', {
+    data: function() {
+      return Goals.findOne({_id: this.params._id});
+    }
+  });
+});
+
 Router.configure({
   layoutTemplate: 'layout'
 });
