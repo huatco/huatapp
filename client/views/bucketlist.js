@@ -7,10 +7,35 @@ if (Meteor.isClient) {
         	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
         	return Goals.find({user: this_user});
         },
+        keywords: function(){
+            //Meteor.call("start_up", function(error) {});
+            var keywords = ["Education", "Lifestyle", "Nature"];
+            //console.log(keywords);
+            //var res = Keywords.find({keyword: { $in: ["Education", "Lifestyle", "Nature"] }});
+
+            return [{"keyword": "Education", "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund"]}
+          ,{"keyword": "Lifestyle", "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert"]}
+          ,{"keyword": "Life Plans", "goals":  ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', ]}];
+            //return Keywords.find({keyword: "Education"});
+            /*var keywords = ["Education", "Lifestyle", "Nature"];
+            var results = [];
+            var goal_count = 5;
+            for(var i=0;i<keywords.length;i++){
+                var key = keywords[i];
+                var res = Goal_catalog.find({keywords: key});
+                result.push({});
+                console.log(res);
+                for (var j=0;j<min(goal_count, res.length);j++){
+                    result[i]["goals"].push(res[j]["goal"]);
+                }
+            }
+            return result;
+            */
+        }
 
     });
-
-    Template.bucket_goal.helpers({
+    
+    Template.bucket_goal.helpers({  
         progress_percent: function(goalid) {
         	var goal = Goals.findOne({_id: goalid});
         	return +(goal.progress)*100;
@@ -30,7 +55,6 @@ if (Meteor.isClient) {
             return date.format("MMMM YYYY");
 
         },
-
         format_current: function(amt) {
             return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
         },
