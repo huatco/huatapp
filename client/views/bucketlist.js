@@ -62,14 +62,22 @@ if (Meteor.isClient) {
         format_target: function(amt) {
             return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
         },
+
+        remainder: function(goalid) {
+            var goal = Goals.findOne({_id: goalid});
+            var start = moment(goal.timestamp);
+            var end = moment([goal.goal_year, goal.goal_month]);
+            var difference = end.diff(start, 'months');
+            return difference;
+        }
     });
 
-    Template.bucket_goal.events({
-        "click .delete_goal": function(event, template) {
-            var goalid = template.data._id;
-            Goals.remove(goalid);
-            Meteor.call("call_python", function(error) {});
+
+    UI.registerHelper('shortIt', function(stringToShorten, maxCharsAmount){
+        if(stringToShorten.length > maxCharsAmount){
+            return stringToShorten.substring(0, maxCharsAmount) + '...';
         }
+        return stringToShorten;
     });
 }
 

@@ -6,6 +6,7 @@
 
 $huat-pink: #e50b4f;
 $huat-orange: #f85130;
+$huat-blue: #1A90B2;
 $active-black: #1f1f20;
 $subtle-black: #3a3a3c;
 $shady-gray: #999;
@@ -181,6 +182,16 @@ $primary-color: $huat-pink;
 	margin: 10px;
 	display: inline-block;
 
+	.remainder {
+		background-color: $inactive-gray;
+		color: #fff;
+		float: right;
+		font-size: 12px;
+		margin-left: 20px;
+		padding: 7px;
+		text-align: right;
+	}
+
 	h3 {
 		font-size: 25px;
 		font-weight: 300;
@@ -260,4 +271,34 @@ $primary-color: $huat-pink;
 		font-weight: 300;
 		color: $huat-pink;
 	}
+}
+
+.details_panel {
+	background-color: #fff;
+	padding: 25px;
+	color: $subtle-black;
+	font-size: 15px;
+	.edit_goal {
+		background: none;
+		color: $inactive-gray;
+		float: right;
+		font-size: 20px;
+		padding: 0 10px;
+
+		:hover {
+			color: $huat-blue;
+		}
+	}
+	.delete_goal {
+		background: none;
+		color: $inactive-gray;
+		float: right;
+		font-size: 20px;
+		padding: 0 10px;
+
+		:hover {
+			color: $huat-pink;
+		}
+	}
+
 }
