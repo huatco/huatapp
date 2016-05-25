@@ -1,10 +1,27 @@
 <template name="bucketlist">
+<!-- matches file name --> 
+	<h1>Recommended for you </h1>
+
+	{{#each keywords}}
+		{{> recommendation}}
+	{{/each}}
+
 	<h1>Bucketlist</h1>
 	<hr>
 	{{#each goals}}
 		{{> bucket_goal}}
 	{{/each}}
-	
+</template>
+
+<template name="recommendation">
+<div class="bucket_goal">
+	<h3>{{keyword}}</h3>
+		<ul>
+			{{#each goals}}
+			<li><a>{{.}}</a></li>
+			{{/each}}
+		</ul>
+</div>
 </template>
 
 <template name="bucket_goal">
