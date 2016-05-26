@@ -1,44 +1,27 @@
 <template name="bucketlist">
-<!-- matches file name --> 
+	<!-- Recommendation section -->
 	<h1>Recommended for you </h1>
-
-	<div class="bucket_goal">
-	<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
-	<h3>{{k1}}</h3>
 	{{#each keyword1}}
-		{{> recommendation}}
+	{{> recommendation}}
 	{{/each}}
-	</div>
 
-	<div class="bucket_goal">
-	<button type="button" class="button deletekey2"><i class="fa fa-trash-o"></i></button>
-		<h3>{{k2}}</h3>
-	{{#each keyword2}}
-		{{> recommendation}}
-	{{/each}}
-	</div>
-
-		<div class="bucket_goal">
-		<button type="button" class="button deletekey3"><i class="fa fa-trash-o"></i></button>
-			<h3>{{k3}}</h3>
-	{{#each keyword3}}
-		{{> recommendation}}
-	{{/each}}
-	</div>
-
-	<h1>Bucketlist</h1>
-	<hr>
-	{{#each goals}}
-		{{> bucket_goal}}
-	{{/each}}
+	<!-- Bucket list section -->
+	<h1>Bucketlist</h1><hr>
+		{{#each goals}}
+			{{> bucket_goal}}
+		{{/each}}
 </template>
+
 
 <template name="recommendation">
-
-			<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>
-
+		<div class="bucket_goal">
+		<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
+		<h3>{{k}}</h3>
+			{{#each g}}
+				<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>
+			{{/each}}
+		</div>
 </template>
-
 <template name="bucket_goal">
 	<div class="bucket_goal">
 		<div class="remainder">{{remainder _id}} mths</div>

@@ -1,54 +1,55 @@
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
+
 if (Meteor.isClient) {
     var goal_count = 4;
-    var keys = ["Education", "Nature", "Sports"];
+    //var keys = ["Education", "Nature", "Sports"];
     Template.bucketlist.helpers({
         goals: function () {
         	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
         	return Goals.find({user: this_user});
         },
-        k1: function(){return keys[0];},
-        k2: function(){return keys[1];},
-        k3: function(){return keys[2];},
         keyword1: function(){
-            var key = keys[0];
-            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
-        },
-        keyword2: function(){
-            var key = keys[1];
-            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
-        },
-        keyword3: function(){
-            var key = keys[2];
-            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
+            var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
+            console.log(keys)
+            if(keys.length < 3){
+                Meteor.call("keyword_clean_up", function(e){});
+            }
+            if(keys == undefined){
+                Meteor.users.update({username: Meteor.user().username}, {$set:{rec_keywords: k}});
+            }
+            return [
+            {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_count})},
+            {k: keys[1], g: Goal_catalog.find({keywords: keys[1]}, {skip: 0, limit: goal_count})},
+            {k: keys[2], g: Goal_catalog.find({keywords: keys[2]}, {skip: 0, limit: goal_count})}]
+            ;
         }
     });
 
      Template.bucketlist.events({
         "click .deletekey1": function(event, template) {
-            var newkey = [];
-            newkey.push(key[1]); 
-            newkey.push(key[2]);
-            newkey.push("Lifestyle");
-            key = newkey;
-        },
-        "click .deletekey2": function(event, template) {
-            var newkey = [];
-            newkey.push(key[0]); 
-            newkey.push(key[2]);
-            newkey.push("Lifestyle");
-            key = newkey;
-        },
-        "click .deletekey3": function(event, template) {
-            var newkey = [];
-            newkey.push(key[0]); 
-            newkey.push(key[1]);
-            newkey.push("Lifestyle");
-            key = newkey;
-        },
-         
+            
+            var keyword = this.k;
+
+            var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
+            var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
+            if(dkeys == undefined) dkeys = [];
+            dkeys.push(keyword);
+            var index = keys.indexOf(keyword);
+            keys.splice(index, 1);
+            /*
+            Meteor.users.update({_id: Meteor.user()._id}, {$set: {rec_keywords: keys}});
+            Meteor.users.update({_id: Meteor.user()._id}, {$set: {dislike_keywords: dkeys}});
+            */
+            console.log(keys);
+            console.log(dkeys);
+            Meteor.call("recommendation", [keys, dkeys], function(error) {});
+            var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
+            var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
+            console.log(keys);
+            console.log(dkeys);
+        }
     });
     
     Template.bucket_goal.helpers({  
@@ -87,7 +88,6 @@ if (Meteor.isClient) {
             return difference;
         }
     });
-
 
     UI.registerHelper('shortIt', function(stringToShorten, maxCharsAmount){
         if(stringToShorten.length > maxCharsAmount){

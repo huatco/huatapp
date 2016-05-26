@@ -10,6 +10,19 @@ if (Meteor.isServer) {
   var Future = Npm.require('fibers/future');
 
   Meteor.methods({
+    recommendation: function(key){
+      var keys = key[0];
+      var dkeys = key[1];
+      console.log(keys);
+      console.log(dkeys);
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": keys}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": dkeys}}); 
+      console.log("called");
+    },
+    keyword_clean_up: function(){
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": k}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
+    },
     start_up: function() {
       g = [{"keyword": "Education",  "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund", "Go for an art class"]}
           ,{"keyword": "Lifestyle",  "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert", "Travel by helicopter", "Stay in Japan for a month"]}
