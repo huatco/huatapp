@@ -3,6 +3,11 @@ TODO:
 1. work on radio button: category
 2. work on adding tags
 */
+Template.add_goal.helpers({
+  "goal": function(){
+    return "Enter your goal";
+  }
+});
 
 Template.add_goal.events({
     "submit .add-goal": function (event) {

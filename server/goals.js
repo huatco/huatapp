@@ -1,5 +1,7 @@
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
+k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
+
 
 if (Meteor.isServer) {
   //Goals.remove({});

@@ -1,8 +1,9 @@
 Goal_catalog = new Mongo.Collection("goal_catalog");
+
+k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 if (Meteor.isClient) {
     var goal_count = 4;
     var keys = ["Education", "Nature", "Sports"];
-
     Template.bucketlist.helpers({
         goals: function () {
         	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
@@ -23,7 +24,31 @@ if (Meteor.isClient) {
             var key = keys[2];
             return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
         }
+    });
 
+     Template.bucketlist.events({
+        "click .deletekey1": function(event, template) {
+            var newkey = [];
+            newkey.push(key[1]); 
+            newkey.push(key[2]);
+            newkey.push("Lifestyle");
+            key = newkey;
+        },
+        "click .deletekey2": function(event, template) {
+            var newkey = [];
+            newkey.push(key[0]); 
+            newkey.push(key[2]);
+            newkey.push("Lifestyle");
+            key = newkey;
+        },
+        "click .deletekey3": function(event, template) {
+            var newkey = [];
+            newkey.push(key[0]); 
+            newkey.push(key[1]);
+            newkey.push("Lifestyle");
+            key = newkey;
+        },
+         
     });
     
     Template.bucket_goal.helpers({  
