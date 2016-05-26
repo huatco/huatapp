@@ -1,36 +1,27 @@
+Goal_catalog = new Mongo.Collection("goal_catalog");
 if (Meteor.isClient) {
-	//Meteor.call("call_python", function(error) {});
-  // This code only runs on the client
-  //Meteor.call("call_python", function(error) {});
+    var goal_count = 4;
+    var keys = ["Education", "Nature", "Sports"];
+
     Template.bucketlist.helpers({
         goals: function () {
         	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
         	return Goals.find({user: this_user});
         },
-        keywords: function(){
-            //Meteor.call("start_up", function(error) {});
-            var keywords = ["Education", "Lifestyle", "Nature"];
-            //console.log(keywords);
-            //var res = Keywords.find({keyword: { $in: ["Education", "Lifestyle", "Nature"] }});
-
-            return [{"keyword": "Education", "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund"]}
-          ,{"keyword": "Lifestyle", "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert"]}
-          ,{"keyword": "Life Plans", "goals":  ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', ]}];
-            //return Keywords.find({keyword: "Education"});
-            /*var keywords = ["Education", "Lifestyle", "Nature"];
-            var results = [];
-            var goal_count = 5;
-            for(var i=0;i<keywords.length;i++){
-                var key = keywords[i];
-                var res = Goal_catalog.find({keywords: key});
-                result.push({});
-                console.log(res);
-                for (var j=0;j<min(goal_count, res.length);j++){
-                    result[i]["goals"].push(res[j]["goal"]);
-                }
-            }
-            return result;
-            */
+        k1: function(){return keys[0];},
+        k2: function(){return keys[1];},
+        k3: function(){return keys[2];},
+        keyword1: function(){
+            var key = keys[0];
+            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
+        },
+        keyword2: function(){
+            var key = keys[1];
+            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
+        },
+        keyword3: function(){
+            var key = keys[2];
+            return Goal_catalog.find({keywords: key}, {skip: 0, limit: goal_count});
         }
 
     });

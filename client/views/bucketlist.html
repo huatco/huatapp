@@ -2,9 +2,24 @@
 <!-- matches file name --> 
 	<h1>Recommended for you </h1>
 
-	{{#each keywords}}
+	<div class="bucket_goal">
+	<h3>{{k1}}</h3>
+	{{#each keyword1}}
 		{{> recommendation}}
 	{{/each}}
+	</div>
+	<div class="bucket_goal">
+		<h3>{{k2}}</h3>
+	{{#each keyword2}}
+		{{> recommendation}}
+	{{/each}}
+	</div>
+		<div class="bucket_goal">
+			<h3>{{k3}}</h3>
+	{{#each keyword3}}
+		{{> recommendation}}
+	{{/each}}
+	</div>
 
 	<h1>Bucketlist</h1>
 	<hr>
@@ -14,14 +29,9 @@
 </template>
 
 <template name="recommendation">
-<div class="bucket_goal">
-	<h3>{{keyword}}</h3>
-		<ul>
-			{{#each goals}}
-			<li><a>{{.}}</a></li>
-			{{/each}}
-		</ul>
-</div>
+
+			<li><a>{{goal}}</a></li>
+
 </template>
 
 <template name="bucket_goal">
