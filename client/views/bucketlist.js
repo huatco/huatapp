@@ -3,6 +3,8 @@ Goal_catalog = new Mongo.Collection("goal_catalog");
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 if (Meteor.isClient) {
+
+    Meteor.call("start_up", function(error){});
     var goal_count = 4;
     //var keys = ["Education", "Nature", "Sports"];
     Template.bucketlist.helpers({
@@ -26,6 +28,7 @@ if (Meteor.isClient) {
             ;
         }
     });
+
 
      Template.bucketlist.events({
         "click .deletekey1": function(event, template) {

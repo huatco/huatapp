@@ -36,14 +36,16 @@ if (Meteor.isServer) {
           ];
           //Keywords.remove({});
       for(var i=0;i<g.length;i++){
-        var list = [];
-        for (var j=0;j<3;j++){
-          list.push(g[i]["goals"][i]);
+        for (var j=0;j<g[i]["goals"].length;j++){
+          Goal_catalog.insert({
+            "keywords": [g[i]["keyword"]],
+            "goal": g[i]["goals"][j],
+            "clicks": 0,
+            "A": 0,
+            "B": 0,
+            "C": 0
+          });
         }
-        Keywords.insert({
-          keyword: g[i]["keyword"],
-          goals: list
-        });
         console.log(g[i]["keyword"]);
       }
     }, 

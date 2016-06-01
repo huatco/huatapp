@@ -302,3 +302,13 @@ $primary-color: $huat-pink;
 	}
 
 }
+
+.add_goal_modal {
+	fieldset {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+}
