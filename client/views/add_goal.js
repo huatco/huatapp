@@ -32,9 +32,9 @@ Template.add_goal.events({
       console.log(year);
  
       //Update Keywords
-      var keywords = Meteor.users.find({_id: Meteor.user()._id}).fetch()[0].profile.keywords;
-      keywords.push(category);
-      Meteor.users.find({_id: Meteor.user()._id}).update({$set: {"profile.keywords": keywords}});
+      //var keywords = Meteor.users.find({_id: Meteor.user()._id}).fetch()[0].profile.rec_keywords;
+      //keywords.push(category);
+      //Meteor.users.find({_id: Meteor.user()._id}).update({$set: {"profile.rec_keywords": keywords}});
       
 
       var time_stamp = new Date();
