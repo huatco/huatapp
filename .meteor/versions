@@ -70,6 +70,7 @@ modules-runtime@0.6.1
 momentjs:moment@2.10.6
 mongo@1.1.5
 mongo-id@1.0.2
+mrt:jquerytagsinputjs@0.0.1
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.41
 observe-sequence@1.0.9
@@ -104,3 +105,4 @@ webapp@1.2.6
 webapp-hashing@1.0.7
 zimme:active-route@2.3.2
 zurb:foundation-sites@6.2.0_1
+zurb:motion-ui@1.2.2

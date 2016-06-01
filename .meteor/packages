@@ -32,3 +32,5 @@ forwarder:autoform-wizard
 standard-minifier-css
 standard-minifier-js
 momentjs:moment
+zurb:motion-ui
+mrt:jquerytagsinputjs
