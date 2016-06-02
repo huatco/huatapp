@@ -348,6 +348,10 @@ $primary-color: $huat-pink;
 				width: 70px !important;
 			}
 
+			textarea {
+				height: 150px;
+			}
+
 		}
 	}
 
@@ -404,16 +408,16 @@ $primary-color: $huat-pink;
 			display: block;
 			font-size: 30px;
 			color: $inactive-gray;
-			padding-top: 10px;
+			padding-top: 20px;
 			padding-bottom: 10px;
 		}
 
 
 		input[type=radio] {
-			// display:none;
+			display:none;
 		}
 
-		&:focus {
+		&.active {
 			background-color: $huat-pink;
 			border: solid 1px $huat-pink;
 			color: #fff;

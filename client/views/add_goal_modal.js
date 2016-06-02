@@ -44,8 +44,11 @@ Template.add_goal_modal.helpers({
 		}else {
 			return "fa-circle-o";
 		}
-	}
+	},
+
+
 });
+
 
 Template.goal_modal.helpers({
 	isActive: function(section){
@@ -64,11 +67,25 @@ Template.goal_modal.helpers({
 		}else {
 			return "submit";
 		}
+	},
+
+		isChecked: function(val) {
+		goalAddDep.depend();
+		currentVal = $("form input[type='radio']:checked").val();
+		if (val == currentVal){
+			return "active";
+		}else {
+			return null;
+		}
 	}
 
 });
 
 Template.goal_modal.events({
+	"click .goal_category": function(){
+		goalAddDep.changed();
+	},
+
 	"click .previous": function(event, template){
 		console.log("back button")
 		currentSection -= 1;

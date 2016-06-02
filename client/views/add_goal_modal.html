@@ -29,22 +29,22 @@
 	    	<h2>Select a Category</h2>
 			<div class="row">
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Life"/><i class="fa fa-bed"></i>Life</label>
+					<label onclick="" class="goal_category {{isChecked 'Life'}}"><input type="radio" name="category" value="Life"/><i class="fa fa-child"></i>Life</label>
 				</div>
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Education"/><i class="fa fa-bed"></i>Education</label>
+					<label onclick="" class="goal_category {{isChecked 'Education'}}"><input type="radio" name="category" value="Education"/><i class="fa fa-graduation-cap"></i>Education</label>
 				</div>
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Fitness"/><i class="fa fa-bed"></i>Fitness</label>
+					<label onclick="" class="goal_category {{isChecked 'Fitness'}}"><input type="radio" name="category" value="Fitness"/><i class="fa fa-heartbeat"></i>Fitness</label>
 				</div>
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Travel"/><i class="fa fa-bed"></i>Travel</label>
+					<label onclick="" class="goal_category {{isChecked 'Travel'}}"><input type="radio" name="category" value="Travel"/><i class="fa fa-plane"></i>Travel</label>
 				</div>
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Milestone"/><i class="fa fa-bed"></i>Milestone</label>
+					<label onclick="" class="goal_category {{isChecked 'Milestone'}}"><input type="radio" name="category" value="Milestone"/><i class="fa fa-trophy"></i>Milestone</label>
 				</div>
 				<div class="small-4 columns">
-					<label onclick="" class="goal_category"><input type="radio" name="category" value="Hobbies"/><i class="fa fa-bed"></i>Hobbies</label>
+					<label onclick="" class="goal_category {{isChecked 'Hobbies'}}"><input type="radio" name="category" value="Hobbies"/><i class="fa fa-soccer-ball-o"></i>Hobbies</label>
 				</div>
 			</div>
 		</fieldset>
@@ -87,7 +87,7 @@
 				</div>
 				<div class="small-4 columns">
 					<label>Target Year
-				    	<input type="text" placeholder="2017" id="year" required>
+				    	<input type="number" placeholder="2017" id="year" required>
 				    </label>
 				</div>
 			</div>
