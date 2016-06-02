@@ -1,5 +1,6 @@
 var currentSection = 1;
 var goalAddDep = new Tracker.Dependency;
+var categoryDep = new Tracker.Dependency;
 
 
 Template.add_goal_modal.onRendered(function () {
@@ -69,13 +70,40 @@ Template.goal_modal.helpers({
 		}
 	},
 
-		isChecked: function(val) {
-		goalAddDep.depend();
+	isChecked: function(val) {
+		categoryDep.depend();
 		currentVal = $("form input[type='radio']:checked").val();
 		if (val == currentVal){
 			return "active";
 		}else {
 			return null;
+		}
+	},
+
+	predefinedTags: function(){
+		categoryDep.depend();
+		var category = $("form input[type='radio']:checked").val();
+
+		if (category=="Life"){
+			$('#tags').importTags("life,shopping,leisure,staycation,party");
+		}
+		else if (category=='Education'){
+			$('#tags').importTags("education,graduation,college,post-graduation");
+		}
+		else if (category=='Fitness'){
+			$('#tags').importTags("fitness,health,gym,cross fitness,martial arts,kickboxing, marathon");
+		}
+		else if (category=='Travel'){
+			$('#tags').importTags("travel,holiday,exploration,backpacking,sightseeing,adventure");
+		}
+		else if (category=='Milestone'){
+			$('#tags').importTags("milestone,retirement,career,marriage,migration,house");
+		}
+		else if (category=='Hobbies'){
+			$('#tags').importTags("hobbies,guitar,soccer,robotics,coding");
+		}
+		else {
+			return "";
 		}
 	}
 
@@ -83,7 +111,7 @@ Template.goal_modal.helpers({
 
 Template.goal_modal.events({
 	"click .goal_category": function(){
-		goalAddDep.changed();
+		categoryDep.changed();
 	},
 
 	"click .previous": function(event, template){
