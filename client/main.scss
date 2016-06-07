@@ -304,6 +304,164 @@ $primary-color: $huat-pink;
 
 }
 
+.add_goal_modal2 {
+	padding: 0;
+	height: 500px;
+	width: 70%;
+	overflow-y: hidden;
+	h2 {
+		font-size: 20px;
+		font-weight: 300;
+		padding-bottom: 15px;
+	}
+
+	.main-panel {
+		padding: 25px;
+		
+		fieldset {
+			display: none;
+
+			&.active {
+				display: block;
+			}
+
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+
+			.columns {
+				padding: 0;
+				margin: 0;
+			}
+
+			.tag {
+				background-color: $huat-pink;
+				color: #fff;
+				border: none;
+				a {
+					color: #fff;
+				}
+			}
+
+			#tags_tag {
+				width: 70px !important;
+			}
+
+			textarea {
+				height: 150px;
+			}
+
+		}
+	}
+
+
+	.side-panel {
+		height: 500px;
+		background-color: $nearly-white;
+		padding: 25px;
+		h2 {
+			font-size: 25px;
+			font-weight: 300;
+			color: $huat-pink;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			li {
+
+				color: $inactive-gray;
+				padding-bottom: 10px;
+
+				&.active {
+					color: $huat-pink;
+				}
+
+				&.done {
+					color: $active-black;
+					opacity: 0.5;
+				}
+
+				i {
+					font-size: 10px;
+					padding-right: 10px;
+				}
+			}
+		}
+
+	}
+
+
+	.goal_category {
+		width: 130px;
+		height: 130px;
+		background-color: $nearly-white;
+		color: $shady-gray;
+		padding: 10px;
+		margin: 10px;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+
+		i {
+			display: block;
+			font-size: 30px;
+			color: $inactive-gray;
+			padding-top: 20px;
+			padding-bottom: 10px;
+		}
+
+
+		input[type=radio] {
+			display:none;
+		}
+
+		&.active {
+			background-color: $huat-pink;
+			border: solid 1px $huat-pink;
+			color: #fff;
+			i {
+				color: #fff;
+			}
+
+			&:hover {
+				color:#fff;
+				i {color: #fff;}
+			}
+		}
+
+		&:hover {
+			border: solid 1px $huat-pink;
+			color: $huat-pink;
+			i {
+				color: $huat-pink;
+			}
+		}
+	}
+
+	.next {
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+		margin-bottom: 0;
+
+	}
+
+	.previous {
+		background-color: transparent;
+		color: $inactive-gray;
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		margin-bottom: 0;
+
+		i {
+			padding-right: 10px;
+		}
+
+	}
+}
 .add_goal_modal {
 	padding: 0;
 	height: 500px;

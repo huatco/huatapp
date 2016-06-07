@@ -18,10 +18,13 @@
 		<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
 		<h3>{{k}}</h3>
 			{{#each g}}
-				<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>
+			<li><a data-open="add_goal_modal2{{_id}}">{{goal}}</a></li> 
+			{{> add_goal_modal2 gg=_id goal=goal}}
+			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li> -->
 			{{/each}}
 		</div>
 </template>
+
 <template name="bucket_goal">
 	<div class="bucket_goal">
 		<div class="remainder">{{remainder _id}} mths</div>
