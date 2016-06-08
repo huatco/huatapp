@@ -26,10 +26,9 @@
   	<div class="top-bar">
 	  <div class="top-bar-right">
 	    <ul class="menu">
-	    	<li><a href="{{pathFor route='add_goal'}}" class="button goal_button"><i class="fa fa-plus"></i></a></li>
+	    	<li><a data-open="add_goal_modal" class="button goal_button"><i class="fa fa-plus"></i></a>{{> add_goal_modal gg="" goal=""}}</li>
 	      	<li><a href="{{pathFor route='profile'}}" class="button profile_button"><i class="fa fa-user"></i>{{username}}</a></li>
 	      	
-	      	<li> <p><a data-open="add_goal_modal">Add Goal</a></p>{{> add_goal_modal gg="" goal=""}}</li>
 	    </ul>
 	  </div>
 	</div>
