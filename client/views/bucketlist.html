@@ -18,9 +18,9 @@
 		<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
 		<h3>{{k}}</h3>
 			{{#each g}}
-			<li><a data-open="add_goal_modal2{{_id}}">{{goal}}</a></li> 
-			{{> add_goal_modal2 gg=_id goal=goal}}
-			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li> -->
+			<li><a data-open="add_goal_modal{{_id}}">{{goal}}{{> add_goal_modal gg=_id goal=goal}}</a></li> 
+			
+			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>  {{> add_goal_modal gg=_id goal=goal}}-->
 			{{/each}}
 		</div>
 </template>

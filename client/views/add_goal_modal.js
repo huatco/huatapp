@@ -1,10 +1,9 @@
 var currentSection = 1;
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
-
-
-Template.add_goal_modal.onRendered(function () {
-	$(window).on('closed.zf.reveal', function () {
+Template.add_goal_modal.onRendered(function (gg) {
+	var gg = this.data.gg;
+	$(window).on('closed.zf.reveal', function (sth) { 
     	currentSection = 1;
     	goalAddDep.changed();
     });
@@ -13,12 +12,12 @@ Template.add_goal_modal.onRendered(function () {
     	'placeholderColor': '#e50b4f',
     	'defaultText':'Add a Tag'
     });
-    this.myRevealInstance = new Foundation.Reveal($('#add_goal_modal'));
+    var name = '#add_goal_modal' + gg;
+    this.myRevealInstance = new Foundation.Reveal($(name));
     this.dataslider = new Foundation.Slider($('.slider'));
 });
 
 Template.add_goal_modal.onDestroyed(function () {
-
   let reveal = this.myRevealInstance;
   if (reveal) {
     reveal.destroy();
@@ -26,7 +25,6 @@ Template.add_goal_modal.onDestroyed(function () {
 });
 
 Template.add_goal_modal.helpers({
-
 	sectionStatus: function(section) {
 		goalAddDep.depend();
 		if (section<currentSection) {
@@ -46,10 +44,7 @@ Template.add_goal_modal.helpers({
 			return "fa-circle-o";
 		}
 	},
-
-
 });
-
 
 Template.goal_modal.helpers({
 	isActive: function(section){
@@ -80,27 +75,28 @@ Template.goal_modal.helpers({
 		}
 	},
 
-	predefinedTags: function(){
+	predefinedTags: function(gg){
 		categoryDep.depend();
+		$(".tags").importTags('');
 		var category = $("form input[type='radio']:checked").val();
-
+		var tag = ".tags";
 		if (category=="Life"){
-			$('#tags').importTags("life,shopping,leisure,staycation,party");
+			$(tag).importTags("life,shopping,leisure,staycation,party");
 		}
 		else if (category=='Education'){
-			$('#tags').importTags("education,graduation,college,post-graduation");
+			$(tag).importTags("education,graduation,college,post-graduation");
 		}
 		else if (category=='Fitness'){
-			$('#tags').importTags("fitness,health,gym,cross fitness,martial arts,kickboxing, marathon");
+			$(tag).importTags("fitness,health,gym,cross fitness,martial arts,kickboxing, marathon");
 		}
 		else if (category=='Travel'){
-			$('#tags').importTags("travel,holiday,exploration,backpacking,sightseeing,adventure");
+			$(tag).importTags("travel,holiday,exploration,backpacking,sightseeing,adventure");
 		}
 		else if (category=='Milestone'){
-			$('#tags').importTags("milestone,retirement,career,marriage,migration,house");
+			$(tag).importTags("milestone,retirement,career,marriage,migration,house");
 		}
 		else if (category=='Hobbies'){
-			$('#tags').importTags("hobbies,guitar,soccer,robotics,coding");
+			$(tag).importTags("hobbies,guitar,soccer,robotics,coding");
 		}
 		else {
 			return "";
@@ -125,17 +121,51 @@ Template.goal_modal.events({
 			currentSection += 1;
 			goalAddDep.changed();	
 		}else {
-			var title = $('#title').val();
-			var desc = $('#description').val();
+			var username = Meteor.user().username;
+			var title = event.target.form[8].value;
+			var desc = event.target.form[9].value;
 			var category = $("form input[type='radio']:checked").val();
-			var target_amt = $('#amount').val();
-			var month = $('#month').val();
-			var year = $('#year').val();
-			var priority = $('#slider').attr('aria-valuenow');
-			var tags = $('#tags').val();
-			console.log(priority, tags);
+			var month = event.target.form[12].value;
+			var target_amt = event.target.form[11].value;
+			var year = event.target.form[13].value;
+			var priority = $("#points")[0].value;
+			var tags = event.target.form[16].value.split(",");
+			var time_stamp = new Date();
+			if(Goals.find({user:username, title:title}).count()==0){
+	      Goals.insert({ 
+	      	title: template.data.goal,
+	        time_stamp: time_stamp, 
+	        created_year: time_stamp.getYear(),
+	        created_month: time_stamp.getMonth(),   
+	        goal_month: month,
+	        goal_year: year, 
+	        priority: priority, 
+	        target_amount: target_amt, 
+	        current_amount: 0.0, 
+	        progress: 0,
+	        category: category,
+	        user: Meteor.user().username, 
+	        details: desc,
+	        current_time: 0,
+	        keywords: tags 
+	      }); 
+	      console.log("Added a goal", title);
+	      Meteor.call("call_python", function(error) {});
+	      alert("Goal Added! " + title)
+	    }else{
+	    	alert("goal repeated! ")
+	    }
+     
+      if (reg_state==2){
+        reg_state+=1;
+        regDep.changed();
+      }else {
+        document.location.href = '/bucketlist';
+
+      }
 		}
 	},
 
 });
+
 
