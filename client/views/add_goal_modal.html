@@ -1,20 +1,20 @@
 <template name="add_goal_modal">
-  <div class="reveal add_goal_modal" id="add_goal_modal" data-reveal data-animation-in="spin-in">
-  	<div class="row">
-  		<div class="small-4 columns side-panel">
-  			<h2><i class="fa fa-star"></i> Add New Goal</h2>
-  			<ul>
-  				<li class='{{sectionStatus 1}}'><i class="fa {{statusIcon 1}}"></i>Category</li>
-  				<li class='{{sectionStatus 2}}'><i class="fa {{statusIcon 2}}"></i>Title & Description</li>
-  				<li class='{{sectionStatus 3}}'><i class="fa {{statusIcon 3}}"></i>Goal Amount and Target</li>
-  				<li class='{{sectionStatus 4}}'><i class="fa {{statusIcon 4}}"></i>Importance and Tags</li>
-  			</ul>
-  			
-  		</div>
-  		<div class="small-8 columns main-panel">
-  			{{> goal_modal}}
-  		</div>
-  	</div>
+  <div class="reveal add_goal_modal" id="add_goal_modal{{gg}}" data-reveal data-animation-in="spin-in">
+    <div class="row">
+      <div class="small-4 columns side-panel">
+        <h2><i class="fa fa-star"></i> Add New Goal</h2>
+        <ul>
+          <li class='{{sectionStatus 1}}'><i class="fa {{statusIcon 1}}"></i>Category</li>
+          <li class='{{sectionStatus 2}}'><i class="fa {{statusIcon 2}}"></i>Title & Description</li>
+          <li class='{{sectionStatus 3}}'><i class="fa {{statusIcon 3}}"></i>Goal Amount and Target</li>
+          <li class='{{sectionStatus 4}}'><i class="fa {{statusIcon 4}}"></i>Importance and Tags</li>
+        </ul>
+        
+      </div>
+      <div class="small-8 columns main-panel">
+        {{> goal_modal gg=gg goal=goal}}
+      </div>
+    </div>
     <button class="close-button" data-close aria-label="Close reveal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -23,89 +23,95 @@
 
 <template name="goal_modal">
     <form class="add-goal-modal">
-	    <fieldset class="{{isActive 1}}">
-	    	<h2>Select a Category</h2>
-			<div class="row">
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Life'}}"><input type="radio" name="category" value="Life"/><i class="fa fa-child"></i>Life</label>
-				</div>
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Education'}}"><input type="radio" name="category" value="Education"/><i class="fa fa-graduation-cap"></i>Education</label>
-				</div>
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Fitness'}}"><input type="radio" name="category" value="Fitness"/><i class="fa fa-heartbeat"></i>Fitness</label>
-				</div>
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Travel'}}"><input type="radio" name="category" value="Travel"/><i class="fa fa-plane"></i>Travel</label>
-				</div>
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Milestone'}}"><input type="radio" name="category" value="Milestone"/><i class="fa fa-trophy"></i>Milestone</label>
-				</div>
-				<div class="small-4 columns">
-					<label onclick="" class="goal_category {{isChecked 'Hobbies'}}"><input type="radio" name="category" value="Hobbies"/><i class="fa fa-soccer-ball-o"></i>Hobbies</label>
-				</div>
-			</div>
-		</fieldset>
-	    <fieldset class="{{isActive 2}}">
-	    	<h2>What do you want to achieve?</h2>
-		  <div class="row">
-		    <label>Title of Goal<input type="text" id="title" placeholder={{_id}} required value={{_id}}></label>
-		  </div>
-		  <div class="row">
-		  	<label>Description
-		    	<textarea placeholder="Enter the details of your goal" id="description"></textarea>
-		    </label>
-		  </div>
-	    </fieldset>
-	    <fieldset class="{{isActive 3}}">
-	    	<h2>What are your targets</h2>
-			<div class="row">
-				<div class="small-12 columns">
-				    <label>Amount (in SGD)<input type="number" placeholder="$$ 0.00" id="amount" required></label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="small-8 columns">
-					<label>Target Month
-				        <select id="month">
-				        <option value="1">January</option>
-				        <option value="2">February</option>
-				        <option value="3">March</option>
-				        <option value="4">April</option>
-				        <option value="5">May</option>
-				        <option value="6">June</option>
-				        <option value="7">July</option>
-				        <option value="8">August</option>
-				        <option value="9">September</option>
-				        <option value="10">October</option>
-				        <option value="11">November</option>
-				        <option value="12">December</option>
-				        </select>
-				    </label>
-				</div>
-				<div class="small-4 columns">
-					<label>Target Year
-				    	<input type="number" placeholder="2017" id="year" required>
-				    </label>
-				</div>
-			</div>
-	    </fieldset>
-	    <fieldset class="{{isActive 4}}">
-	    	<h2>Help us know your goal better</h2>
-	    	<div class="row">
-	    		<label>Importance</label>
-				<div class="slider" data-slider data-start="0" data-end="5">
-				  	<span class="slider-handle" id="slider" data-slider-handle role="slider" tabindex="1"></span>
-				  	<span class="slider-fill" data-slider-fill></span>
-					<input type="hidden" name="priority">
-				</div>
-	    	</div>
-	    	<div class="row">
-	    		<label>Tags</label>
-	    		<input name="tags" id="tags" value="{{predefinedTags}}" />
-	    	</div>
-	    </fieldset>
-	    <button type="button" class="button previous"><i class="fa fa-chevron-left"></i>Back</button>
-		<input type="{{submitValue}}" class="button next" value="Next">
-	</form>
+      <fieldset class="{{isActive 1}}">
+        <h2>Select a Category</h2>
+      <div class="row">
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Life'}}"><input type="radio" name="category" value="Life"/><i class="fa fa-child"></i>Life</label>
+        </div>
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Education'}}"><input type="radio" name="category" value="Education"/><i class="fa fa-graduation-cap"></i>Education</label>
+        </div>
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Fitness'}}"><input type="radio" name="category" value="Fitness"/><i class="fa fa-heartbeat"></i>Fitness</label>
+        </div>
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Travel'}}"><input type="radio" name="category" value="Travel"/><i class="fa fa-plane"></i>Travel</label>
+        </div>
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Milestone'}}"><input type="radio" name="category" value="Milestone"/><i class="fa fa-trophy"></i>Milestone</label>
+        </div>
+        <div class="small-4 columns">
+          <label onclick="" class="goal_category {{isChecked 'Hobbies'}}"><input type="radio" name="category" value="Hobbies"/><i class="fa fa-soccer-ball-o"></i>Hobbies</label>
+        </div>
+      </div>
+    </fieldset>
+      <fieldset class="{{isActive 2}}">
+        <h2>What do you want to achieve?</h2>
+      <div class="row">
+        <label>Title of Goal<input type="text" id="title" placeholder={{goal}} required value={{goal}}></label>
+      </div>
+      <div class="row">
+        <label>Description
+          <textarea placeholder="Enter the details of your goal" id="description"></textarea>
+        </label>
+      </div>
+      </fieldset>
+      <fieldset class="{{isActive 3}}">
+        <h2>What are your targets</h2>
+      <div class="row">
+        <div class="small-12 columns">
+            <label>Amount (in SGD)<input type="number" placeholder="$$ 0.00" id="amount" required></label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-8 columns">
+          <label>Target Month
+                <select id="month">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+                </select>
+            </label>
+        </div>
+        <div class="small-4 columns">
+          <label>Target Year
+              <input type="number" placeholder="2017" id="year" required>
+            </label>
+        </div>
+      </div>
+      </fieldset>
+      <fieldset class="{{isActive 4}}">
+        <h2>Help us know your goal better</h2>
+        <div class="row">
+          <label>Importance</label>
+          <!--
+        <div class="slider" data-slider data-start="0" data-end="5">
+            <span class="slider-handle" id="slider{{gg}}" data-slider-handle role="slider" tabindex="1"></span>
+            <span class="slider-fill" data-slider-fill></span>
+          <input type="hidden" name="priority">
+        </div>
+        -->
+    <form method="post" action="demoform.asp">
+    <label for="points"></label>
+      <input type="range" name="points" id="points" value="5" min="0" max="5" data-show-value="true"> 
+    </form>
+        </div>
+        <div class="row">
+          <label>Tags</label>
+          <input name="tags{{gg}}" class="tags" id="tags" value="{{predefinedTags gg}}" />
+        </div>
+      </fieldset>
+      <button type="button" class="button previous"><i class="fa fa-chevron-left"></i>Back</button>
+    <input type="{{submitValue}}" class="button next" value="Next">
+  </form>
 </template>

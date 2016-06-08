@@ -37,17 +37,19 @@ if (Meteor.isServer) {
           //Keywords.remove({});
       for(var i=0;i<g.length;i++){
         for (var j=0;j<g[i]["goals"].length;j++){
-          Goal_catalog.insert({
-            "keywords": [g[i]["keyword"]],
-            "goal": g[i]["goals"][j],
-            "clicks": 0,
-            "A": 0,
-            "B": 0,
-            "C": 0
-          });
+          if (Goal_catalog.find({goal: g[i]["goals"][j]}).count()==0){
+            Goal_catalog.insert({
+              "keywords": [g[i]["keyword"]],
+              "goal": g[i]["goals"][j],
+              "clicks": 0,
+              "A": 0,
+              "B": 0,
+              "C": 0
+            });
+          }
         }
-        console.log(g[i]["keyword"]);
       }
+      console.log("Populated Goal catalog");
     }, 
     call_python: function() {
       var fut = new Future();
