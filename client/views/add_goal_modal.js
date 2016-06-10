@@ -138,7 +138,7 @@ Template.goal_modal.events({
 			var time_stamp = new Date();
 			if(Goals.find({user:username, title:title}).count()==0){
 	      Goals.insert({ 
-	      	title: template.data.goal,
+	      	title: title,
 	        time_stamp: time_stamp, 
 	        created_year: time_stamp.getYear(),
 	        created_month: time_stamp.getMonth(),   

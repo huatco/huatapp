@@ -66,7 +66,7 @@ if (Meteor.isClient) {
 
         format_startdate: function(goalid) {
         	var goal = Goals.findOne({_id: goalid});
-        	var date = moment(goal.timestamp).format("dddd, MMMM Do YYYY");
+        	var date = moment(goal.time_stamp).format("dddd, MMMM Do YYYY");
         	return date;
         },
 
@@ -88,7 +88,7 @@ if (Meteor.isClient) {
 
         remainder: function(goalid) {
             var goal = Goals.findOne({_id: goalid});
-            var start = moment(goal.timestamp);
+            var start = moment();
             var end = moment([goal.goal_year, goal.goal_month]);
             var difference = end.diff(start, 'months');
             return difference;

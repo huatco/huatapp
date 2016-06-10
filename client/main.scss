@@ -279,6 +279,7 @@ $primary-color: $huat-pink;
 	padding: 25px;
 	color: $subtle-black;
 	font-size: 15px;
+	margin-top: 150px;
 	.edit_goal {
 		background: none;
 		color: $inactive-gray;
@@ -301,7 +302,10 @@ $primary-color: $huat-pink;
 			color: $huat-pink;
 		}
 	}
+}
 
+#goalprogressChart {
+	padding-right: 20px;
 }
 
 .add_goal_modal2 {
