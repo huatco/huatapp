@@ -1,5 +1,5 @@
 <template name="add_goal_modal">
-  <div class="reveal add_goal_modal" id="add_goal_modal{{gg}}" data-reveal data-animation-in="spin-in">
+  <div class="reveal add_goal_modal" id="add_goal_modal{{gg._id}}" data-reveal data-animation-in="spin-in">
     <div class="row">
       <div class="small-4 columns side-panel">
         <h2><i class="fa fa-star"></i> Add New Goal</h2>
@@ -12,7 +12,7 @@
         
       </div>
       <div class="small-8 columns main-panel">
-        {{> goal_modal gg=gg goal=goal}}
+        {{> goal_modal}}
       </div>
     </div>
     <button class="close-button" data-close aria-label="Close reveal" type="button">
@@ -49,7 +49,7 @@
       <fieldset class="{{isActive 2}}">
         <h2>What do you want to achieve?</h2>
       <div class="row">
-        <label>Title of Goal<input type="text" id="title" placeholder={{goal}} required value={{goal}}></label>
+        <label>Title of Goal<input type="text" id="title" placeholder={{gg.goal}} required value={{gg.goal}}></label>
       </div>
       <div class="row">
         <label>Description
@@ -107,7 +107,7 @@
         </div>
         <div class="row">
           <label>Tags</label>
-          <input name="tags{{gg}}" class="tags" id="tags" value="{{predefinedTags gg}}" />
+          <input name="tags{{gg._id}}" class="tags" id="tags" value="{{predefinedTags gg._id}}" />
         </div>
       </fieldset>
       <button type="button" class="button previous"><i class="fa fa-chevron-left"></i>Back</button>

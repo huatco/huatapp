@@ -14,12 +14,13 @@ if (Meteor.isClient) {
         },
         keyword1: function(){
             var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
-            console.log(keys)
-            if(keys.length < 3){
-                Meteor.call("keyword_clean_up", function(e){});
-            }
+            console.log(keys);
+
             if(keys == undefined){
                 Meteor.users.update({username: Meteor.user().username}, {$set:{rec_keywords: k}});
+            }
+            else if(keys.length < 3){
+                Meteor.call("keyword_clean_up", function(e){});
             }
             return [
             {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_count})},
@@ -54,7 +55,9 @@ if (Meteor.isClient) {
             console.log(dkeys);
         }
     });
-    
+    Template.recommendation.helpers({
+        modal: function(){return true;}
+    })
     Template.bucket_goal.helpers({  
         progress_percent: function(goalid) {
         	var goal = Goals.findOne({_id: goalid});
