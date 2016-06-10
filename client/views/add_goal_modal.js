@@ -2,7 +2,8 @@ var currentSection = 1;
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
 Template.add_goal_modal.onRendered(function (gg) {
-	var gg = this.data.gg;
+	console.log(this);
+	var id = this.data.gg._id;
 	$(window).on('closed.zf.reveal', function (sth) { 
     	currentSection = 1;
     	goalAddDep.changed();
@@ -12,16 +13,20 @@ Template.add_goal_modal.onRendered(function (gg) {
     	'placeholderColor': '#e50b4f',
     	'defaultText':'Add a Tag'
     });
-    var name = '#add_goal_modal' + gg;
+    var name = '#add_goal_modal' + id;
     this.myRevealInstance = new Foundation.Reveal($(name));
-    this.dataslider = new Foundation.Slider($('.slider'));
+    //this.dataslider = new Foundation.Slider($('.slider'));
 });
 
 Template.add_goal_modal.onDestroyed(function () {
+	console.log("destroyed", this);
+	//this.myRevealInstance.stop();
+	Session.set("modal", false)
+	/*
   let reveal = this.myRevealInstance;
   if (reveal) {
     reveal.destroy();
-  }
+  }*/
 });
 
 Template.add_goal_modal.helpers({
@@ -35,7 +40,7 @@ Template.add_goal_modal.helpers({
 			return null;
 		}
 	},
-
+	
 	statusIcon: function(section) {
 		goalAddDep.depend();
 		if (section<=currentSection){

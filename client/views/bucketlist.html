@@ -17,8 +17,13 @@
 		<div class="bucket_goal">
 		<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
 		<h3>{{k}}</h3>
-			{{#each g}}
-			<li><a data-open="add_goal_modal{{_id}}">{{goal}}{{> add_goal_modal gg=_id goal=goal}}</a></li> 
+			{{#each goal_item in g}}
+			<li><a data-open="add_goal_modal{{goal_item._id}}">
+			{{#if modal}}
+			{{goal_item.goal}}
+			{{> add_goal_modal gg=goal_item}}
+			{{/if}}
+			</a></li> 
 			
 			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>  {{> add_goal_modal gg=_id goal=goal}}-->
 			{{/each}}

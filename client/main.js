@@ -50,6 +50,9 @@ AccountsTemplates.configure({
 });
 
 Template.topbar.helpers({
+  goal_item: function () {
+    return { goal: "", _id: "" };
+  },
   username: function () {
     return Meteor.user() && Meteor.user().username;
   }, 
