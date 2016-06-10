@@ -2,7 +2,6 @@ var currentSection = 1;
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
 Template.add_goal_modal.onRendered(function (gg) {
-	console.log(this);
 	var id = this.data.gg._id;
 	$(window).on('closed.zf.reveal', function (sth) { 
     	currentSection = 1;

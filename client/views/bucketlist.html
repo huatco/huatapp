@@ -1,21 +1,23 @@
 <template name="bucketlist">
+	<!-- Bucket list section -->
+	<h1>Bucketlist</h1>
+	<hr>
+	{{#each goals}}
+		{{> bucket_goal}}
+	{{/each}}
+	<br>
 	<!-- Recommendation section -->
 	<h1>Recommended for you </h1>
+	<hr>
 	{{#each keyword1}}
-	{{> recommendation}}
+		{{> recommendation}}
 	{{/each}}
-
-	<!-- Bucket list section -->
-	<h1>Bucketlist</h1><hr>
-		{{#each goals}}
-			{{> bucket_goal}}
-		{{/each}}
 </template>
 
 
 <template name="recommendation">
-		<div class="bucket_goal">
-		<button type="button" class="button deletekey1"><i class="fa fa-trash-o"></i></button>
+	<div class="bucket_goal">
+		<button type="button" class="button deletekey1 float-right"><i class="fa fa-trash-o"></i></button>
 		<h3>{{k}}</h3>
 			{{#each goal_item in g}}
 			<li><a data-open="add_goal_modal{{goal_item._id}}">
@@ -27,7 +29,7 @@
 			
 			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>  {{> add_goal_modal gg=_id goal=goal}}-->
 			{{/each}}
-		</div>
+	</div>
 </template>
 
 <template name="bucket_goal">

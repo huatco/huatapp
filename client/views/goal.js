@@ -17,9 +17,19 @@ Template.goal.helpers({
 	},
 
 	investment: function(amount, start, month, year){
-		return investmentAmt(amount, start, month, year);
+		var amt = investmentAmt(amount, start, month, year);
+		return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
 
 	},
+
+	format_money: function(amt) {
+        return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+
+    progress_percent: function(goalid) {
+    	var goal = Goals.findOne({_id: goalid});
+    	return +(goal.progress)*100;
+    },
 });
 
 Template.goal.events({

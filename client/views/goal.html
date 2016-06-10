@@ -1,23 +1,24 @@
 <template name="goal">
 	<button class="button bucketlist"><i class="fa fa-chevron-left"></i> Back to Bucketlist</button>
 	<hr>
+	<h2>{{title}}</h2>
+	<p>{{details}}</p>
 	<div class="row">
 		<div class="small-12 large-8 columns">
-			<h1>{{title}}</h1>
-			<p>{{details}}</p>
-			<p>Monthly Investment Amount: ${{investment target_amount time_stamp goal_month goal_year}}</p>
-			<p>Current Amount: ${{current_amount}}</p>
 			{{>goalprogressChart}}
-
 		</div>
 		<div class="small-12 large-4 columns">
-			<div class="row">
-			</div>
 			<div class="row details_panel">
+				<h1>${{format_money current_amount}}</h1>
+				<p>out of a <strong>${{format_money target_amount}}</strong> goal target</p>
+				<div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100">
+				  	<div class="progress-meter" style="width: {{progress_percent _id}}%"></div>
+				</div>
 				<button type="button" class="button delete_goal float-right"><i class="fa fa-trash-o"></i></button>
 				<button type="button" class="button edit_goal float-right"><i class="fa fa-pencil"></i></button>
 				<h5><strong>DETAILS</strong></h5>
 				<hr>
+				<p>Monthly Investment: ${{investment target_amount time_stamp goal_month goal_year}}</p>
 				<p>Created: {{createDate time_stamp}}</p>
 				<p>Target: {{targetDate goal_month goal_year}}</p>
 				<p>Category: {{category}}</p>
