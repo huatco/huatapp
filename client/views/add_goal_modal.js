@@ -18,7 +18,6 @@ Template.add_goal_modal.onRendered(function (gg) {
 });
 
 Template.add_goal_modal.onDestroyed(function () {
-	console.log("destroyed", this);
 	//this.myRevealInstance.stop();
 	Session.set("modal", false)
 	/*
