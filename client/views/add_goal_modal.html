@@ -61,7 +61,7 @@
         <h2>What are your targets</h2>
       <div class="row">
         <div class="small-12 columns">
-            <label>Amount (in SGD)<input type="number" value="3000" placeholder="$$ 0.00" id="amount" required></label>
+            <label>Amount (in SGD)<input type="number" placeholder="$$ 2000.00" id="amount" required></label>
         </div>
       </div>
       <div class="row">
@@ -88,6 +88,8 @@
               <input type="number" placeholder="2017" id="year" value="2017" required>
             </label>
         </div>
+        <p class="help-text" id="passwordHelpText">Target date is automatically calculated based on your current investment amount. <a href="" id="reset_date">Click to reset date.</a></p>
+        <p>{{realismAmount}}</p>
       </div>
       </fieldset>
       <fieldset class="{{isActive 4}}">
