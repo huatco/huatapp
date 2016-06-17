@@ -16,9 +16,15 @@ Template.goal.helpers({
 		return date.format("MMMM YYYY");
 	},
 
-	investment: function(amount, start, month, year){
-		var amt = investmentAmt(amount, start, month, year);
-		return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+	investment: function(goalid){
+		var goal = Goals.findOne({_id: goalid});
+		r = Meteor.user().profile.return_rate;
+		start_date = moment(goal.time_stamp);
+		target_date = moment([goal.goal_year, goal.goal_month]);
+		present = moment();
+		periods = target_date.diff(start_date, 'months');
+		investment = goal.monthly_amt;
+		return parseFloat(Math.round(investment * 100) / 100).toFixed(2);
 
 	},
 
@@ -45,36 +51,11 @@ Template.goal.events({
     },
 });
 
-function returnRate() {
-    var score = Meteor.user()['profile']['riskscore'];
-    if (score<=30) {
-        return 0.05;
-    }else if(score<=60) {
-        return 0.07;
-    }else {
-        return 0.09;
-    }
-};
 
 Template.goalprogressChart.onRendered( function(){
     drawChart();
 });
 
-function investmentAmt(amount, start, month, year) {
-	r = returnRate();
-	start_date = moment(start);
-	target_date = moment([year, month]);
-	present = moment();
-	periods = target_date.diff(start_date, 'months');
-	var denom = 0;
-	for(i=0; i<periods; i++){
-		var val = Math.pow(1+r, periods-i);
-		denom += val;
-	};
-
-	investment = amount/denom;
-	return investment;
-}
 
 function monthlyInvestments(a, b) {
 	var curr_period = present.diff(start_date, 'months');
@@ -107,7 +88,7 @@ function monthLabels(a,b) {
 		curr+=1;
 	}
 	return labels;
-}
+};
 
 function datalength(){
 	var curr_period = present.diff(start_date, 'months');
@@ -126,7 +107,7 @@ function datalength(){
 	}
 
 	return [a,b]
-}
+};
 
 function drawChart() {
 	var vals = datalength();

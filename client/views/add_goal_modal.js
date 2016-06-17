@@ -1,6 +1,11 @@
 var currentSection = 1;
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
+var realismDep = new Tracker.Dependency;
+var targetPeriod = -1;
+var realisticPeriod = -1;
+var val = 0;
+
 Template.add_goal_modal.onRendered(function (gg) {
 	var id = this.data.gg._id;
 	$(window).on('closed.zf.reveal', function (sth) { 
@@ -104,11 +109,106 @@ Template.goal_modal.helpers({
 		else {
 			return "";
 		}
+	},
+
+	realismAmount: function(){
+		realismDep.depend();
+		console.log("Realism", realisticPeriod, targetPeriod);
+		if(targetPeriod==-1){
+			return "";
+		}
+
+		if(realisticPeriod>targetPeriod){
+			var r = Meteor.user().profile.return_rate;
+			var goalTable = Meteor.user().profile.goal_table;
+
+			var numsum = val;
+			var densum = 0;
+			for(var key in goalTable){
+				numsum+= parseFloat(goalTable[key]);
+			}
+
+			for(var i=0; i<targetPeriod; i++){
+				densum+= Math.pow(1+r, i);
+			}
+
+			var newval = numsum/densum;
+			console.log("num amt", numsum, densum, newval);
+			var str = "In order to reach this target, you need to top up $"+ parseFloat(Math.round(newval * 100) / 100).toFixed(2);
+			return str;
+		}else {
+			return "";
+		}
 	}
 
 });
 
 Template.goal_modal.events({
+	'change #amount': function (event, template) {
+		val = event.target.valueAsNumber;
+		var goalTable = Meteor.user().profile.goal_table;
+		var period = 1;
+		var r = Meteor.user().profile.return_rate;
+		var amount = parseFloat(Meteor.user().profile.amount);
+		var monthlyAdd = parseFloat(Meteor.user().profile.increment);
+		var totalRequire = Meteor.user().profile.total_require + val;
+		var goalReached = false;
+
+		while (!goalReached) {
+			if(period in goalTable){
+				amount = amount - goalTable[period.toString()] + monthlyAdd*(Math.pow(1+r,period-1));
+				totalRequire -= goalTable[period.toString()];
+			}else {
+				amount = amount + monthlyAdd*(Math.pow(1+r,period-1));
+			}
+			console.log(amount)
+			console.log(totalRequire)
+			if(amount>totalRequire){
+				goalReached= true;
+			}else {
+				period+=1;
+			}
+		}
+
+		console.log(period);
+		realisticPeriod = period;
+		var date = moment().add(period, 'M');
+		var month = date.month()+1;
+		var year = date.year();
+		$("#month").val(month)
+		$("#year").val(year);
+	},
+
+	"change #month": function(event, template){
+		var month = $("#month").val();
+		var year = $("#year").val();
+		var present = moment();
+		var date = moment([year, month]);
+		console.log("date changed", date);
+		targetPeriod = date.diff(present, 'months');
+		realismDep.changed();
+	},
+
+	"change #year": function(event, template){
+		var month = $("#month").val();
+		var year = $("#year").val();
+		var present = moment();
+		var date = moment([year, month]);
+		console.log("date changed", date);
+		targetPeriod = date.diff(present, 'months');
+		realismDep.changed();
+	},
+
+	"click #reset_date": function(){
+		var date = moment().add(realisticPeriod, 'M');
+		var month = date.month()+1;
+		var year = date.year();
+		$("#month").val(month)
+		$("#year").val(year);
+		targetPeriod = -1;
+		realismDep.changed();
+	},
+
 	"click .goal_category": function(){
 		categoryDep.changed();
 	},

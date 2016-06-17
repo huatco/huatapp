@@ -1,10 +1,10 @@
 <template name="goal">
 	<button class="button bucketlist"><i class="fa fa-chevron-left"></i> Back to Bucketlist</button>
 	<hr>
-	<h2>{{title}}</h2>
-	<p>{{details}}</p>
 	<div class="row">
 		<div class="small-12 large-8 columns">
+			<h2>{{title}}</h2>
+			<p>{{details}}</p>
 			{{>goalprogressChart}}
 		</div>
 		<div class="small-12 large-4 columns">
@@ -18,7 +18,7 @@
 				<button type="button" class="button edit_goal float-right"><i class="fa fa-pencil"></i></button>
 				<h5><strong>DETAILS</strong></h5>
 				<hr>
-				<p>Monthly Investment: ${{investment target_amount time_stamp goal_month goal_year}}</p>
+				<p>Monthly Investment: ${{investment _id}}</p>
 				<p>Created: {{createDate time_stamp}}</p>
 				<p>Target: {{targetDate goal_month goal_year}}</p>
 				<p>Category: {{category}}</p>

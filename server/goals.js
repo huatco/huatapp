@@ -50,6 +50,28 @@ if (Meteor.isServer) {
         }
       }
       console.log("Populated Goal catalog");
+
+      var monthly_requirement = 0
+      var total_requirement = 0
+      var goalTable = {}
+      var rate = returnRate()
+      var goals = Goals.find({user: Meteor.user().username})
+      goals.forEach(function(goal){
+        var amt = investmentAmt(goal.target_amount, goal.time_stamp, goal.goal_month, goal.goal_year, rate);
+        var p = targetPeriod(goal.goal_month, goal.goal_year);
+
+        (p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
+
+        monthly_requirement += amt;
+        total_requirement += parseFloat(goal.target_amount);
+
+        Goals.update({_id: goal._id}, {$set: {monthly_amt: amt}});
+      });
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.monthly_require": monthly_requirement}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.total_require": total_requirement}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.goal_table": goalTable}});
+      console.log(monthly_requirement);
     }, 
     call_python: function() {
       var fut = new Future();
@@ -72,7 +94,39 @@ if (Meteor.isServer) {
     },
   });
 
+};
+
+function investmentAmt(amount, start, month, year, r) {
+  var start_date = moment(start);
+  var target_date = moment([year, month]);
+  var periods = target_date.diff(start_date, 'months');
+  var denom = 0;
+  for(i=0; i<periods; i++){
+    var val = Math.pow(1+r, periods-i);
+    denom += val;
+  };
+
+  investment = amount/denom;
+  return investment;
+};
+
+function targetPeriod(month, year){
+  var present = moment();
+  var target = moment([year, month]);
+  var period = target.diff(present, 'months');
+  return period;
 }
 
-
+function returnRate() {
+    var score = Meteor.user()['profile']['riskscore'];
+    var r = 0;
+    if (score<=30) {
+        r = 0.05;
+    }else if(score<=60) {
+        r = 0.07;
+    }else {
+        r = 0.09;
+    }
+    return r/12;
+};
 
