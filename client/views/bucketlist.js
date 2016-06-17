@@ -57,6 +57,7 @@ var k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Na
      })
     Template.rec_goal.events({
         "click .rec_goal": function (t, e) {
+            Session.set("section", 2);
             Session.set("title", e.data.goal_item.goal);
             Session.set("category", e.data.category);
             

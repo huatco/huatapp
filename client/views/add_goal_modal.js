@@ -26,13 +26,11 @@ Template.add_goal_modal.onRendered(function () {
 });
 
 Template.add_goal_modal.onDestroyed(function () {
-	//this.myRevealInstance.stop();
-	Session.set("modal", false)
-	/*
-  let reveal = this.myRevealInstance;
-  if (reveal) {
-    reveal.destroy();
-  }*/
+	this.myRevealInstance.stop();
+	let reveal = this.myRevealInstance;
+	if (reveal) {
+		reveal.destroy();
+	}
 });
 
 Template.add_goal_modal.helpers({
@@ -40,13 +38,12 @@ Template.add_goal_modal.helpers({
 		goalAddDep.depend();
 		if (section<Session.get("section")) {
 			return "done";
-		} else if (section==Session.get("section")) {
+		} else if (section == Session.get("section")) {
 			return "active";
 		} else {
 			return null;
 		}
 	},
-	
 	statusIcon: function(section) {
 		goalAddDep.depend();
 		if (section<=Session.get("section")){
@@ -74,13 +71,12 @@ Template.goal_modal.helpers({
 	}, 
 	isActive: function(section){
 		goalAddDep.depend();
-		if (section === Session.get("section")){
+		if (section == Session.get("section")){
 			return "active";
 		} else {
 			return null;
 		}
 	},
-
 	submitValue: function(){
 		goalAddDep.depend();
 		if(Session.get("section")<4) {
@@ -89,7 +85,6 @@ Template.goal_modal.helpers({
 			return "submit";
 		}
 	},
-
 	isChecked: function (val) {
 		console.log(val);
 		categoryDep.depend();
@@ -100,7 +95,6 @@ Template.goal_modal.helpers({
 			return null;
 		}
 	},
-
 	predefinedTags: function(gg){
 		categoryDep.depend();
 		$(".tags").importTags('');
