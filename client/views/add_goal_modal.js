@@ -6,10 +6,15 @@ var targetPeriod = -1;
 var realisticPeriod = -1;
 var val = 0;
 
-Template.add_goal_modal.onRendered(function (gg) {
+Template.add_goal_modal.onRendered(function () {
 	var id = this.data.gg._id;
+	var category = this.data.category;
+	if (category) {
+		currentSection = 2;
+		Session.set("category", category);
+	}
 	$(window).on('closed.zf.reveal', function (sth) { 
-    	currentSection = 1;
+    	//currentSection = 1;
     	goalAddDep.changed();
     });
     $('#tags').tagsInput({
@@ -19,7 +24,6 @@ Template.add_goal_modal.onRendered(function (gg) {
     });
     var name = '#add_goal_modal' + id;
     this.myRevealInstance = new Foundation.Reveal($(name));
-    //this.dataslider = new Foundation.Slider($('.slider'));
 });
 
 Template.add_goal_modal.onDestroyed(function () {
@@ -227,7 +231,11 @@ Template.goal_modal.events({
 			var username = Meteor.user().username;
 			var title = event.target.form[8].value;
 			var desc = event.target.form[9].value;
-			var category = $("form input[type='radio']:checked").val();
+			if (Session.get("category")) {
+				var category = Session.get("category");
+			} else {
+				var category = $("form input[type='radio']:checked").val();
+			}	
 			var month = event.target.form[12].value;
 			var target_amt = event.target.form[11].value;
 			var year = event.target.form[13].value;
@@ -264,7 +272,7 @@ Template.goal_modal.events({
 					alert("Goal Added! " + title)
 					document.location.href = '/registration';
 				} else {
-					//alert("Goal Added! " + title)
+					alert("Goal Added! " + title)
 					document.location.href = '/bucketlist';
 				}
 			}else{

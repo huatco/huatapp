@@ -10,7 +10,7 @@ var k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Na
         goals: function () {
         if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
             document.location.href = '/registration'; 
-        var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
+        var this_user = Meteor.user().username;
         	return Goals.find({user: this_user});
         },
         keyword1: function(){
