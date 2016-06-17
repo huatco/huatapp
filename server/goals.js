@@ -119,12 +119,14 @@ function targetPeriod(month, year){
 
 function returnRate() {
     var score = Meteor.user()['profile']['riskscore'];
+    var r = 0;
     if (score<=30) {
-        return 0.05;
+        r = 0.05;
     }else if(score<=60) {
-        return 0.07;
+        r = 0.07;
     }else {
-        return 0.09;
+        r = 0.09;
     }
+    return r/12;
 };
 

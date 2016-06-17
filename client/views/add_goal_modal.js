@@ -122,7 +122,7 @@ Template.goal_modal.helpers({
 			var r = Meteor.user().profile.return_rate;
 			var goalTable = Meteor.user().profile.goal_table;
 
-			var numsum = 0;
+			var numsum = val;
 			var densum = 0;
 			for(var key in goalTable){
 				numsum+= parseFloat(goalTable[key]);
@@ -161,8 +161,8 @@ Template.goal_modal.events({
 			}else {
 				amount = amount + monthlyAdd*(Math.pow(1+r,period-1));
 			}
-			// console.log(amount)
-			// console.log(totalRequire)
+			console.log(amount)
+			console.log(totalRequire)
 			if(amount>totalRequire){
 				goalReached= true;
 			}else {
