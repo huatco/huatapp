@@ -1,20 +1,19 @@
-var currentSection = 1;
+Session.set("section", 1);
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
 var realismDep = new Tracker.Dependency;
 var targetPeriod = -1;
 var realisticPeriod = -1;
 var val = 0;
+k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
 	var id = this.data.gg._id;
-	var category = this.data.category;
-	if (category) {
-		currentSection = 2;
-		Session.set("category", category);
+	
+	if (Session.get("category")) {
+		Session.set("section", 2);
 	}
 	$(window).on('closed.zf.reveal', function (sth) { 
-    	//currentSection = 1;
     	goalAddDep.changed();
     });
     $('#tags').tagsInput({
@@ -39,9 +38,9 @@ Template.add_goal_modal.onDestroyed(function () {
 Template.add_goal_modal.helpers({
 	sectionStatus: function(section) {
 		goalAddDep.depend();
-		if (section<currentSection) {
+		if (section<Session.get("section")) {
 			return "done";
-		} else if (section==currentSection) {
+		} else if (section==Session.get("section")) {
 			return "active";
 		} else {
 			return null;
@@ -50,7 +49,7 @@ Template.add_goal_modal.helpers({
 	
 	statusIcon: function(section) {
 		goalAddDep.depend();
-		if (section<=currentSection){
+		if (section<=Session.get("section")){
 			return "fa-circle";
 		}else {
 			return "fa-circle-o";
@@ -59,9 +58,23 @@ Template.add_goal_modal.helpers({
 });
 
 Template.goal_modal.helpers({
+	title: function (e) {
+		return Session.get("title");
+	},
+	category: function (e) {
+		return Session.get("category");
+	}, 
+	categories: function (e) {
+		var kk = [];
+		for (var i = 0; i < k.length; i++){
+			kk.push({ k: k[i] });
+		}
+		console.log(kk);
+		return kk;
+	}, 
 	isActive: function(section){
 		goalAddDep.depend();
-		if (section == currentSection){
+		if (section === Session.get("section")){
 			return "active";
 		} else {
 			return null;
@@ -70,14 +83,15 @@ Template.goal_modal.helpers({
 
 	submitValue: function(){
 		goalAddDep.depend();
-		if(currentSection<4) {
+		if(Session.get("section")<4) {
 			return "button";
 		}else {
 			return "submit";
 		}
 	},
 
-	isChecked: function(val) {
+	isChecked: function (val) {
+		console.log(val);
 		categoryDep.depend();
 		currentVal = $("form input[type='radio']:checked").val();
 		if (val == currentVal){
@@ -219,13 +233,13 @@ Template.goal_modal.events({
 
 	"click .previous": function(event, template){
 		console.log("back button")
-		currentSection -= 1;
+		Session.set("section", Session.get("section") - 1);
 		goalAddDep.changed();
 	},
 	"click .next": function(event, template){
 		event.preventDefault();
-		if (currentSection<4){
-			currentSection += 1;
+		if (Session.get("section")<4){
+			Session.set("section", Session.get("section") + 1);
 			goalAddDep.changed();	
 		} else {
 			var username = Meteor.user().username;
@@ -283,5 +297,6 @@ Template.goal_modal.events({
 	},
 
 });
+
 
 

@@ -54,7 +54,14 @@ var k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Na
     });
     Template.recommendation.helpers({
         modal: function(){return true;}
-    })
+     })
+    Template.rec_goal.events({
+        "click .rec_goal": function (t, e) {
+            Session.set("title", e.data.goal_item.goal);
+            Session.set("category", e.data.category);
+            
+        }
+    });
     Template.bucket_goal.helpers({  
         progress_percent: function(goalid) {
         	var goal = Goals.findOne({_id: goalid});
