@@ -30,6 +30,15 @@ Template.registration.helpers({
 		regDep.depend();
 		if (Meteor.user()['profile']['account_status'])
 			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
+		if (Session.get("reg_state") == 2) {
+			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
+				Session.set("reg_state", 3); 
+									Meteor.users.update(Meteor.userId(), {$set: {
+						"profile.account_status": 3
+					}});
+				return true;
+			}
+		}
 		if (Session.get("reg_state") == 3) {
 			console.log("done");
 			return true;
@@ -40,6 +49,13 @@ Template.registration.helpers({
 		if (Meteor.user()['profile']['account_status'])
 			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
 		if (Session.get("reg_state") == 2) {
+			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
+				Session.set("reg_state", 3); 
+									Meteor.users.update(Meteor.userId(), {$set: {
+						"profile.account_status": 3
+					}});
+				return false;
+			}
 			console.log("goal");
 			return true;
 		} return false;

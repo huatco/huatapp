@@ -8,7 +8,7 @@ var k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Na
 
     Template.bucketlist.helpers({
         goals: function () {
-        if(!Meteor.user().profile || Meteor.user().profile.account_status<3)
+        if(!Meteor.user().profile || Session.get("reg_state") <3)
             document.location.href = '/registration'; 
         var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
         	return Goals.find({user: this_user});

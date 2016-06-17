@@ -254,15 +254,17 @@ Template.goal_modal.events({
 				}); 
 				console.log("Added a goal", title);
 				Meteor.call("call_python", function(error) {});
-				alert("Goal Added! " + title)
+				
 				if (Session.get("reg_state") == 2){
 					Session.set("reg_state", 3);
 					Meteor.users.update(Meteor.userId(), {$set: {
 						"profile.account_status": 3
 					}});
-					regDep.changed();
+					
+					alert("Goal Added! " + title)
 					document.location.href = '/registration';
-				}else {
+				} else {
+					//alert("Goal Added! " + title)
 					document.location.href = '/bucketlist';
 				}
 			}else{

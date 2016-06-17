@@ -56,15 +56,18 @@ Template.risk_profile.helpers ({
 		return questions[Session.get("step")];
 	},
 	bucket: function(){
-		return Meteor.user().profile.bucket;
+		return Session.get("bucket");
 	},
 	returns: function () {
 		var rates = [0.04, 0.05, 0.09, 0.08];
-		var bucket = Meteor.user()['profile']['bucket'];
-		return rates[bucket];
+		return rates[Session.get("bucket")];
 	},
 });
-
+function assign_bucket(risk_score) {
+	if (risk_score > 15) bucket = 1;
+	if (risk_score < -15) bucket = 3;
+	Session.set("bucket", bucket);
+}
 Template.risk_profile.events ({
 	"click .opt1": function () {
 		var step = Session.get("step");
@@ -72,6 +75,7 @@ Template.risk_profile.events ({
 			score += values[step - 10];
 		} else score += 5;
 		Session.set("step", Session.get("step") + 1);
+		assign_bucket(score);
 		questionDep.changed();
 	},
 	"click .opt2": function () {
@@ -80,20 +84,19 @@ Template.risk_profile.events ({
 			score -= values[step - 10];
 		} else score -= 5;
 		Session.set("step", Session.get("step") + 1);
+		assign_bucket(score);
 		questionDep.changed();
 	},
 	"click .submit_risk": function() {
 		var risk_score = score;
 		var bucket = 2;
-		if (risk_score > 15) bucket = 1;
-		if (risk_score < -15) bucket = 3;
+
 		Meteor.users.update(Meteor.userId(), {$set: {
 			"profile.riskscore": risk_score,
 			"profile.bucket": bucket, 
 			"profile.account_status": 2
 		}
 		});
-		//console.log("this");
 		Session.set("reg_state", Session.get("reg_state") + 1)
 		regDep.changed();
 	},
