@@ -64,8 +64,8 @@ Template.add_goal.events({
 
       Meteor.call("call_python", function(error) {});
 
-      if (reg_state==2){
-        reg_state+=1;
+      if (Session.get(goal) == true) {
+        Session.set(goal, false);
         regDep.changed();
       }else {
         document.location.href = '/bucketlist';

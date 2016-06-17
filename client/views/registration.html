@@ -9,11 +9,17 @@
 			{{> risk_profile}}
 		{{else}}
 			{{#if goal}}
-				<h1>Create your First Goal</h1>
-				{{> add_goal}}
-			{{else}}
+				<h1>
+				<a data-open="add_goal_modal">Click to create your First Goal</a>
+				</h1>
+				{{> add_goal_modal gg=goal_item}}
+			{{/if}}
+			{{#if done}}
 				<h1>Awesome</h1>
 				<h4>You are now ready to start investing in your goals.</h4>
+				<h4> Or you can 
+				<a data-open="add_goal_modal">Create another goal</a>
+				</h4>
 			{{/if}}
 		{{/if}}
 	{{/if}}

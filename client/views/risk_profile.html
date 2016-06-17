@@ -1,12 +1,12 @@
 <template name="risk_profile">
 	<div class="risk_profile">
 		{{#if question}}
-			<h3>{{question.title}}</h3>
-			<button type="button" class="button opt1">{{question.option1}}</button>
-			<button type="button" class="button opt2">{{question.option2}}</button>
+				<h3>{{question.title}}</h3>
+				<button type="button" class="button opt1">{{question.option1}}</button>
+				<button type="button" class="button opt2">{{question.option2}}</button>
 		{{else}}
-			<h3>Your Risk Score is:</h3>
-			<h2>{{riskscore}}</h2>
+			<h3>Your Risk bucket is:</h3>
+			<h2>Bucket {{bucket}}</h2>
 			<h3>Your average rate of returns will be:</h3>
 			<h2>{{returns}}</h2>
 			<button class="button submit_risk">Next</button>

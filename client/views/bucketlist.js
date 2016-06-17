@@ -1,25 +1,22 @@
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
-k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
-
-if (Meteor.isClient) {
+var k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
     Meteor.call("start_up", function(error){});
     var goal_count = 4;
     //var keys = ["Education", "Nature", "Sports"];
+
     Template.bucketlist.helpers({
         goals: function () {
-        	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
+        if(!Meteor.user().profile || Meteor.user().profile.account_status<3)
+            document.location.href = '/registration'; 
+        var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
         	return Goals.find({user: this_user});
         },
         keyword1: function(){
-            var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
+            var keys = Meteor.user().profile.rec_keywords;
             console.log(keys);
-
-            if(keys == undefined){
-                Meteor.users.update({username: Meteor.user().username}, {$set:{rec_keywords: k}});
-            }
-            else if(keys.length < 3){
+            if(keys == undefined || keys.length < 3){
                 Meteor.call("keyword_clean_up", function(e){});
             }
             return [
@@ -101,5 +98,5 @@ if (Meteor.isClient) {
         }
         return stringToShorten;
     });
-}
+
 

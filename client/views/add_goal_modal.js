@@ -123,7 +123,7 @@ Template.goal_modal.events({
 		if (currentSection<4){
 			currentSection += 1;
 			goalAddDep.changed();	
-		}else {
+		} else {
 			var username = Meteor.user().username;
 			var title = event.target.form[8].value;
 			var desc = event.target.form[9].value;
@@ -135,37 +135,40 @@ Template.goal_modal.events({
 			var tags = event.target.form[16].value.split(",");
 			var time_stamp = new Date();
 			if(Goals.find({user:username, title:title}).count()==0){
-	      Goals.insert({ 
-	      	title: title,
-	        time_stamp: time_stamp, 
-	        created_year: time_stamp.getYear(),
-	        created_month: time_stamp.getMonth(),   
-	        goal_month: month,
-	        goal_year: year, 
-	        priority: priority, 
-	        target_amount: target_amt, 
-	        current_amount: 0.0, 
-	        progress: 0,
-	        category: category,
-	        user: Meteor.user().username, 
-	        details: desc,
-	        current_time: 0,
-	        keywords: tags 
-	      }); 
-	      console.log("Added a goal", title);
-	      Meteor.call("call_python", function(error) {});
-	      alert("Goal Added! " + title)
-	    }else{
-	    	alert("goal repeated! ")
-	    }
-     
-      if (reg_state==2){
-        reg_state+=1;
-        regDep.changed();
-      }else {
-        document.location.href = '/bucketlist';
+				Goals.insert({ 
+					title: title,
+					time_stamp: time_stamp, 
+					created_year: time_stamp.getYear(),
+					created_month: time_stamp.getMonth(),   
+					goal_month: month,
+					goal_year: year, 
+					priority: priority, 
+					target_amount: target_amt, 
+					current_amount: 0.0, 
+					progress: 0,
+					category: category,
+					user: Meteor.user().username, 
+					details: desc,
+					current_time: 0,
+					keywords: tags 
+				}); 
+				console.log("Added a goal", title);
+				Meteor.call("call_python", function(error) {});
+				alert("Goal Added! " + title)
+				if (Session.get("reg_state") == 2){
+					Session.set("reg_state", 3);
+					Meteor.users.update(Meteor.userId(), {$set: {
+						"profile.account_status": 3
+					}});
+					regDep.changed();
+					document.location.href = '/registration';
+				}else {
+					document.location.href = '/bucketlist';
+				}
+			}else{
+				alert("goal repeated! ")
+			}
 
-      }
 		}
 	},
 
