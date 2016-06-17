@@ -1,6 +1,6 @@
 Template.portfolio.helpers({
     username: function () {
-        if(!Meteor.user().profile || Session.get("reg_state") <3)
+        if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
             document.location.href = '/registration'; 
 		return Meteor.user() && Meteor.user().username;
 	}, 

@@ -51,7 +51,7 @@ Template.registration.helpers({
 		if (Session.get("reg_state") == 2) {
 			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
 				Session.set("reg_state", 3); 
-									Meteor.users.update(Meteor.userId(), {$set: {
+					Meteor.users.update(Meteor.userId(), {$set: {
 						"profile.account_status": 3
 					}});
 				return false;
