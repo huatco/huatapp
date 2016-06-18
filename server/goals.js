@@ -1,18 +1,7 @@
-import {returnRate} from "../investment.js"
+import {returnRate, SAMPLE_GOALS, SAMPLE_KEYWORDS} from "../investment.js"
 
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
-k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
-g = [{"keyword": "Education",  "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund", "Go for an art class"]}
-    ,{"keyword": "Lifestyle",  "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert", "Travel by helicopter", "Stay in Japan for a month"]}
-    ,{"keyword": "Life Plans", "goals": ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', "Purchase our first home!", "have a kid"]}
-    ,{"keyword": "Life Milestone", "goals":  ["Buy Engagement Ring", "Pass Driving Test", "Have a kid", "Start a Family", "Buy my first car!"]}
-    ,{"keyword": "Sports",     "goals": ["Learn to Rock Climb", "Go to a Manchester United game", "Take up yoga", "Learn how to ballroom dance", "Go on diving trips"]}
-    ,{"keyword": "Nature",     "goals": ["Be on a boat during the sunset", "Camp on the Beach", "See the redwoods", "See Cherry Blossoms in Japan"]}
-    ,{"keyword": "Travel",     "goals": ["Visit the Christmas Markets in Germany", "Visit the Osaka Castle", "Visit Macau", "Visit England", "Hear Big Ben chime on the hour in London", "Visit Tanzania",  "See the paddy fields of Vietnam"]} 
-    ,{"keyword": "Skills",     "goals": ["Learn to Ride a Motorcycle", "Horseback riding", "Learn to play the Ukulele", "Take up Yoga"]}
-    ,{"keyword": "Fan activities", "goals": ["Go to all the Harry Potter locations", "Meet Mike Tyson"]}
-    ];
 
 if (Meteor.isServer) {
   var exec = Npm.require('child_process').exec;
@@ -23,27 +12,24 @@ if (Meteor.isServer) {
     recommendation: function(key){
       var keys = key[0];
       var dkeys = key[1];
-      console.log(keys);
-      console.log(dkeys);
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": keys}});
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": dkeys}}); 
-      console.log("called");
     },
 
     keyword_clean_up: function(){
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": k}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": SAMPLE_KEYWORDS}});
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
     },
 
     start_up: function () {
       //populate goal catalog if it's not already populated
-      for(var i=0;i<g.length;i++)
-          for (var j=0;j<g[i]["goals"].length;j++)
-            if (Goal_catalog.find({goal: g[i]["goals"][j]}).count()==0)
+      for(var i=0;i<SAMPLE_GOALS.length;i++)
+          for (var j=0;j<SAMPLE_GOALS[i]["goals"].length;j++)
+            if (Goal_catalog.find({goal: SAMPLE_GOALS[i]["goals"][j]}).count()==0)
               Goal_catalog.insert(
                 {
-                  "keywords": [g[i]["keyword"]],
-                "goal": g[i]["goals"][j], "clicks": 0,
+                  "keywords": [SAMPLE_GOALS[i]["keyword"]],
+                "goal": SAMPLE_GOALS[i]["goals"][j], "clicks": 0,
                 "A": 0, "B": 0, "C": 0
                 });
       
@@ -60,13 +46,11 @@ if (Meteor.isServer) {
 
         monthly_requirement += amt;
         total_requirement += parseFloat(goal.target_amount);
-
         Goals.update({_id: goal._id}, {$set: {monthly_amt: amt}});
       });
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate}});
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.monthly_require": monthly_requirement}});
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.total_require": total_requirement}});
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.goal_table": goalTable}});
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate,
+            "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
+            "profile.goal_table": goalTable}});
       console.log(monthly_requirement);
     }, 
 

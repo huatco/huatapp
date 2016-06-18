@@ -224,19 +224,32 @@ Template.goal_modal.events({
 			goalAddDep.changed();	
 		} else {
 			var username = Meteor.user().username;
-			var title = event.target.form[8].value;
-			var desc = event.target.form[9].value;
+			
+			var title = $('#title').val();
+			var desc = $('#description').val();
+			//var category = $("form input[type='radio']:checked").val();
+			var target_amt = $('#amount').val();
+			var month = $('#month').val();
+			var year = $('#year').val();
+			//var priority = $('#slider').attr('aria-valuenow');
+			var tags = $('#tags').val();
+			
+			//var title = event.target.form[8].value;
+			//var desc = event.target.form[9].value;
 			if (Session.get("category")) {
 				var category = Session.get("category");
 			} else {
 				var category = $("form input[type='radio']:checked").val();
 			}	
-			var month = event.target.form[12].value;
-			var target_amt = event.target.form[11].value;
-			var year = event.target.form[13].value;
+			//var month = event.target.form[12].value;
+			//var target_amt = event.target.form[11].value;
+			//var year = event.target.form[13].value;
 			var priority = $("#points")[0].value;
-			var tags = event.target.form[16].value.split(",");
+			//var tags = event.target.form[16].value.split(",");
 			var time_stamp = new Date();
+			console.log("title", title);
+			console.log("desc", desc);
+			console.log("target_amount", target_amt);
 			if(Goals.find({user:username, title:title}).count()==0){
 				Goals.insert({ 
 					title: title,
