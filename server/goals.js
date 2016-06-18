@@ -1,10 +1,20 @@
+import {returnRate} from "../investment.js"
+
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
-
+g = [{"keyword": "Education",  "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund", "Go for an art class"]}
+    ,{"keyword": "Lifestyle",  "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert", "Travel by helicopter", "Stay in Japan for a month"]}
+    ,{"keyword": "Life Plans", "goals": ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', "Purchase our first home!", "have a kid"]}
+    ,{"keyword": "Life Milestone", "goals":  ["Buy Engagement Ring", "Pass Driving Test", "Have a kid", "Start a Family", "Buy my first car!"]}
+    ,{"keyword": "Sports",     "goals": ["Learn to Rock Climb", "Go to a Manchester United game", "Take up yoga", "Learn how to ballroom dance", "Go on diving trips"]}
+    ,{"keyword": "Nature",     "goals": ["Be on a boat during the sunset", "Camp on the Beach", "See the redwoods", "See Cherry Blossoms in Japan"]}
+    ,{"keyword": "Travel",     "goals": ["Visit the Christmas Markets in Germany", "Visit the Osaka Castle", "Visit Macau", "Visit England", "Hear Big Ben chime on the hour in London", "Visit Tanzania",  "See the paddy fields of Vietnam"]} 
+    ,{"keyword": "Skills",     "goals": ["Learn to Ride a Motorcycle", "Horseback riding", "Learn to play the Ukulele", "Take up Yoga"]}
+    ,{"keyword": "Fan activities", "goals": ["Go to all the Harry Potter locations", "Meet Mike Tyson"]}
+    ];
 
 if (Meteor.isServer) {
-  //Goals.remove({});
   var exec = Npm.require('child_process').exec;
   var Fiber = Npm.require('fibers');
   var Future = Npm.require('fibers/future');
@@ -19,38 +29,24 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": dkeys}}); 
       console.log("called");
     },
+
     keyword_clean_up: function(){
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": k}});
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
     },
-    start_up: function() {
-      g = [{"keyword": "Education",  "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund", "Go for an art class"]}
-          ,{"keyword": "Lifestyle",  "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert", "Travel by helicopter", "Stay in Japan for a month"]}
-          ,{"keyword": "Life Plans", "goals": ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', "Purchase our first home!", "have a kid"]}
-          ,{"keyword": "Life Milestone", "goals":  ["Buy Engagement Ring", "Pass Driving Test", "Have a kid", "Start a Family", "Buy my first car!"]}
-          ,{"keyword": "Sports",     "goals": ["Learn to Rock Climb", "Go to a Manchester United game", "Take up yoga", "Learn how to ballroom dance", "Go on diving trips"]}
-          ,{"keyword": "Nature",     "goals": ["Be on a boat during the sunset", "Camp on the Beach", "See the redwoods", "See Cherry Blossoms in Japan"]}
-          ,{"keyword": "Travel",     "goals": ["Visit the Christmas Markets in Germany", "Visit the Osaka Castle", "Visit Macau", "Visit England", "Hear Big Ben chime on the hour in London", "Visit Tanzania",  "See the paddy fields of Vietnam"]} 
-          ,{"keyword": "Skills",     "goals": ["Learn to Ride a Motorcycle", "Horseback riding", "Learn to play the Ukulele", "Take up Yoga"]}
-          ,{"keyword": "Fan activities", "goals": ["Go to all the Harry Potter locations", "Meet Mike Tyson"]}
-          ];
-          //Keywords.remove({});
-      for(var i=0;i<g.length;i++){
-        for (var j=0;j<g[i]["goals"].length;j++){
-          if (Goal_catalog.find({goal: g[i]["goals"][j]}).count()==0){
-            Goal_catalog.insert({
-              "keywords": [g[i]["keyword"]],
-              "goal": g[i]["goals"][j],
-              "clicks": 0,
-              "A": 0,
-              "B": 0,
-              "C": 0
-            });
-          }
-        }
-      }
-      console.log("Populated Goal catalog");
 
+    start_up: function () {
+      //populate goal catalog if it's not already populated
+      for(var i=0;i<g.length;i++)
+          for (var j=0;j<g[i]["goals"].length;j++)
+            if (Goal_catalog.find({goal: g[i]["goals"][j]}).count()==0)
+              Goal_catalog.insert(
+                {
+                  "keywords": [g[i]["keyword"]],
+                "goal": g[i]["goals"][j], "clicks": 0,
+                "A": 0, "B": 0, "C": 0
+                });
+      
       var monthly_requirement = 0
       var total_requirement = 0
       var goalTable = {}
@@ -73,6 +69,7 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.goal_table": goalTable}});
       console.log(monthly_requirement);
     }, 
+
     call_python: function() {
       var fut = new Future();
       var allocation;
@@ -97,6 +94,9 @@ if (Meteor.isServer) {
 };
 
 function investmentAmt(amount, start, month, year, r) {
+  /*
+  r: rate of return
+  */
   var start_date = moment(start);
   var target_date = moment([year, month]);
   var periods = target_date.diff(start_date, 'months');
@@ -104,8 +104,7 @@ function investmentAmt(amount, start, month, year, r) {
   for(i=0; i<periods; i++){
     var val = Math.pow(1+r, periods-i);
     denom += val;
-  };
-
+  }
   investment = amount/denom;
   return investment;
 };
@@ -117,16 +116,5 @@ function targetPeriod(month, year){
   return period;
 }
 
-function returnRate() {
-    var score = Meteor.user()['profile']['riskscore'];
-    var r = 0;
-    if (score<=30) {
-        r = 0.05;
-    }else if(score<=60) {
-        r = 0.07;
-    }else {
-        r = 0.09;
-    }
-    return r/12;
-};
+
 

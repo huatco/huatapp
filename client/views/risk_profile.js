@@ -1,7 +1,6 @@
+import {assign_bucket, RATES} from "../../investment.js"
 var score = 0;
-Session.set({
-	step: 0
-});
+Session.set({"step": 0, "bucket": 1});
 var q2 = [
 	{
 		title: "When looking for a job, what do you look for?",
@@ -45,13 +44,13 @@ for (var i = 0; i < 9; i++){
 				  per1 + "% chance of getting " + B + " dollars."
 	})
 }
+
 var values = [5, 3, 3, 4, 5];
 var questionDep = new Tracker.Dependency;
 var questions = q1.concat(q2, q1);	
 
 Template.risk_profile.helpers ({
 	question: function(){
-		console.log("score:"+score);
 		questionDep.depend();
 		return questions[Session.get("step")];
 	},
@@ -59,49 +58,39 @@ Template.risk_profile.helpers ({
 		return Session.get("bucket");
 	},
 	returns: function () {
-		var rates = [0.04, 0.05, 0.09, 0.08];
-		return rates[Session.get("bucket")];
+		return RATES[Session.get("bucket")];
 	},
 });
-function assign_bucket(risk_score) {
-	if (risk_score > 15) bucket = 1;
-	if (risk_score < -15) bucket = 3;
-	Session.set("bucket", bucket);
-}
 Template.risk_profile.events ({
 	"click .opt1": function () {
 		var step = Session.get("step");
-		if (step >= 10 && step <= 14) {
-			score += values[step - 10];
-		} else score += 5;
+		if (step >= 10 && step <= 14) score += values[step - 10];
+		else score += 5;
 		Session.set("step", Session.get("step") + 1);
-		assign_bucket(score);
+		Session.set("bucket", assign_bucket(score)); 
+		
 		questionDep.changed();
 	},
 	"click .opt2": function () {
 		var step = Session.get("step");
-		if (step >= 10 && step <= 14) {
-			score -= values[step - 10];
-		} else score -= 5;
+		if (step >= 10 && step <= 14) score -= values[step - 10];
+		else score -= 5;
 		Session.set("step", Session.get("step") + 1);
-		assign_bucket(score);
+
+		Session.set("bucket", assign_bucket(score)); 
+	
 		questionDep.changed();
 	},
 	"click .submit_risk": function() {
 		var risk_score = score;
-		var bucket = 2;
-
+		var bucket = assign_bucket(risk_score);
 		Meteor.users.update(Meteor.userId(), {$set: {
 			"profile.riskscore": risk_score,
 			"profile.bucket": bucket, 
 			"profile.account_status": 2
 		}
 		});
-		Session.set("reg_state", Session.get("reg_state") + 1)
+		Session.set("reg_state", 2);
 		regDep.changed();
 	},
-	"click .submit_risk1": function () {
-		
-		regDep.changed();
-	}
 });

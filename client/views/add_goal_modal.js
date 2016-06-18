@@ -8,11 +8,7 @@ var val = 0;
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
-	var id = this.data.gg._id;
-	
-	if (Session.get("category")) {
-		Session.set("section", 2);
-	}
+	if (Session.get("category")) Session.set("section", 2);
 	$(window).on('closed.zf.reveal', function (sth) { 
     	goalAddDep.changed();
     });
@@ -21,7 +17,7 @@ Template.add_goal_modal.onRendered(function () {
     	'placeholderColor': '#e50b4f',
     	'defaultText':'Add a Tag'
     });
-    var name = '#add_goal_modal' + id;
+    var name = '#add_goal_modal';
     this.myRevealInstance = new Foundation.Reveal($(name));
 });
 
@@ -66,34 +62,26 @@ Template.goal_modal.helpers({
 		for (var i = 0; i < k.length; i++){
 			kk.push({ k: k[i] });
 		}
-		console.log(kk);
 		return kk;
 	}, 
 	isActive: function(section){
 		goalAddDep.depend();
-		if (section == Session.get("section")){
+		if (section == Session.get("section"))
 			return "active";
-		} else {
-			return null;
-		}
+		return null;
 	},
 	submitValue: function(){
 		goalAddDep.depend();
-		if(Session.get("section")<4) {
-			return "button";
-		}else {
-			return "submit";
-		}
+		if(Session.get("section")<4)  return "button";
+		return "submit";
 	},
+
 	isChecked: function (val) {
 		console.log(val);
 		categoryDep.depend();
 		currentVal = $("form input[type='radio']:checked").val();
-		if (val == currentVal){
-			return "active";
-		}else {
-			return null;
-		}
+		if (val == currentVal)return "active";
+		return null;
 	},
 	predefinedTags: function(gg){
 		categoryDep.depend();
@@ -129,7 +117,6 @@ Template.goal_modal.helpers({
 		if(targetPeriod==-1){
 			return "";
 		}
-
 		if(realisticPeriod>targetPeriod){
 			var r = Meteor.user().profile.return_rate;
 			var goalTable = Meteor.user().profile.goal_table;
