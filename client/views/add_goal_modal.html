@@ -26,11 +26,11 @@
       <fieldset class="{{isActive 1}}">
         <h2>Select a Category</h2>
       <div class="row">
-        {{#each categories}}
+        {{#each k in categories}}
         <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked k}}">
-            <input type="radio" name="category" value="{{k}}"/>
-            <i class="fa fa-child"></i>{{k}}
+          <label onclick="" class="goal_category {{isChecked k.title}}">
+            <input type="radio" name="category" value="{{k.title}}"/>
+            <i class="fa {{k.icon}}"></i>{{k.title}}
           </label>
         </div>
         {{/each}}
@@ -39,7 +39,7 @@
       <fieldset class="{{isActive 2}}">
         <h2>What do you want to achieve?</h2>
       <div class="row">
-        <label>Title of Goal<input type="text" id="title" placeholder={{title}} required value={{title}}></label>
+        <label>Title of Goal<input type="text" id="title" placeholder="Name of your goal" required value={{title}}></label>
       </div>
       <div class="row">
         <label>Description

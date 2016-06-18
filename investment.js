@@ -23,4 +23,14 @@ export const SAMPLE_GOALS = [{"keyword": "Education",  "goals": ["Finish masters
     ,{"keyword": "Fan activities", "goals": ["Go to all the Harry Potter locations", "Meet Mike Tyson"]}
     ];
 
-export const SAMPLE_KEYWORDS = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
+export const SAMPLE_KEYWORDS = [
+    {title: "Education", icon: "fa-book"},
+    {title: "Lifestyle", icon: "fa-shopping-bag"}, 
+    {title: "Life Plans", icon: "fa-home"},
+    {title: "Life Milestone", icon: "fa-trophy"},
+    {title: "Sports", icon: "fa-soccer-ball-o"}, 
+    {title: "Nature", icon: "fa-tree"}, 
+    {title: "Travel", icon: "fa-plane"}, 
+    {title: "Skills", icon: "fa-laptop"}, 
+    {title: "Fan activities", icon: "fa-star"}
+    ];

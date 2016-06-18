@@ -9,21 +9,23 @@
 	<!-- Recommendation section -->
 	<h1>Recommended for you </h1>
 	<hr>
-	{{#each keyword1}}
 		{{> recommendation}}
-	{{/each}}
 </template>
 
 
 <template name="recommendation">
-	<div class="bucket_goal">
-		<button type="button" class="button deletekey1 float-right"><i class="fa fa-trash-o"></i></button>
-		<h3>{{k}}</h3>
-			{{#each goal_item in g}}
-				{{> rec_goal goal_item=goal_item category=k}}
-			{{/each}}
-	</div>
+	{{#each key in keyword1}}
+		<div class="bucket_goal">
+			<button type="button" class="button deletekey1 float-right"><i class="fa fa-trash-o"></i></button>
+			<h4>{{key.k}}</h4>
+				{{#each goal_item in key.g}}
+					{{> rec_goal goal_item=goal_item category=key.k}}
+				{{/each}}
+		</div>
+	{{/each}}
 </template>
+
+
 
 <template name="rec_goal">
 	<li><a data-open="add_goal_modal" class="rec_goal">{{goal_item.goal}}</a></li> 

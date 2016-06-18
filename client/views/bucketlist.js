@@ -6,48 +6,45 @@ var goal_display_count = 4;
 
 Template.bucketlist.helpers({
     goals: function () {
-    if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
-        document.location.href = '/registration'; 
-    var this_user = Meteor.user().username;
-        return Goals.find({user: this_user});
+        if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
+            document.location.href = '/registration'; 
+        var this_user = Meteor.user().username;
+            return Goals.find({user: this_user});
     },
-    keyword1: function(){
-        var keys = Meteor.user().profile.rec_keywords;
-        if(keys == undefined || keys.length < 3){
-            Meteor.call("keyword_clean_up", function(e){});
-        }
-        return [
-            {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_display_count})},
-            {k: keys[1], g: Goal_catalog.find({keywords: keys[1]}, {skip: 0, limit: goal_display_count})},
-            { k: keys[2], g: Goal_catalog.find({ keywords: keys[2] }, { skip: 0, limit: goal_display_count }) }
-        ];
-    }
 });
 
-
-    Template.bucketlist.events({
+Template.bucketlist.events({
     "click .deletekey1": function(event, template) {
-        
         var keyword = this.k;
-
         var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
         var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
         if(dkeys == undefined) dkeys = [];
         dkeys.push(keyword);
         var index = keys.indexOf(keyword);
         keys.splice(index, 1);
-        /*
-        Meteor.users.update({_id: Meteor.user()._id}, {$set: {rec_keywords: keys}});
-        Meteor.users.update({_id: Meteor.user()._id}, {$set: {dislike_keywords: dkeys}});
-        */
         Meteor.call("recommendation", [keys, dkeys], function(error) {});
         var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
         var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
     }
 });
+
 Template.recommendation.helpers({
-    modal: function(){return true;}
-    })
+    modal: function () { return true; },
+    keyword1: function(){
+        var keys = Meteor.user().profile.rec_keywords;
+        if(keys == undefined || keys.length < 3){
+            Meteor.call("keyword_clean_up", function(e){});
+        }
+        keys = Meteor.user().profile.rec_keywords;
+        console.log("keys", keys);
+        return [
+            {k: keys[0].title, g: Goal_catalog.find({keywords: keys[0].title}, {skip: 0, limit: goal_display_count})},
+            {k: keys[1].title, g: Goal_catalog.find({keywords: keys[1].title}, {skip: 0, limit: goal_display_count})},
+            { k: keys[2].title, g: Goal_catalog.find({ keywords: keys[2].title }, { skip: 0, limit: goal_display_count }) }
+        ];
+    }
+})
+
 Template.rec_goal.events({
     "click .rec_goal": function (t, e) {
         Session.set("section", 2);

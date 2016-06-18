@@ -11,6 +11,8 @@
 			{{#if goal}}
 				<h1>
 				<a data-open="add_goal_modal">Click to create your First Goal</a>
+				<hr>
+				{{> recommendation}}
 				</h1>
 				{{> add_goal_modal gg=goal_item}}
 			{{/if}}
@@ -37,14 +39,15 @@
 		</div>
 		<div class="row">
 		    <div class="large-6 columns">
-		      	<label>Monthly Disposable Income (in SGD)<input type="number" placeholder="$$ 1000.00" name="income" /></label>
+		      	<label>Monthly Disposable Income (in SGD)<input type="number" placeholder="3000.00" name="income" /></label>
 		    </div>
 		</div>
 		<div class="row">
 		    <div class="large-6 columns">
-		      	<label>Average Monthly Expenditure(in SGD)<input type="number" placeholder="$$ 700.00" name="expenditure" /></label>
+		      	<label>Average Monthly Expenditure(in SGD)<input type="number" placeholder="2000.00" name="expenditure" /></label>
 		    </div>
 		</div>
+		<!--
 		<div class="row">
 		    <div class="large-6 columns">
 		      	<label>Initial Deposit Amount (in SGD)<input type="number" placeholder="$$ 1000.00" name="deposit" /></label>
@@ -55,6 +58,7 @@
 		      	<label>Monthly Increment Amount (in SGD)<input type="number" placeholder="$$ 100.00" name="increment" /></label>
 		    </div>
 		</div>
+		-->
 		<div class="row">
 		  	<input class="button" type="submit" value="Next">
 		</div>

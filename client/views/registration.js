@@ -70,10 +70,10 @@ Template.basic_info.events({
       	event.preventDefault();
 
       	var gender = event.target.gender.value;
-      	var income = event.target.income.value;
-      	var expenditure = event.target.expenditure.value;
-      	var deposit = event.target.deposit.value;
-      	var increment = event.target.increment.value;
+      	var income = event.target.income.value || 0.0;
+      	var expenditure = event.target.expenditure.value || 0.0;
+      	var deposit = event.target.deposit ? event.target.deposit.value : 0.0;
+      	var increment = event.target.increment ? event.target.increment.value : 0.0;
       	var input_valid = true;
       	Meteor.users.update(Meteor.userId(), {$set: {
       		"profile.gender": gender,

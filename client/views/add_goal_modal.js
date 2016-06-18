@@ -1,3 +1,4 @@
+import {SAMPLE_KEYWORDS} from "../../investment.js"
 Session.set("section", 1);
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
@@ -58,11 +59,7 @@ Template.goal_modal.helpers({
 		return Session.get("category");
 	}, 
 	categories: function (e) {
-		var kk = [];
-		for (var i = 0; i < k.length; i++){
-			kk.push({ k: k[i] });
-		}
-		return kk;
+		return SAMPLE_KEYWORDS;
 	}, 
 	isActive: function(section){
 		goalAddDep.depend();
@@ -152,7 +149,7 @@ Template.goal_modal.events({
 		var monthlyAdd = parseFloat(Meteor.user().profile.increment);
 		var totalRequire = Meteor.user().profile.total_require + val;
 		var goalReached = false;
-
+		monthlyAdd = 100;
 		while (!goalReached) {
 			if(period in goalTable){
 				amount = amount - goalTable[period.toString()] + monthlyAdd*(Math.pow(1+r,period-1));
