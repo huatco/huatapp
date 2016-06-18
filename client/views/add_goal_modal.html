@@ -26,30 +26,20 @@
       <fieldset class="{{isActive 1}}">
         <h2>Select a Category</h2>
       <div class="row">
+        {{#each categories}}
         <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Life'}}"><input type="radio" name="category" value="Life"/><i class="fa fa-child"></i>Life</label>
+          <label onclick="" class="goal_category {{isChecked k}}">
+            <input type="radio" name="category" value="{{k}}"/>
+            <i class="fa fa-child"></i>{{k}}
+          </label>
         </div>
-        <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Education'}}"><input type="radio" name="category" value="Education"/><i class="fa fa-graduation-cap"></i>Education</label>
-        </div>
-        <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Fitness'}}"><input type="radio" name="category" value="Fitness"/><i class="fa fa-heartbeat"></i>Fitness</label>
-        </div>
-        <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Travel'}}"><input type="radio" name="category" value="Travel"/><i class="fa fa-plane"></i>Travel</label>
-        </div>
-        <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Milestone'}}"><input type="radio" name="category" value="Milestone"/><i class="fa fa-trophy"></i>Milestone</label>
-        </div>
-        <div class="small-4 columns">
-          <label onclick="" class="goal_category {{isChecked 'Hobbies'}}"><input type="radio" name="category" value="Hobbies"/><i class="fa fa-soccer-ball-o"></i>Hobbies</label>
-        </div>
+        {{/each}}
       </div>
     </fieldset>
       <fieldset class="{{isActive 2}}">
         <h2>What do you want to achieve?</h2>
       <div class="row">
-        <label>Title of Goal<input type="text" id="title" placeholder={{gg.goal}} required value={{gg.goal}}></label>
+        <label>Title of Goal<input type="text" id="title" placeholder={{title}} required value={{title}}></label>
       </div>
       <div class="row">
         <label>Description
@@ -109,7 +99,7 @@
         </div>
         <div class="row">
           <label>Tags</label>
-          <input name="tags{{gg._id}}" class="tags" id="tags" value="{{predefinedTags gg._id}}" />
+          <input name="tags" class="tags" id="tags" value="{{predefinedTags gg._id}}" />
         </div>
       </fieldset>
       <button type="button" class="button previous"><i class="fa fa-chevron-left"></i>Back</button>

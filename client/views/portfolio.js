@@ -1,23 +1,28 @@
 Template.portfolio.helpers({
-	username: function () {
+    username: function () {
+        if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
+            document.location.href = '/registration'; 
 		return Meteor.user() && Meteor.user().username;
 	}, 
     goals: function () {
-    	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
+    	var this_user = Meteor.user().username;
     	return Goals.find({user: this_user});
     },
     amount: function(){
-    	return Meteor.user()['profile']['amount'];
+    	return Meteor.user().profile.amount;
     },
     riskscore: function(){
-        return Meteor.user()['profile']['riskscore'];
+        return Meteor.user().profile.riskscore;
     },
     returnRate: function(){
         var rate =  returnRate();
         return rate;
     }
 });
-
+Template.portfolio.onRendered(function () {
+if(!Meteor.user().profile || Meteor.user().profile.account_status<3)
+    document.location.href = '/registration'; 
+});
 
 Template.returnsChart.onRendered( function(){
     drawChart();

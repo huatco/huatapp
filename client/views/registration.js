@@ -1,45 +1,69 @@
-reg_state = 0;
+Session.set({ "reg_state": 0 });
 regDep = new Tracker.Dependency;
 
 Template.registration.helpers({
-	basic: function() {
+	basic: function () {
 		regDep.depend();
-		if (reg_state==0){
+		if (!Meteor.user().profile) return true;
+		if (Meteor.user()['profile']['account_status'])
+			Session.set("reg_state", Meteor.user()['profile']['account_status']);
+		else return true;
+		if (Session.get("reg_state") == 0) {
+			console.log("basic");
 			return true;
-		}
-		else {
-			return false;
-		};
+		} console.log(this);
+		return false;
 	},
-
+	goal_item: function () {
+    	return { goal: "A goal which enriches your life", _id: "" };
+  	},
 	risk: function() {
 		regDep.depend();
-		if (reg_state==1){
+		if (Meteor.user()['profile']['account_status'])
+			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
+		if (Session.get("reg_state") == 1) {
+			console.log("risk");
 			return true;
-		}
-		else {
-			return false;
-		};
+		} return false;
 	},
-
+	done: function () {
+		regDep.depend();
+		if (Meteor.user()['profile']['account_status'])
+			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
+		if (Session.get("reg_state") == 2) {
+			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
+				Session.set("reg_state", 3); 
+									Meteor.users.update(Meteor.userId(), {$set: {
+						"profile.account_status": 3
+					}});
+				return true;
+			}
+		}
+		if (Session.get("reg_state") == 3) {
+			console.log("done");
+			return true;
+		} return false;
+	}, 
 	goal: function() {
 		regDep.depend();
-		if (reg_state==2){
+		if (Meteor.user()['profile']['account_status'])
+			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
+		if (Session.get("reg_state") == 2) {
+			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
+				Session.set("reg_state", 3); 
+					Meteor.users.update(Meteor.userId(), {$set: {
+						"profile.account_status": 3
+					}});
+				return false;
+			}
+			console.log("goal");
 			return true;
-		}
-		else {
-			return false;
-		};
+		} return false;
 	},
 
 });
 
-Template.registration.events({
-	"click .next": function() {
-		reg_state += 1;
-		regDep.changed();
-	},
-})
+
 
 Template.basic_info.events({
 	"submit .basic_info": function(event) {
@@ -56,10 +80,11 @@ Template.basic_info.events({
       		"profile.income": income,
       		"profile.expenditure": expenditure,
       		"profile.amount": deposit,
-      		"profile.increment": increment,
+			"profile.increment": increment,
+			"profile.account_status": 1
       	}});
 
-      	reg_state += 1;
+		Session.set("reg_state", Session.get("reg_state") + 1);
 		regDep.changed();
 
 		return false;

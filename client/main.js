@@ -57,3 +57,11 @@ Template.topbar.helpers({
     return Meteor.user() && Meteor.user().username;
   }, 
 });
+
+Template.topbar.events({
+  "click .add_goal": function () {
+    Session.set("section", 1);
+    Session.set("title", "");
+    Session.set("category", "");
+  },
+})

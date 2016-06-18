@@ -4,11 +4,13 @@ Goals = new Mongo.Collection("goals");
 
 Template.dashboard.helpers({
 	username: function () {
+		if(!Meteor.user().profile || Meteor.user().profile.account_status < 3)
+            document.location.href = '/registration'; 
 		return Meteor.user() && Meteor.user().username;
 	}, 
 
     goals: function () {
-    	var this_user = Meteor.user() ? Meteor.user().username : "test_user1";
+		var this_user = Meteor.user().username;
     	return Goals.find({user: this_user}, {sort: {progress: -1}, limit:3});
     },
 
@@ -41,8 +43,11 @@ Template.goalchart.onCreated(function(){
 Template.goalchart.onRendered( function() {
 	var value = this.goal;
 	console.log(value);
-  	drawChart(value);
-	
+	drawChart(value);
+
+	if(!Meteor.user().profile || Meteor.user().profile.account_status<3)
+		document.location.href = '/registration'; 
+		
 });
 
 

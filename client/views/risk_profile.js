@@ -1,40 +1,21 @@
+import {assign_bucket, RATES} from "../../investment.js"
 var score = 0;
-var stepcount = 0;
-var questions = [
+Session.set({"step": 0, "bucket": 1});
+var q2 = [
 	{
-		title: "I prefer a job with",
-		option1: "Fixed Wage",
-		option2: "Variable Commission"
+		title: "When looking for a job, what do you look for?",
+		option1: "High-paying start-up job",
+		option2: "Low-paying multinational corporations"
 	},
 	{
-		title: "I would rather have",
-		option1: "Stable and Secure Job",
-		option2: "High Paying Risky Job"
-	},
-	{
-		title: "When studying for an exam, I usually",
-		option1: "Spend equal time on all topics",
-		option2: "Prioritise on the topics more likely tested"
-	},
-	{
-		title: "I would prefer working in a",
-		option1: "Multi National Company",
-		option2: "Startup"
-	},
-	{
-		title: "When I think of risk, I think of",
-		option1: "Danger",
-		option2: "Thrill"
-	},
+		title: "Would you invest 10% of your savings/yearly income in a startup?", 
+		option1: "Yes",
+		option2: "No"
+	}, 
 	{
 		title: "When going on holiday, I would go",
 		option1: "For a Package Tour",
 		option2: "Free and Easy"
-	},
-	{
-		title: "I'd much rather eat at a",
-		option1: "Food Court",
-		option2: "Hawker Centre"
 	},
 	{
 		title: "My company is laying off employees. I see this as",
@@ -45,53 +26,71 @@ var questions = [
 		title: "I just inherited a $100k property. By next year, the value might be $150k or $50k with an equal chance. I would",
 		option1: "Sell it immediately",
 		option2: "Hold for a year"
-	},
-	{
-		title: "I like to engage in",
-		option1: "Recreational Activities",
-		option2: "Competetive Activities"
-	},
+	}
 ];
+var x = 0.5;
+var y = 5;
+var A = 10;
+var B = 0.05;
+var q1 = [];
+for (var i = 0; i < 9; i++){
+	var per1 = i * 10 + 10;
+	var per2 = 100 - per1;
+	q1.push({
+		title: "Choose one of two bets:",
+		option1: "" + per1 + "% chance of getting " + x + " dollars; \n" +
+				  per2 + "% chance of getting " + y + " dollars.", 
+		option2: "" + per2 + "% chance of getting " + A + " dollars; \n" +
+				  per1 + "% chance of getting " + B + " dollars."
+	})
+}
+
+var values = [5, 3, 3, 4, 5];
 var questionDep = new Tracker.Dependency;
+var questions = q1.concat(q2, q1);	
 
 Template.risk_profile.helpers ({
 	question: function(){
-		console.log("score:"+score);
 		questionDep.depend();
-		return questions[stepcount];
+		return questions[Session.get("step")];
 	},
-	riskscore: function(){
-		var val = (score/10) * 100;
-		return val;
+	bucket: function(){
+		return Session.get("bucket");
 	},
-	returns: function(){
-		var score = Meteor.user()['profile']['riskscore'];
-	    if (score<=30) {
-	        return 0.05;
-	    }else if(score<=60) {
-	        return 0.07;
-	    }else {
-	        return 0.09;
-	    }
+	returns: function () {
+		return RATES[Session.get("bucket")];
 	},
 });
-
 Template.risk_profile.events ({
-	"click .opt1": function() {
-		stepcount += 1;
+	"click .opt1": function () {
+		var step = Session.get("step");
+		if (step >= 10 && step <= 14) score += values[step - 10];
+		else score += 5;
+		Session.set("step", Session.get("step") + 1);
+		Session.set("bucket", assign_bucket(score)); 
+		
 		questionDep.changed();
 	},
-	"click .opt2": function() {
-		score +=1
-		stepcount += 1;
+	"click .opt2": function () {
+		var step = Session.get("step");
+		if (step >= 10 && step <= 14) score -= values[step - 10];
+		else score -= 5;
+		Session.set("step", Session.get("step") + 1);
+
+		Session.set("bucket", assign_bucket(score)); 
+	
 		questionDep.changed();
 	},
 	"click .submit_risk": function() {
-		var risk_score = (score/10)*100;
+		var risk_score = score;
+		var bucket = assign_bucket(risk_score);
 		Meteor.users.update(Meteor.userId(), {$set: {
-      		"profile.riskscore": risk_score,
-      	}});
-		reg_state+=1;
+			"profile.riskscore": risk_score,
+			"profile.bucket": bucket, 
+			"profile.account_status": 2
+		}
+		});
+		Session.set("reg_state", 2);
 		regDep.changed();
-	}
+	},
 });

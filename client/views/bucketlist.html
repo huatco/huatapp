@@ -20,16 +20,13 @@
 		<button type="button" class="button deletekey1 float-right"><i class="fa fa-trash-o"></i></button>
 		<h3>{{k}}</h3>
 			{{#each goal_item in g}}
-			<li><a data-open="add_goal_modal{{goal_item._id}}">
-			{{#if modal}}
-			{{goal_item.goal}}
-			{{> add_goal_modal gg=goal_item}}
-			{{/if}}
-			</a></li> 
-			
-			<!--	<li><a href="/add_goal1/{{goal}}">{{goal}}</a></li>  {{> add_goal_modal gg=_id goal=goal}}-->
+				{{> rec_goal goal_item=goal_item category=k}}
 			{{/each}}
 	</div>
+</template>
+
+<template name="rec_goal">
+	<li><a data-open="add_goal_modal" class="rec_goal">{{goal_item.goal}}</a></li> 
 </template>
 
 <template name="bucket_goal">
