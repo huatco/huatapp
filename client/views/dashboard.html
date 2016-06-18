@@ -2,15 +2,33 @@
 	<h1>Dashboard</h1>
 	<hr>
 	<h4>Welcome back <strong>{{username}}</strong></h4>
-	<div class="dashboard_item">
-		<div class="dashboard_header">
-			<h2>Your Top Goals</h2>
+	<div class="dashboard_container">
+		<div class="dashboard_item">
+			<h1>{{goalCount}}</h1>
+			<p>active goals</p>
 		</div>
-		{{#each goals}}
-		<div class="top_goal">
-			{{> goalchart}}
+		<div class="dashboard_item">
+			<h1>{{currentProgress}}%</h1>
+			<p>of total reached</p>
 		</div>
-		{{/each}}
+		<div class="dashboard_item">
+			<h1>${{monthlyAmt}}</h1>
+			<p>invested monthly</p>
+		</div>
+		<div class="dashboard_item">
+			<h1>${{currentAmt}}</h1>
+			<p>current portfolio value</p>
+		</div>
+		<div class="dashboard_item">
+			<div class="dashboard_header">
+				<h2>Your Top Goals</h2>
+			</div>
+			{{#each goals}}
+			<div class="top_goal">
+				{{> goalchart}}
+			</div>
+			{{/each}}
+		</div>
 	</div>
 </template>
 

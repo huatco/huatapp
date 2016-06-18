@@ -250,25 +250,44 @@ $primary-color: $huat-pink;
 	}
 }
 
-.dashboard_item {
-	background-color: #fff;
-	border: 1px solid $inactive-gray;
-	margin: 10px;
+.dashboard_container {
+	display: flex;
+	flex-wrap: wrap;
 
-	.dashboard_header {
-		padding: 10px 15px;
-		border-left: 4px solid $huat-pink;
-		border-bottom: 1px solid $nearly-white;
-		margin-bottom: 10px;
-		h2 {
-			font-size: 18px;
-			font-weight: 700;
-			text-transform: uppercase;
-			color: $subtle-black;
-			margin: 0;
+	.dashboard_item {
+		background-color: #fff;
+		border: 1px solid $inactive-gray;
+		margin: 10px;
+		padding: 0 25px;
+		text-align: center;
+
+		h1 {
+			font-size: 50px;
+			color: $huat-pink;
+		}
+
+		p {
+			font-size: 14px;
+			font-weight: 500;
+			color: $shady-gray;
+		}
+
+		.dashboard_header {
+			padding: 10px 15px;
+			border-left: 4px solid $huat-pink;
+			border-bottom: 1px solid $nearly-white;
+			margin-bottom: 10px;
+			h2 {
+				font-size: 18px;
+				font-weight: 700;
+				text-transform: uppercase;
+				color: $subtle-black;
+				margin: 0;
+			}
 		}
 	}
 }
+
 .top_goal {
 	width: 30%;
 	padding: 20px;
