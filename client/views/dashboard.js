@@ -1,20 +1,6 @@
-/*
-TODO
-1. sort the list according to priority
-2. only show top 3;
-*/
+
 Goals = new Mongo.Collection("goals");
 
-// Template.myReveal.onRendered(function () {
-//   this.myRevealInstance = new Foundation.Reveal($('#myReveal'));
-// });
-
-// Template.myReveal.onDestroyed(function () {
-//   let reveal = this.myRevealInstance;
-//   if (reveal) {
-//     reveal.destroy();
-//   }
-// });
 
 Template.dashboard.helpers({
 	username: function () {
@@ -22,9 +8,31 @@ Template.dashboard.helpers({
             document.location.href = '/registration'; 
 		return Meteor.user() && Meteor.user().username;
 	}, 
+
     goals: function () {
 		var this_user = Meteor.user().username;
     	return Goals.find({user: this_user}, {sort: {progress: -1}, limit:3});
+    },
+
+    goalCount: function() {
+    	return Goals.find({user: Meteor.user().username}).count();
+    },
+
+    currentProgress: function() {
+    	var total = Meteor.user().profile.total_require;
+    	var current = parseFloat(Meteor.user().profile.amount);
+    	var percent = (current/total)*100;
+    	return parseInt(percent);
+    },
+
+    monthlyAmt: function() {
+    	var amt = Meteor.user().profile.monthly_require;
+    	return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+
+    currentAmt: function() {
+    	var amt = Meteor.user().profile.amount;
+    	return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
     }
 });
 
