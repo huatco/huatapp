@@ -1,4 +1,4 @@
-import {returnRate, SAMPLE_GOALS, SAMPLE_KEYWORDS} from "../investment.js"
+import {returnRate, assign_bucket, SAMPLE_GOALS, SAMPLE_KEYWORDS} from "../investment.js"
 
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
@@ -37,6 +37,7 @@ if (Meteor.isServer) {
       var total_requirement = 0
       var goalTable = {}
       var rate = returnRate()
+      var bucket = assign_bucket()
       var goals = Goals.find({user: Meteor.user().username})
       goals.forEach(function(goal){
         var amt = investmentAmt(goal.target_amount, goal.time_stamp, goal.goal_month, goal.goal_year, rate);
@@ -50,8 +51,7 @@ if (Meteor.isServer) {
       });
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate,
             "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
-            "profile.goal_table": goalTable}});
-      console.log(monthly_requirement);
+            "profile.goal_table": goalTable, "profile.bucket": bucket}});
     }, 
 
     call_python: function() {
@@ -86,7 +86,7 @@ function investmentAmt(amount, start, month, year, r) {
   var periods = target_date.diff(start_date, 'months');
   var denom = 0;
   for(i=0; i<periods; i++){
-    var val = Math.pow(1+r, periods-i);
+    var val = Math.pow(1+r, i);
     denom += val;
   }
   investment = amount/denom;

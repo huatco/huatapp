@@ -34,3 +34,7 @@ standard-minifier-js
 momentjs:moment
 zurb:motion-ui
 mrt:jquerytagsinputjs
+meteorhacks:npm
+
+
+npm-container
