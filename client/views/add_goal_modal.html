@@ -51,7 +51,7 @@
         <h2>What are your targets</h2>
       <div class="row">
         <div class="small-12 columns">
-            <label>Amount (in SGD)<input type="number" placeholder="$$ 2000.00" id="amount" required></label>
+            <label>Amount (in SGD)<input type="number" placeholder="2000.00" id="amount" required></label>
         </div>
       </div>
       <div class="row">
@@ -78,8 +78,15 @@
               <input type="number" placeholder="2017" id="year" value="2017" required>
             </label>
         </div>
-        <p class="help-text" id="passwordHelpText">Target date is automatically calculated based on your current investment amount. <a href="" id="reset_date">Click to reset date.</a></p>
-        <p>{{realismAmount}}</p>
+        <p class="help-text" id="passwordHelpText">Target date is calculated based on your investment amount. <a href="" id="reset_date">Click to reset date.</a></p>
+       {{#if realismAmount.show}}
+          <p> In order to reach this target, you need to top up $</p>
+          <div>
+            <input type="text" id="topupamount" value="{{realismAmount.str}}"> SGD. 
+		  	    <a id="topup">Top Up</a>
+            <p id="topups">{{msg}}</p>
+          </div>
+      {{/if}}
       </div>
       </fieldset>
       <fieldset class="{{isActive 4}}">
