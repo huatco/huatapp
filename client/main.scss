@@ -253,17 +253,24 @@ $primary-color: $huat-pink;
 .dashboard_container {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
 
 	.dashboard_item {
 		background-color: #fff;
 		border: 1px solid $inactive-gray;
 		margin: 10px;
-		padding: 0 25px;
+		padding: 10px 35px;
 		text-align: center;
 
 		h1 {
 			font-size: 50px;
 			color: $huat-pink;
+		}
+
+		h3 {
+			font-size: 18px;
+			font-weight: 300;
 		}
 
 		p {
@@ -272,15 +279,34 @@ $primary-color: $huat-pink;
 			color: $shady-gray;
 		}
 
+		.curr {
+			text-align: left;
+			color: $huat-pink;
+			font-size: 12px;
+			border-left: 1px solid $huat-pink;
+			padding-left: 4px;;
+		}
+
+		.targ {
+			text-align: right;
+			color: $shady-gray;
+			font-size: 12px;
+			border-right: 1px solid $inactive-gray;
+			padding-right: 4px;
+		}
+
+		.progress {
+			width: 300px;
+		}
+
 		.dashboard_header {
 			padding: 10px 15px;
-			border-left: 4px solid $huat-pink;
 			border-bottom: 1px solid $nearly-white;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
+
 			h2 {
 				font-size: 18px;
-				font-weight: 700;
-				text-transform: uppercase;
+				font-weight: 500;
 				color: $subtle-black;
 				margin: 0;
 			}
@@ -355,167 +381,9 @@ $primary-color: $huat-pink;
 	padding-right: 20px;
 }
 
-.add_goal_modal2 {
-	padding: 0;
-	height: 500px;
-	width: 70%;
-	overflow-y: hidden;
-	h2 {
-		font-size: 20px;
-		font-weight: 300;
-		padding-bottom: 15px;
-	}
-
-	.main-panel {
-		padding: 25px;
-		
-		fieldset {
-			display: none;
-
-			&.active {
-				display: block;
-			}
-
-			.row {
-				padding: 0;
-				margin: 0;
-			}
-
-			.columns {
-				padding: 0;
-				margin: 0;
-			}
-
-			.tag {
-				background-color: $huat-pink;
-				color: #fff;
-				border: none;
-				a {
-					color: #fff;
-				}
-			}
-
-			#tags_tag {
-				width: 70px !important;
-			}
-
-			textarea {
-				height: 150px;
-			}
-
-		}
-	}
-
-
-	.side-panel {
-		height: 500px;
-		background-color: $nearly-white;
-		padding: 25px;
-		h2 {
-			font-size: 25px;
-			font-weight: 300;
-			color: $huat-pink;
-		}
-
-		ul {
-			list-style: none;
-			margin: 0;
-			li {
-
-				color: $inactive-gray;
-				padding-bottom: 10px;
-
-				&.active {
-					color: $huat-pink;
-				}
-
-				&.done {
-					color: $active-black;
-					opacity: 0.5;
-				}
-
-				i {
-					font-size: 10px;
-					padding-right: 10px;
-				}
-			}
-		}
-
-	}
-
-
-	.goal_category {
-		width: 130px;
-		height: 130px;
-		background-color: $nearly-white;
-		color: $shady-gray;
-		padding: 10px;
-		margin: 10px;
-		text-align: center;
-		font-size: 16px;
-		cursor: pointer;
-
-		i {
-			display: block;
-			font-size: 30px;
-			color: $inactive-gray;
-			padding-top: 20px;
-			padding-bottom: 10px;
-		}
-
-
-		input[type=radio] {
-			display:none;
-		}
-
-		&.active {
-			background-color: $huat-pink;
-			border: solid 1px $huat-pink;
-			color: #fff;
-			i {
-				color: #fff;
-			}
-
-			&:hover {
-				color:#fff;
-				i {color: #fff;}
-			}
-		}
-
-		&:hover {
-			border: solid 1px $huat-pink;
-			color: $huat-pink;
-			i {
-				color: $huat-pink;
-			}
-		}
-	}
-
-	.next {
-		position: absolute;
-		bottom: 20px;
-		right: 20px;
-		margin-bottom: 0;
-
-	}
-
-	.previous {
-		background-color: transparent;
-		color: $inactive-gray;
-		position: absolute;
-		bottom: 20px;
-		left: 20px;
-		margin-bottom: 0;
-
-		i {
-			padding-right: 10px;
-		}
-
-	}
-}
 .add_goal_modal {
 	padding: 0;
-	height: 500px;
+	height: 560px;
 	width: 70%;
 	overflow-y: hidden;
 	h2 {
@@ -566,7 +434,7 @@ $primary-color: $huat-pink;
 
 
 	.side-panel {
-		height: 500px;
+		height: 560px;
 		background-color: $nearly-white;
 		padding: 25px;
 		h2 {
@@ -603,14 +471,14 @@ $primary-color: $huat-pink;
 
 
 	.goal_category {
-		width: 130px;
-		height: 130px;
+		width: 120px;
+		height: 120px;
 		background-color: $nearly-white;
 		color: $shady-gray;
 		padding: 10px;
 		margin: 10px;
 		text-align: center;
-		font-size: 16px;
+		font-size: 15px;
 		cursor: pointer;
 
 		i {

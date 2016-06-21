@@ -128,12 +128,19 @@ Template.goal_modal.helpers({
 			for(var key in goalTable){
 				numsum+= parseFloat(goalTable[key]);
 			}
+			var periodList = Object.keys(goalTable);
+			var maxPeriod = Math.max.apply(null, periodList);
 
-			for(var i=0; i<targetPeriod; i++){
+			if(maxPeriod<targetPeriod){
+				maxPeriod = targetPeriod;
+			}
+			console.log()
+			for(var i=0; i<maxPeriod; i++){
 				densum+= Math.pow(1+r, i);
 			}
 
 			var newval = numsum/densum;
+			newval -= Meteor.user().profile.monthly_require;
 			console.log("num amt", numsum, densum, newval);
 			//document.getElementById("topup").style.visibility = "visible";
 			console.log(Math.round(newval * 100) / 100);
@@ -154,10 +161,9 @@ Template.goal_modal.events({
 		var period = 1;
 		var r = Meteor.user().profile.return_rate;
 		var amount = parseFloat(Meteor.user().profile.amount);
-		var monthlyAdd = parseFloat(Meteor.user().profile.increment);
+		var monthlyAdd = parseFloat(Meteor.user().profile.monthly_require);
 		var totalRequire = Meteor.user().profile.total_require + val;
 		var goalReached = false;
-		monthlyAdd = 100;
 		while (!goalReached) {
 			if(period in goalTable){
 				amount = amount - goalTable[period.toString()] + monthlyAdd*(Math.pow(1+r,period-1));
@@ -165,8 +171,7 @@ Template.goal_modal.events({
 			}else {
 				amount = amount + monthlyAdd*(Math.pow(1+r,period-1));
 			}
-			console.log(amount)
-			console.log(totalRequire)
+
 			if(amount>totalRequire){
 				goalReached= true;
 			}else {
