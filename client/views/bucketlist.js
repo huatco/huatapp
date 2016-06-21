@@ -38,9 +38,9 @@ Template.recommendation.helpers({
         keys = Meteor.user().profile.rec_keywords;
         console.log("keys", keys);
         return [
-            {k: keys[0].title, g: Goal_catalog.find({keywords: keys[0].title}, {skip: 0, limit: goal_display_count})},
-            {k: keys[1].title, g: Goal_catalog.find({keywords: keys[1].title}, {skip: 0, limit: goal_display_count})},
-            { k: keys[2].title, g: Goal_catalog.find({ keywords: keys[2].title }, { skip: 0, limit: goal_display_count }) }
+            {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_display_count})},
+            {k: keys[1], g: Goal_catalog.find({keywords: keys[1]}, {skip: 0, limit: goal_display_count})},
+            { k: keys[2], g: Goal_catalog.find({ keywords: keys[2]}, { skip: 0, limit: goal_display_count }) }
         ];
     }
 })
