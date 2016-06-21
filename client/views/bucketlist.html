@@ -15,9 +15,11 @@
 
 <template name="recommendation">
 	{{#each key in keyword1}}
-		<div class="bucket_goal">
-			<button type="button" class="button deletekey1 float-right"><i class="fa fa-trash-o"></i></button>
-			<h4>{{key.k}}</h4>
+		<div class="recommended">
+			<div class="header">
+				<button type="button" class="button deletekey1 float-right"><i class="fa fa-times"></i></button>
+				<h4>{{key.k}}</h4>
+			</div>
 				{{#each goal_item in key.g}}
 					{{> rec_goal goal_item=goal_item category=key.k}}
 				{{/each}}
@@ -28,13 +30,15 @@
 
 
 <template name="rec_goal">
-	<li><a data-open="add_goal_modal" class="rec_goal">{{goal_item.goal}}</a></li> 
+	<div class="recommended_goal">
+		<a data-open="add_goal_modal" class="rec_goal">{{goal_item.goal}}</a>
+	</div>
 </template>
 
 <template name="bucket_goal">
 	<div class="bucket_goal">
 		<div class="remainder">{{remainder _id}} mths</div>
-		<a href="/goal/{{_id}}"><h3>{{shortIt this.title 15}}</h3></a>
+		<a href="/goal/{{_id}}"><h3>{{shortIt this.title 13}}</h3></a>
 		<p class="date">Started: {{format_startdate _id}}</p>
 		<p class="date">Target: {{format_enddate _id}}</p>
 		<br>
