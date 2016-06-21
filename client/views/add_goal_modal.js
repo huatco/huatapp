@@ -206,14 +206,12 @@ Template.goal_modal.events({
    		e.stopPropagation()
 		var increment = parseFloat($("#topupamount").val());
 		var amount = parseFloat(Meteor.user().profile.increment) || 0;
-		Meteor.users.update(Meteor.userId(), {$set: {
-			"profile.increment": increment,
-      	}});
+		Meteor.call("topup", [amount + increment]);
 		console.log("increment", increment);
 		console.log("amount", amount);
 		var current = amount + increment;
-		Session.set("msg", "Top up successful. Monthly input: " + increment);
-		$("#topup_amount").val("0");
+		Session.set("msg", "Top up successful. Topup amount: " + increment);
+		$("#topupamount").val("0");
 		//alert("Top up successful.");
 	}, 
 	"change #month": function(event, template){
