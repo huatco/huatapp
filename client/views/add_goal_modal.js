@@ -117,45 +117,57 @@ Template.goal_modal.helpers({
 		realismDep.depend();
 		console.log("Realism", realisticPeriod, targetPeriod);
 		if(targetPeriod==-1){
-			return "";
+			return { show: false, str: "" };
 		}
-		if(realisticPeriod>targetPeriod){
-			var r = Meteor.user().profile.return_rate;
-			var goalTable = Meteor.user().profile.goal_table;
+		if(realisticPeriod>targetPeriod || Session.get("reg_state") == 2){
+			// var r = Meteor.user().profile.return_rate;
+			// var goalTable = Meteor.user().profile.goal_table;
 
-			var numsum = val;
-			var densum = 0;
-			for(var key in goalTable){
-				numsum+= parseFloat(goalTable[key]);
-			}
-			var periodList = Object.keys(goalTable);
-			var maxPeriod = Math.max.apply(null, periodList);
+			// var numsum = val;
+			// var densum = 0;
+			// for(var key in goalTable){
+			// 	numsum+= parseFloat(goalTable[key]);
+			// }
+			// var periodList = Object.keys(goalTable);
+			// var maxPeriod = Math.max.apply(null, periodList);
 
-			if(maxPeriod<targetPeriod){
-				maxPeriod = targetPeriod;
-			}
-			console.log()
-			for(var i=0; i<maxPeriod; i++){
-				densum+= Math.pow(1+r, i);
-			}
+			// if(maxPeriod<targetPeriod){
+			// 	maxPeriod = targetPeriod;
+			// }
+			// console.log()
+			// for(var i=0; i<maxPeriod; i++){
+			// 	densum+= Math.pow(1+r, i);
+			// }
 
-			var newval = numsum/densum;
-			newval -= Meteor.user().profile.monthly_require;
-			console.log("num amt", numsum, densum, newval);
-			//document.getElementById("topup").style.visibility = "visible";
-			console.log(Math.round(newval * 100) / 100);
+			// var newval = numsum/densum;
+			// newval -= Meteor.user().profile.monthly_require;
+			// console.log("num amt", numsum, densum, newval);
+			// //document.getElementById("topup").style.visibility = "visible";
+			// console.log(Math.round(newval * 100) / 100);
+			var newval = investmentAmt();
 			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
 			console.log("str", str);
 			return { show: true, str: str };
-		}else {
-			return { show: false, str: "" };
 		}
 	}
 
 });
 
+function investmentAmt() {
+  var r = Meteor.user().profile.return_rate;
+  var denom = 0;
+  for(i=0; i<targetPeriod; i++){
+    var a = Math.pow(1+r, i);
+    denom += a;
+  }
+  investment = val/denom;
+  return investment;
+};
+
 Template.goal_modal.events({
 	'change #amount': function (event, template) {
+		if(Session.get("reg_state") == 2) return;
+
 		val = event.target.valueAsNumber;
 		var goalTable = Meteor.user().profile.goal_table;
 		var period = 1;
