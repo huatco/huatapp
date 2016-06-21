@@ -166,9 +166,10 @@ function investmentAmt() {
 
 Template.goal_modal.events({
 	'change #amount': function (event, template) {
+		val = event.target.valueAsNumber;
+		
 		if(Session.get("reg_state") == 2) return;
 
-		val = event.target.valueAsNumber;
 		var goalTable = Meteor.user().profile.goal_table;
 		var period = 1;
 		var r = Meteor.user().profile.return_rate;
