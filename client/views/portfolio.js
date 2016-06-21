@@ -5,8 +5,8 @@ present=0;
 
 Template.portfolio.helpers({
     returnRate: function(){
-        var rate =  Meteor.user().profile.return_rate;
-        return rate.toFixed(4);
+        var rate =  Meteor.user().profile.return_rate*100;
+        return rate.toFixed(3);
     },
 
     bondPercent: function(){
