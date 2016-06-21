@@ -44,3 +44,9 @@ export const BUCKET_PORTFOLIOS = [
 [1.27, 21.45, 67.21, 1.00, 9.07], 
 [48.49, 0.00, 20.97, 2.00, 28.54], 
 [71.32, 0.00, 10.01, 3.00, 15.66]];
+
+export const BUCKET_VALUES = [
+["Bonds", "Stocks", "Expected Return", "Expected Volatility", "Effective Expense Ratio"],
+[22.72, 77.28, 12.50, 8.41, 0.10],
+[48.49, 51.51, 7.50, 4.16, 0.10],
+[71.32, 28.68, 5.00, 2.84, 0.08]];

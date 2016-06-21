@@ -539,3 +539,22 @@ $primary-color: $huat-pink;
 
 	}
 }
+
+.portfolio {
+	h1 {
+		color: $huat-pink;
+	}
+
+	h3 {
+		font-size: 22px;
+		font-weight: 300;
+		color: $subtle-black;
+		border-bottom: 1px solid $shady-gray;
+		padding: 20px 0 10px 15px;
+	}
+
+	p {
+		color: $shady-gray;
+		font-size: 14px;
+	}
+}

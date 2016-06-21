@@ -1,11 +1,52 @@
 <template name="portfolio">
 	<h1>Portfolio</h1>
-	<h4>Current Investment: ${{amount}}</h4>
-	<hr>	
-	<h4>Average Rate of Return: <strong>{{returnRate}}</strong></h4>
-	{{> returnsChart}}
+	<hr>
+	<div class="portfolio">
+		<div class="row">
+			<div class="small-3 columns">
+				<h1>{{returnRate}}%</h1>
+				<p>Monthly Expected Return Rate</p>
+			</div>
+			<div class="small-3 columns">
+				<h1>{{annualReturn}}%</h1>
+				<p>Annual Expected Return Rate</p>
+			</div>
+			<div class="small-3 columns">
+				<h1>{{volatilityRate}}%</h1>
+				<p>Expected Volatility Rate</p>
+			</div>
+			<div class="small-3 columns">
+				<h1>{{expenseRatio}}%</h1>
+				<p>Annual Expense Ratio</p>
+			</div>
+		</div>
+		<h3>Projected Growth</h3>	
+		{{> returnsChart}}
+		<div class="row">
+			<h3>Portfolio Breakdown</h3>
+			<div class="small-12 large-6 columns">
+				{{> breakdownChart}}
+			</div>
+			<div class="small-12 large-6 columns">
+				<div class="row">
+					<div class="small-6 columns">
+						<h1>{{stockPercent}}%</h1>
+						<p>Equity Stocks</p>
+					</div>
+					<div class="small-6 columns">
+						<h1>{{bondPercent}}%</h1>
+						<p>Fixed Income Bonds</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="breakdownChart">
+	<canvas id="breakdownChart" height="50" width="100"></canvas>
 </template>
 
 <template name="returnsChart">
-	<canvas id="returnschart" height="400" width="700"></canvas>
+	<canvas id="returnschart" height="80" width="250"></canvas>
 </template>
