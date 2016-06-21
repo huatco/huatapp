@@ -63,7 +63,11 @@ Template.registration.helpers({
 
 });
 
-
+Template.registration.events({
+	"click #dashboard": function (e) {
+		document.location.href = '/'; 
+	}
+});
 
 Template.basic_info.events({
 	"submit .basic_info": function(event) {

@@ -47,7 +47,7 @@ for (var i = 0; i < 9; i++){
 
 var values = [5, 3, 3, 4, 5];
 var questionDep = new Tracker.Dependency;
-var questions = q1.concat(q2, q1);	
+var questions = q1.concat(q2);	
 
 Template.risk_profile.helpers ({
 	question: function(){
@@ -58,7 +58,7 @@ Template.risk_profile.helpers ({
 		return Session.get("bucket");
 	},
 	returns: function () {
-		return RATES[Session.get("bucket")];
+		return parseFloat(RATES[Session.get("bucket")]) * 100.0;
 	},
 });
 Template.risk_profile.events ({
