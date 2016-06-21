@@ -9,6 +9,7 @@ var val = 0;
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
+	Session.set("msg", "");
 	if (Session.get("category")) Session.set("section", 2);
 	$(window).on('closed.zf.reveal', function (sth) { 
     	goalAddDep.changed();
@@ -53,6 +54,7 @@ Template.add_goal_modal.helpers({
 
 Template.goal_modal.helpers({
 	title: function (e) {
+		Session.set("msg", "");
 		return Session.get("title");
 	},
 	category: function (e) {
@@ -67,6 +69,9 @@ Template.goal_modal.helpers({
 			return "active";
 		return null;
 	},
+	msg:function(){
+		return Session.get("msg");
+	}, 
 	submitValue: function(){
 		goalAddDep.depend();
 		if(Session.get("section")<4)  return "button";
@@ -137,10 +142,13 @@ Template.goal_modal.helpers({
 			var newval = numsum/densum;
 			newval -= Meteor.user().profile.monthly_require;
 			console.log("num amt", numsum, densum, newval);
-			var str = "In order to reach this target, you need to top up $"+ parseFloat(Math.round(newval * 100) / 100).toFixed(2);
-			return str;
+			//document.getElementById("topup").style.visibility = "visible";
+			console.log(Math.round(newval * 100) / 100);
+			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
+			console.log("str", str);
+			return { show: true, str: str };
 		}else {
-			return "";
+			return { show: false, str: "" };
 		}
 	}
 
@@ -176,10 +184,26 @@ Template.goal_modal.events({
 		var date = moment().add(period, 'M');
 		var month = date.month()+1;
 		var year = date.year();
-		$("#month").val(month)
+		$("#month").val(month);
+		document.getElementById('month').style.backgroundColor = "yellow";
 		$("#year").val(year);
+		document.getElementById('year').style.backgroundColor = "yellow";
 	},
-
+	"click #topup": function(e, t){
+		e.preventDefault();
+   		e.stopPropagation()
+		var increment = parseFloat($("#topupamount").val());
+		var amount = parseFloat(Meteor.user().profile.increment) || 0;
+		Meteor.users.update(Meteor.userId(), {$set: {
+			"profile.increment": increment,
+      	}});
+		console.log("increment", increment);
+		console.log("amount", amount);
+		var current = amount + increment;
+		Session.set("msg", "Top up successful. Monthly input: " + increment);
+		$("#topup_amount").val("0");
+		//alert("Top up successful.");
+	}, 
 	"change #month": function(event, template){
 		var month = $("#month").val();
 		var year = $("#year").val();

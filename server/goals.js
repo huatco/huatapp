@@ -16,8 +16,13 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": dkeys}}); 
     },
 
-    keyword_clean_up: function(){
-      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": SAMPLE_KEYWORDS}});
+    keyword_clean_up: function () {
+      var keys = [];
+      for (var i = 0; i < SAMPLE_KEYWORDS.length; i++){
+        keys.push(SAMPLE_KEYWORDS[i].title);
+      }
+        
+      Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": keys}});
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
     },
 
