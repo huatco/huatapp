@@ -15,7 +15,14 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": keys}});
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": dkeys}}); 
     },
-
+    topup: function (increment) {
+      Meteor.users.update(Meteor.userId(), {
+        $set: {
+          "profile.increment": increment,
+        }
+      });
+      console.log("INCREMENTED");
+    }, 
     keyword_clean_up: function () {
       var keys = [];
       for (var i = 0; i < SAMPLE_KEYWORDS.length; i++){
