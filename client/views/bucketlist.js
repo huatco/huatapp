@@ -13,8 +13,35 @@ Template.bucketlist.helpers({
     },
 });
 
-Template.bucketlist.events({
-    "click .deletekey1": function(event, template) {
+
+
+Template.recommendation.helpers({
+    modal: function () { return true; },
+    keyword1: function () {
+        var keys = Meteor.user().profile.rec_keywords;
+        if (keys == undefined || keys.length < 3) {
+            Meteor.call("keyword_clean_up", function (e) { });
+        }
+        keys = Meteor.user().profile.rec_keywords;
+        console.log("keys", keys);
+        if (keys[0].title) {
+            for (var i = 0; i < keys.length; i++) {
+                keys[i] = keys[i].title;
+            }
+        }
+        return [
+            { k: keys[0], g: Goal_catalog.find({ keywords: keys[0] }, { skip: 0, limit: goal_display_count }) },
+            { k: keys[1], g: Goal_catalog.find({ keywords: keys[1] }, { skip: 0, limit: goal_display_count }) },
+            { k: keys[2], g: Goal_catalog.find({ keywords: keys[2] }, { skip: 0, limit: goal_display_count }) }
+        ];
+    }
+});
+
+Template.recommendation.events({
+    "click .deletekey1": function (event, template) {
+        console.log(template);
+        console.log(this);
+        console.log(event);
         var keyword = this.k;
         var keys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.rec_keywords;
         var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
@@ -27,28 +54,6 @@ Template.bucketlist.events({
         var dkeys = Meteor.users.find({username: Meteor.user().username}).fetch()[0].profile.dislike_keywords;
     }
 });
-
-Template.recommendation.helpers({
-    modal: function () { return true; },
-    keyword1: function(){
-        var keys = Meteor.user().profile.rec_keywords;
-        if(keys == undefined || keys.length < 3){
-            Meteor.call("keyword_clean_up", function(e){});
-        }
-        keys = Meteor.user().profile.rec_keywords;
-        console.log("keys", keys);
-        if (keys[0].title) {
-            for (var i = 0; i < keys.length; i++){
-                keys[i] = keys[i].title;
-            }
-        }
-        return [
-            {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_display_count})},
-            {k: keys[1], g: Goal_catalog.find({keywords: keys[1]}, {skip: 0, limit: goal_display_count})},
-            { k: keys[2], g: Goal_catalog.find({ keywords: keys[2]}, { skip: 0, limit: goal_display_count }) }
-        ];
-    }
-})
 
 Template.rec_goal.events({
     "click .rec_goal": function (t, e) {

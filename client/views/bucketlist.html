@@ -14,14 +14,14 @@
 
 
 <template name="recommendation">
-	{{#each key in keyword1}}
+	{{#each keyword1}}
 		<div class="recommended">
 			<div class="header">
 				<button type="button" class="button deletekey1 float-right"><i class="fa fa-times"></i></button>
-				<h4>{{key.k}}</h4>
+				<h4>{{k}}</h4>
 			</div>
-				{{#each goal_item in key.g}}
-					{{> rec_goal goal_item=goal_item category=key.k}}
+				{{#each goal_item in g}}
+					{{> rec_goal goal_item=goal_item category=k}}
 				{{/each}}
 		</div>
 	{{/each}}
