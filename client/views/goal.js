@@ -64,7 +64,7 @@ function monthlyInvestments(a, b) {
 	var curr = 0;
 	for(i=0; i<periods; i++){
 		var val = curr + investment*(Math.pow(1+r,i));
-		investments.push(val);
+		investments.push(val.toFixed(2));
 		curr = val;
 	}
 

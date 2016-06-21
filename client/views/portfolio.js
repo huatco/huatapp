@@ -93,7 +93,7 @@ function monthlyInvestments(a, b) {
     var curr = parseFloat(Meteor.user().profile.amount);
     for(i=0; i<100; i++){
         var val = curr + investment*(Math.pow(1+r,i));
-        investments.push(val);
+        investments.push(val.toFixed(2));
         curr = val;
     }
 
