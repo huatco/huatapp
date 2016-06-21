@@ -116,10 +116,19 @@ Template.goal_modal.helpers({
 	realismAmount: function(){
 		realismDep.depend();
 		console.log("Realism", realisticPeriod, targetPeriod);
+		/*
+		if (Session.get("reg_state") == 2) {
+			var newval = investmentAmt();
+			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
+			if (!isFinite(str)) str = "Not Available";
+			if (isNaN(str)) str = "Not Available";
+			console.log("str", str);
+			return { show: true, str: str };
+		}*/
 		if(targetPeriod==-1){
 			return { show: false, str: "" };
 		}
-		if(realisticPeriod>targetPeriod || Session.get("reg_state") == 2){
+		if(realisticPeriod>targetPeriod){
 			// var r = Meteor.user().profile.return_rate;
 			// var goalTable = Meteor.user().profile.goal_table;
 
@@ -168,8 +177,10 @@ Template.goal_modal.events({
 	'change #amount': function (event, template) {
 		val = event.target.valueAsNumber;
 		
-		if(Session.get("reg_state") == 2) return;
-
+		if (Session.get("reg_state") == 2) {
+			realismDep.changed();
+			return;
+		}
 		var goalTable = Meteor.user().profile.goal_table;
 		var period = 1;
 		var r = Meteor.user().profile.return_rate;

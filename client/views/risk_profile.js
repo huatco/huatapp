@@ -1,4 +1,4 @@
-import {assign_bucket, RATES} from "../../investment.js"
+import {assign_bucket, RATES, returnRate} from "../../investment.js"
 var score = 0;
 Session.set({"step": 0, "bucket": 1});
 var q2 = [
@@ -86,6 +86,7 @@ Template.risk_profile.events ({
 		var bucket = assign_bucket(risk_score);
 		Meteor.users.update(Meteor.userId(), {$set: {
 			"profile.riskscore": risk_score,
+			"profile.return_rate": returnRate(risk_score), 
 			"profile.bucket": bucket, 
 			"profile.account_status": 2
 		}
