@@ -41,9 +41,11 @@ if (Meteor.isServer) {
       var monthly_requirement = 0
       var total_requirement = 0
       var goalTable = {}
-      var rate = returnRate()
-      var bucket = assign_bucket()
+      //var bucket = assign_bucket()
       var goals = Goals.find({user: Meteor.user().username})
+      var score = Meteor.user().profile.risk_score;
+      var rate = returnRate(score)
+     
       goals.forEach(function(goal){
         var amt = investmentAmt(goal.target_amount, goal.time_stamp, goal.goal_month, goal.goal_year, rate);
         var p = targetPeriod(goal.goal_month, goal.goal_year);
@@ -56,7 +58,7 @@ if (Meteor.isServer) {
       });
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate,
             "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
-            "profile.goal_table": goalTable, "profile.bucket": bucket}});
+            "profile.goal_table": goalTable}});
     }, 
 
     call_python: function() {
