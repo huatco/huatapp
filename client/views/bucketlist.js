@@ -37,6 +37,11 @@ Template.recommendation.helpers({
         }
         keys = Meteor.user().profile.rec_keywords;
         console.log("keys", keys);
+        if (keys[0].title) {
+            for (var i = 0; i < keys.length; i++){
+                keys[i] = keys[i].title;
+            }
+        }
         return [
             {k: keys[0], g: Goal_catalog.find({keywords: keys[0]}, {skip: 0, limit: goal_display_count})},
             {k: keys[1], g: Goal_catalog.find({keywords: keys[1]}, {skip: 0, limit: goal_display_count})},
