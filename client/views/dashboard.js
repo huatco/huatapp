@@ -25,7 +25,7 @@ Template.dashboard.helpers({
     	var total = Meteor.user().profile.total_require;
     	var current = parseFloat(Meteor.user().profile.amount);
     	var percent = (current/total)*100;
-    	return parseInt(percent);
+    	return percent.toFixed(2);
     },
 
     monthlyAmt: function() {

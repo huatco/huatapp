@@ -128,7 +128,7 @@ Template.goal_modal.helpers({
 		if(targetPeriod==-1){
 			return { show: false, str: "" };
 		}
-		if(realisticPeriod>targetPeriod){
+		if(realisticPeriod>targetPeriod || Session.get("reg_state") == 2){
 			// var r = Meteor.user().profile.return_rate;
 			// var goalTable = Meteor.user().profile.goal_table;
 
@@ -155,6 +155,8 @@ Template.goal_modal.helpers({
 			// console.log(Math.round(newval * 100) / 100);
 			var newval = investmentAmt();
 			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
+			if (!isFinite(str)) str = "Not Available";
+			if (isNaN(str)) str = "Not Available";
 			console.log("str", str);
 			return { show: true, str: str };
 		}
