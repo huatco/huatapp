@@ -65,3 +65,13 @@ Template.topbar.events({
     Session.set("category", "");
   },
 })
+
+AdminConfig = { 
+  adminEmails: ['rama@huat.com'], 
+  collections: 
+  { 
+    Analytics: {
+      icon: 'bar-chart',
+    }, 
+  } 
+}

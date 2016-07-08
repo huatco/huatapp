@@ -40,3 +40,10 @@ meteorhacks:npm
 npm-container
 accounts-facebook
 service-configuration
+meteorhacks:kadira
+alanning:roles
+aldeed:collection2
+dburles:collection-helpers
+twbs:bootstrap
+yogiben:admin
+okgrow:analytics
