@@ -4,10 +4,11 @@ Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
 if (Meteor.isServer) {
+  /*
   var exec = Npm.require('child_process').exec;
   var Fiber = Npm.require('fibers');
   var Future = Npm.require('fibers/future');
-
+  */
   Meteor.methods({
     recommendation: function(key){
       var keys = key[0];
@@ -66,8 +67,8 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate,
             "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
             "profile.goal_table": goalTable}});
-    }, 
-
+    }
+    /*
     call_python: function() {
       var fut = new Future();
       var allocation;
@@ -87,7 +88,8 @@ if (Meteor.isServer) {
       //return allocation;
       return fut.wait();
     },
-  });
+    */
+  }); 
 
 };
 
