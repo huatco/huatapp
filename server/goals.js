@@ -3,6 +3,24 @@ import {returnRate, assign_bucket, SAMPLE_GOALS, SAMPLE_KEYWORDS} from "../inves
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
+Goals.schema = new SimpleSchema({
+  title: { type: String },
+  time_stamp: {type: Date, }, 
+  created_year: { type: Number },
+  created_month: { type: Number, min: 1, max: 12 },
+  goal_month: { type: Number, },
+  goal_year: { type: Number, min: 2016},
+  target_amount: { type: Number, },
+  current_amount: {type: Number, },
+  progress: {type: Number, defaultValue: 0},
+  category: {type: String },
+  user: {type: String },
+  details: { type: String, optional: true },
+  current_time: { type: Number },
+  priority: { type: Number },
+  keywords: {type: String, optional: true}
+});
+
 if (Meteor.isServer) {
   /*
   var exec = Npm.require('child_process').exec;
@@ -67,7 +85,43 @@ if (Meteor.isServer) {
       Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.return_rate": rate,
             "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
             "profile.goal_table": goalTable}});
-    }
+    },
+
+
+    add_goal: function (title, month, year, priority, target_amt, category, desc, tags) {
+      var time_stamp = new Date();
+      console.log(time_stamp);
+      console.log(tags);
+      console.log(time_stamp.getYear());
+      var new_goal = {
+        title: title,
+        time_stamp: time_stamp,
+        created_year: time_stamp.getYear(),
+        created_month: time_stamp.getMonth(),
+        goal_month: parseInt(month),
+        goal_year: parseInt(year),
+        priority: parseInt(priority),
+        target_amount: parseFloat(target_amt),
+        current_amount: 0.0,
+        progress: 0,
+        category: category,
+        user: Meteor.user().username,
+        details: desc,
+        current_time: 0,
+        keywords: tags
+      };
+      var context = Goals.schema.namedContext("add_goal");
+      if (context.validate(new_goal)) {
+        Goals.insert(new_goal);
+        return true;
+      } else {
+        console.log(context.invalidKeys());
+        return false;
+      }
+
+    },
+
+
     /*
     call_python: function() {
       var fut = new Future();

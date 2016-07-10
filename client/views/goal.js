@@ -111,10 +111,10 @@ function datalength(){
 
 function drawChart() {
 	var vals = datalength();
-    var data = monthlyInvestments(vals[0], vals[1]);
+    var data2 = monthlyInvestments(vals[0], vals[1]);
     var monthlabels = monthLabels(vals[0], vals[1]);
     console.log(vals);
-    console.log(data);
+    console.log(data2);
     console.log(monthlabels);
     var data = {
 	    labels: monthlabels,
@@ -125,7 +125,7 @@ function drawChart() {
 	            strokeColor: "rgba(229, 11, 79,0)",
 	            highlightFill: "rgba(229, 11, 79, 0.65)",
 	            highlightStroke: "rgba(229, 11, 79, 0)",
-	            data: data,
+	            data: data2,
 	        },
 	    ]
 	};
