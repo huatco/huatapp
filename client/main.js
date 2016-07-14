@@ -67,7 +67,7 @@ Template.topbar.events({
 })
 
 AdminConfig = { 
-  adminEmails: ['rama@huat.com'], 
+  adminEmails: ['rama@huat.com', 'zikang@huat.com'],
   collections: 
   { 
     Analytics: {

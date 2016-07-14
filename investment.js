@@ -13,6 +13,31 @@ export const assign_bucket = function(risk_score) {
     return bucket;
 };
 
+export const investmentAmt = function(amount, start, month, year, r) {
+  /*
+  r: rate of return
+  */
+  var start_date = moment(start);
+  var target_date = moment([year, month]);
+  var periods = target_date.diff(start_date, 'months');
+  var denom = 0;
+  for(i=0; i<periods; i++){
+    var val = Math.pow(1+r, i);
+    denom += val;
+  }
+  investment = amount/denom;
+  return investment;
+};
+
+export const targetPeriod = function(month, year){
+  var present = moment();
+  var target = moment([year, month]);
+  var period = target.diff(present, 'months');
+  return period;
+}
+
+
+
 export const SAMPLE_GOALS = [{"keyword": "Education",  "goals": ["Finish masters degree", "Get into a creative writing class", "Kid's college fund", "Go for an art class"]}
     ,{"keyword": "Lifestyle",  "goals": ["Own a Range Rover", "Own a yacht", "Ride a camel in the desert", "Travel by helicopter", "Stay in Japan for a month"]}
     ,{"keyword": "Life Plans", "goals": ["Plan for retirement", "Japanese old people's home", 'Live in NYC for a year', "Purchase our first home!", "have a kid"]}

@@ -79,7 +79,7 @@ Template.goal_modal.helpers({
 	},
 
 	isChecked: function (val) {
-		console.log(val);
+		//console.log(val);
 		categoryDep.depend();
 		currentVal = $("form input[type='radio']:checked").val();
 		if (val == currentVal)return "active";
@@ -115,7 +115,7 @@ Template.goal_modal.helpers({
 
 	realismAmount: function(){
 		realismDep.depend();
-		console.log("Realism", realisticPeriod, targetPeriod);
+		//console.log("Realism", realisticPeriod, targetPeriod);
 		/*
 		if (Session.get("reg_state") == 2) {
 			var newval = investmentAmt();
@@ -273,67 +273,38 @@ Template.goal_modal.events({
 			Session.set("section", Session.get("section") + 1);
 			goalAddDep.changed();	
 		} else {
-			var username = Meteor.user().username;
-			
+			var username = Meteor.user().username;	
 			var title = $('#title').val();
 			var desc = $('#description').val();
-			//var category = $("form input[type='radio']:checked").val();
 			var target_amt = $('#amount').val();
 			var month = $('#month').val();
 			var year = $('#year').val();
-			//var priority = $('#slider').attr('aria-valuenow');
 			var tags = $('#tags').val();
-			
-			//var title = event.target.form[8].value;
-			//var desc = event.target.form[9].value;
 			if (Session.get("category")) {
 				var category = Session.get("category");
 			} else {
 				var category = $("form input[type='radio']:checked").val();
 			}	
-			//var month = event.target.form[12].value;
-			//var target_amt = event.target.form[11].value;
-			//var year = event.target.form[13].value;
 			var priority = $("#points")[0].value;
-			//var tags = event.target.form[16].value.split(",");
-			var time_stamp = new Date();
-			console.log("title", title);
-			console.log("desc", desc);
-			console.log("target_amount", target_amt);
 			if(Goals.find({user:username, title:title}).count()==0){
-				Goals.insert({ 
-					title: title,
-					time_stamp: time_stamp, 
-					created_year: time_stamp.getYear(),
-					created_month: time_stamp.getMonth(),   
-					goal_month: month,
-					goal_year: year, 
-					priority: priority, 
-					target_amount: target_amt, 
-					current_amount: 0.0, 
-					progress: 0,
-					category: category,
-					user: Meteor.user().username, 
-					details: desc,
-					current_time: 0,
-					keywords: tags 
-				}); 
-				console.log("Added a goal", title);
-				Meteor.call("call_python", function(error) {});
-				
-				if (Session.get("reg_state") == 2){
-					Session.set("reg_state", 3);
-					Meteor.users.update(Meteor.userId(), {$set: {
-						"profile.account_status": 3
-					}});
-					
-					alert("Goal Added! " + title)
-					document.location.href = '/registration';
-				} else {
-					alert("Goal Added! " + title)
-					document.location.href = '/bucketlist';
-				}
-			}else{
+				Meteor.call("add_goal",
+					title, month, year, priority, target_amt, category, desc, tags,
+					function (e, result) {
+						if (result) {
+							if (Session.get("reg_state") == 2) {
+								Session.set("reg_state", 3);
+								Meteor.users.update(Meteor.userId(), {
+									$set: {
+										"profile.account_status": 3
+									}
+								});
+							}
+							alert("Goal Added! " + title)
+							document.location.href = '/bucketlist';
+						}
+					}
+				);
+			} else {
 				alert("goal repeated! ")
 			}
 

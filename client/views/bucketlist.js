@@ -1,4 +1,6 @@
 import {SAMPLE_KEYWORDS} from "../../investment.js"
+
+//Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
 Meteor.call("start_up", function(error){});
@@ -6,10 +8,13 @@ var goal_display_count = 4;
 
 Template.bucketlist.helpers({
     goals: function () {
-        if(!Meteor.user().profile || Meteor.user().profile.account_status <3)
-            document.location.href = '/registration'; 
-        var this_user = Meteor.user().username;
-            return Goals.find({user: this_user});
+            if (!Meteor.user().profile || Meteor.user().profile.account_status < 3)
+                document.location.href = '/registration';
+            var this_user = Meteor.user().username;
+            console.log(this_user);
+            console.log(Goals.find({user: this_user}).count());
+            return Goals.find({ user: this_user });
+        
     },
 });
 
@@ -23,7 +28,7 @@ Template.recommendation.helpers({
             Meteor.call("keyword_clean_up", function (e) { });
         }
         keys = Meteor.user().profile.rec_keywords;
-        console.log("keys", keys);
+        //console.log("keys", keys);
         if (keys[0].title) {
             for (var i = 0; i < keys.length; i++) {
                 keys[i] = keys[i].title;

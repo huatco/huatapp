@@ -18,9 +18,19 @@ Router.route('/profile', {
   template: 'profile'
 });
 
+Router.route('/support', {
+  name: 'support',
+  template: 'support'
+});
+
 Router.route('/add_goal', {
   name: 'add_goal',
   template: 'goal_form'
+});
+
+Router.route('/beta', {
+  name: 'beta',
+  template: 'beta'
 });
 
 Router.route('/add_goal1/:_id', function() {
