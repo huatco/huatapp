@@ -6,6 +6,11 @@
 		<div class="dashboard_item">
 			<h1>{{goalCount}}</h1>
 			<p>active goals</p>
+			<p>
+			  <button data-tooltip="I'm a tooltip!">A tooltip trigger</button>
+			</p>
+
+			{{ > tooltips }}
 		</div>
 		<div class="dashboard_item">
 			<h1>{{currentProgress}}%</h1>
