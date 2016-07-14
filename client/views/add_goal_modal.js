@@ -79,7 +79,7 @@ Template.goal_modal.helpers({
 	},
 
 	isChecked: function (val) {
-		console.log(val);
+		//console.log(val);
 		categoryDep.depend();
 		currentVal = $("form input[type='radio']:checked").val();
 		if (val == currentVal)return "active";
@@ -115,7 +115,7 @@ Template.goal_modal.helpers({
 
 	realismAmount: function(){
 		realismDep.depend();
-		console.log("Realism", realisticPeriod, targetPeriod);
+		//console.log("Realism", realisticPeriod, targetPeriod);
 		/*
 		if (Session.get("reg_state") == 2) {
 			var newval = investmentAmt();

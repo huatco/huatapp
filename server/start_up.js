@@ -1,11 +1,6 @@
-import {SAMPLE_GOALS, investmentAmt, targetPeriod} from "../investment.js"
-var profile = new SimpleSchema({
+import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate} from "../investment.js"
 
-});
 
-Meteor.users.schema = new SimpleSchema({
-
-});
 Meteor.methods({
     start_up: function () {
         //populate goal catalog if it's not already populated
