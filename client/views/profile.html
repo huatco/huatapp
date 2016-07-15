@@ -1,10 +1,25 @@
 <template name="profile">
 	<h1>Profile</h1>
-	<p>Username: {{username}}</p>
-	<p>Email: {{email}}</p>
-	<p>Account Balance: S${{balance}}.00</p>
-	<p>Expected Amount:S${{expected}}.00</p>
-	<p>Increment Amount: S${{increment}}.00 </p>
-	<button type="button" class="success button increase">Increment</button>
-	<button type="button" class="alert button decrease">Decrement</button>
+	<hr>
+	<div class="profile">
+		<div class="profile-header">
+			<h1><i class="fa fa-user"></i> {{username}}</h1>
+			<p>{{email}} | {{gender}} | {{age}}</p>
+		</div>
+		<div class="profile-goal">
+			<h1>${{balance}}</h1>
+			<p>current portfolio value</p>
+			<h1>${{monthlyAmt}}</h1>
+			<p>monthly investment amount</p>
+			<h1>${{targetAmt}}</h1>
+			<p>total target amount</p>
+		</div>
+		<div class="profile-basic">
+			<p>Monthly Income: {{income}}</p>
+			<p>Monthly Expenditure: {{expenditure}}</p>
+			<p>Risk Tolerance: {{riskscore}}</p>
+			<hr>
+			<p class="footnote"><em>This information is collected solely for the purpose of this pilot test, and will not be distributed or used for any other purposes.</em></p>
+		</div>
+	</div>
 </template>
