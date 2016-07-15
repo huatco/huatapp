@@ -596,17 +596,31 @@ $primary-color: $huat-pink;
 	}
 }
 
-.tooltip {
-  z-index: 1001;
-  pointer-events: none;
-  transition: opacity .1s ease-out;
-  opacity: 0;
-}
+.tool-tip {
+	display: inline;
+	position: relative;
+	text-align: left;
+	#tooltip-icon {
+		color: $inactive-gray;
+	}
 
-.tooltip.hide {
-  opacity: 0;
-}
+	#tooltip-desc {
+		background-color: rgba(0,0,0,0.8);
+		border-radius: 3px;
+		color: $nearly-white;
+		display: inline-block;
+		font-size: 12px;
+		width: 125px;
+		position: absolute;
+		left: 20px;
+		top: -25px;
+		padding: 5px 10px;
+		opacity: 0;
+		transition: all 0.2s ease;
 
-.tooltip.show {
-  opacity: 1;
+		&.show {
+			opacity: 1;
+		}
+
+	}
 }

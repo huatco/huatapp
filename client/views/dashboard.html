@@ -5,16 +5,11 @@
 	<div class="dashboard_container">
 		<div class="dashboard_item">
 			<h1>{{goalCount}}</h1>
-			<p>active goals</p>
-			<p>
-			  <button data-tooltip="I'm a tooltip!">A tooltip trigger</button>
-			</p>
-
-			{{ > tooltips }}
+			<p>active goals {{>tooltip desc="The number of goals that are on your bucketlist"}}</p>
 		</div>
 		<div class="dashboard_item">
 			<h1>{{currentProgress}}%</h1>
-			<p>of total reached</p>
+			<p>of total reached{{>tooltip desc="Percentage of your accumulated total target"}}</p>
 		</div>
 		<div class="dashboard_item">
 			<h1>${{monthlyAmt}}</h1>

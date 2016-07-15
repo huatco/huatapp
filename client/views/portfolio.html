@@ -5,19 +5,19 @@
 		<div class="row">
 			<div class="small-3 columns">
 				<h1>{{returnRate}}%</h1>
-				<p>Monthly Expected Return Rate</p>
+				<p>Monthly Expected Return Rate{{>tooltip desc="The average percentage you gain monthly from your portfolio based on the current market prices."}}</p>
 			</div>
 			<div class="small-3 columns">
 				<h1>{{annualReturn}}%</h1>
-				<p>Annual Expected Return Rate</p>
+				<p>Annual Expected Return Rate{{>tooltip desc="The average percentage you gain yearly from your portfolio based on the current market prices."}}</p>
 			</div>
 			<div class="small-3 columns">
 				<h1>{{volatilityRate}}%</h1>
-				<p>Expected Volatility Rate</p>
+				<p>Expected Volatility Rate{{>tooltip desc="The amount that your portfolio value is expected to fluctuate, based on market movements."}}</p>
 			</div>
 			<div class="small-3 columns">
 				<h1>{{expenseRatio}}%</h1>
-				<p>Annual Expense Ratio</p>
+				<p>Annual Expense Ratio{{>tooltip desc="The annual fee that all funds charge their shareholders."}}</p>
 			</div>
 		</div>
 		<h3>Projected Growth</h3>	
