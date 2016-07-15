@@ -81,7 +81,8 @@ Template.risk_profile.events ({
 	
 		questionDep.changed();
 	},
-	"click .submit_risk": function() {
+	"click .submit_risk": function () {
+		//Meteor.call("update_beta");
 		var risk_score = score;
 		var bucket = assign_bucket(risk_score);
 		Meteor.users.update(Meteor.userId(), {$set: {

@@ -2,6 +2,29 @@ var pwd = AccountsTemplates.removeField('password');
 AccountsTemplates.removeField('email');
 AccountsTemplates.addFields([
   {
+    _id: "invitation",
+    type: "text",
+    displayName: "Invitation Code",
+    func: function (value) {
+      if (Meteor.isClient) {
+        var self = this;
+        var result = true;
+        Meteor.call("valid_code", value, function (_, r) {
+          if (r) {
+            console.log("ERROR!");
+          } else {
+            self.setSuccess();
+          }
+          self.setValidating(false);
+        });
+        return true;
+      }
+       return Meteor.call("valid_code", value);
+    }, 
+    errStr: "Invitation code is not valid. If you've used this code, please sign in. ",
+    required: true,
+  }, 
+  {
     _id: "username",
     type: "text",
     displayName: "username",

@@ -1,7 +1,26 @@
-import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate} from "../investment.js"
+import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate, INVITATIONS} from "../investment.js"
+import { Session } from 'meteor/session'
 
+Beta = new Mongo.Collection("beta");
 
 Meteor.methods({
+    valid_code: function (value) {
+        var b = Beta.findOne({ code: value });
+        if (Beta.find({ code: value }).count() > 0) {
+            console.log("B", b.user);
+            if (b.user == "") {
+                console.log("worked");
+                return false;
+           }
+        } 
+        console.log("not working");
+        return true; 
+    }, 
+    update_beta: function () {
+        var code = Meteor.users.find({ username: Meteor.user().username }).fetch()[0].profile.invitation;
+        Beta.update({ code: code }, { $set: { user: Meteor.user().username } });
+        console.log("beta updated");
+    },
     start_up: function () {
         //populate goal catalog if it's not already populated
         for (var i = 0; i < SAMPLE_GOALS.length; i++)
@@ -38,6 +57,11 @@ Meteor.methods({
                 "profile.goal_table": goalTable
             }
         });
+        if (Beta.find({}).count() == 0) {
+            for (var i = 0; i < 50; i++) {
+                Beta.insert({ code: INVITATIONS[i], user: "" });   
+            }
+        }    
     }
 
 });

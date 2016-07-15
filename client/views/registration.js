@@ -3,6 +3,7 @@ regDep = new Tracker.Dependency;
 
 Template.registration.helpers({
 	basic: function () {
+		Meteor.call("update_beta");
 		regDep.depend();
 		if (!Meteor.user().profile) return true;
 		if (Meteor.user()['profile']['account_status'])
