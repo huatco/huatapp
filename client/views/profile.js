@@ -6,20 +6,36 @@ Template.profile.helpers({
   	email: function () {
  		return Meteor.user().emails[0].address;
   	},  
+    gender: function() {
+      return Meteor.user().profile.gender;
+    },
+    age: function() {
+      return Meteor.user().profile.age;
+    },
   	balance: function () {
- 		return Meteor.user().profile.amount;
+ 		 var amt = Meteor.user().profile.amount;
+     return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
   	},
-  	increment: function () {
- 		return Meteor.user().profile.increment;
-  	}, 
-  	expected: function() {
-  		var goals = Goals.find({user: Meteor.user().username});
-  		var amt = 0;
-  		goals.forEach(function(goal){
-  			amt += +(goal.target_amount);
-  		});
-  		return amt;
-  	},
+  	monthlyAmt: function() {
+      var amt = Meteor.user().profile.monthly_require;
+      return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+    targetAmt: function() {
+      var amt = Meteor.user().profile.total_require;
+      return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+    income: function() {
+      var amt = Meteor.user().profile.income;
+      return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+    expenditure: function() {
+      var amt = Meteor.user().profile.expenditure;
+      return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
+    },
+    riskscore: function() {
+      var amt = Meteor.user().profile.riskscore;
+      return amt;
+    },
 });
 
 Template.profile.events({

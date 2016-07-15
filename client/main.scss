@@ -22,6 +22,12 @@ $primary-color: $huat-pink;
 
 .application {
 	height: 100vh;
+	a {
+		text-decoration: none;
+		&:hover {
+			text-decoration: none;
+		}
+	}
 }
 
 .top-bar {
@@ -29,7 +35,6 @@ $primary-color: $huat-pink;
 	float: right;
 	padding-top: 17px;
 	padding-left: 20px;
-
 }
 
 .content {
@@ -51,6 +56,7 @@ $primary-color: $huat-pink;
 		padding: 0;
 		color: $subtle-black;
 	} 
+
 }
 
 #side-content {
@@ -153,10 +159,19 @@ $primary-color: $huat-pink;
 	}
 }
 
-.profile_button {
-	background: none;
-	color: $subtle-black;
+.top-bar {
+	ul {
+		background: none;
+	}
+	.profile_button {
+		color: $subtle-black;
+		font-size: 20px;
+		&:hover {
+			color: $huat-pink;
+		}
+	}
 }
+
 
 .regis_container {
 	margin-left: 100px;
@@ -184,6 +199,7 @@ $primary-color: $huat-pink;
 	width: 30%;
 	background-color: #fff;
 	border: 1px solid $inactive-gray;
+	border-radius: 7px;
 	padding: 20px;
 	margin: 10px;
 	display: inline-block;
@@ -296,6 +312,7 @@ $primary-color: $huat-pink;
 	.dashboard_item {
 		background-color: #fff;
 		border: 1px solid $inactive-gray;
+		border-radius: 7px;
 		margin: 10px;
 		padding: 10px 35px;
 		text-align: center;
@@ -593,5 +610,87 @@ $primary-color: $huat-pink;
 	p {
 		color: $shady-gray;
 		font-size: 14px;
+	}
+}
+
+.tool-tip {
+	display: inline;
+	position: relative;
+	text-align: left;
+	#tooltip-icon {
+		color: $inactive-gray;
+	}
+
+	#tooltip-desc {
+		background-color: rgba(0,0,0,0.8);
+		border-radius: 3px;
+		color: $nearly-white;
+		display: inline-block;
+		font-size: 12px;
+		width: 125px;
+		position: absolute;
+		left: 20px;
+		top: -25px;
+		padding: 5px 10px;
+		opacity: 0;
+		transition: all 0.2s ease;
+
+		&.show {
+			opacity: 1;
+		}
+
+	}
+}
+
+.profile {
+
+	.profile-header {
+		background-color: $active-black;
+		width: 92%;
+		padding: 20px 25px;
+
+		h1 {
+			font-size: 50px;
+			color: $huat-pink;
+		}
+
+		p {
+			color: $inactive-gray;
+		}
+	}
+
+	.profile-basic {
+		display: inline-block;
+		padding: 20px;
+		margin: 10px;
+		width: 600px;
+		height: 100%;
+		vertical-align: top;
+
+		p {
+			&.footnote {
+				font-size: 12px;
+				color: $shady-gray;
+			}
+		}
+
+	}
+
+	.profile-goal {
+		background-color: #fff;
+		border: 1px solid $inactive-gray;
+		border-radius: 7px;
+		display: inline-block;
+		padding: 20px;
+		margin: 10px 0;
+
+		h1 {
+			font-size: 32px;
+			color: $huat-pink;
+		}
+
+		p {
+			color: $shady-gray;
+		}
 	}
 }

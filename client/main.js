@@ -1,11 +1,25 @@
 var pwd = AccountsTemplates.removeField('password');
 AccountsTemplates.removeField('email');
+//Beta = new Mongo.Collection("beta");
 AccountsTemplates.addFields([
   {
     _id: "invitation",
     type: "text",
     displayName: "Invitation Code",
     func: function (value) {
+      //if (Meteor.isServer) {
+        var b = Beta.findOne({ code: value });
+        if (Beta.find({ code: value }).count() > 0) {
+            console.log("B", b.user);
+            if (b.user == "") {
+                console.log("worked");
+                return false;
+           }
+        } 
+        console.log("not working");
+        return true; 
+     // }
+      /*
       if (Meteor.isClient) {
         var self = this;
         var result = true;
@@ -20,6 +34,7 @@ AccountsTemplates.addFields([
         return true;
       }
        return Meteor.call("valid_code", value);
+       */
     }, 
     errStr: "Invitation code is not valid. If you've used this code, please sign in. ",
     required: true,
