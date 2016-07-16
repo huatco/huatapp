@@ -6,7 +6,6 @@ Goal_catalog = new Mongo.Collection("goal_catalog");
 //Meteor.call("start_up", function(error){});
 var goal_display_count = 4;
 Template.bucketlist.onCreated(function () {
-    
    this.autorun(() => {
        this.subscribe("goals");
        this.subscribe("support");   
