@@ -18,23 +18,6 @@ AccountsTemplates.addFields([
         } 
         console.log("not working");
         return true; 
-     // }
-      /*
-      if (Meteor.isClient) {
-        var self = this;
-        var result = true;
-        Meteor.call("valid_code", value, function (_, r) {
-          if (r) {
-            console.log("ERROR!");
-          } else {
-            self.setSuccess();
-          }
-          self.setValidating(false);
-        });
-        return true;
-      }
-       return Meteor.call("valid_code", value);
-       */
     }, 
     errStr: "Invitation code is not valid. If you've used this code, please sign in. ",
     required: true,
@@ -104,12 +87,5 @@ Template.topbar.events({
   },
 })
 
-AdminConfig = { 
-  adminEmails: ['rama@huat.com', 'zikang@huat.com'],
-  collections: 
-  { 
-    Analytics: {
-      icon: 'bar-chart',
-    }, 
-  } 
-}
+
+

@@ -3,11 +3,19 @@ import {SAMPLE_KEYWORDS} from "../../investment.js"
 //Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
-Meteor.call("start_up", function(error){});
+//Meteor.call("start_up", function(error){});
 var goal_display_count = 4;
+Template.bucketlist.onCreated(function () {
+   this.autorun(() => {
+       this.subscribe("goals");
+       this.subscribe("support");   
+    });
+});
 
 Template.bucketlist.helpers({
     goals: function () {
+        //return Meteor.subscribe("goal");
+        
             if (!Meteor.user().profile || Meteor.user().profile.account_status < 3)
                 document.location.href = '/registration';
             var this_user = Meteor.user().username;
@@ -19,6 +27,11 @@ Template.bucketlist.helpers({
 });
 
 
+Template.recommendation.onCreated(function () {
+   this.autorun(() => {
+    this.subscribe("goal_catalog");
+    });
+});
 
 Template.recommendation.helpers({
     modal: function () { return true; },
