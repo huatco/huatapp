@@ -28,6 +28,8 @@ Support.schema = new SimpleSchema({
   time_stamp: {type: Date}
 })
 
+
+
 Meteor.methods({
 
   add_goal: function (title, month, year, priority, target_amt, category, desc, tags) {

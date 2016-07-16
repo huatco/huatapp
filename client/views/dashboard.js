@@ -138,15 +138,11 @@ Template.progressChart.onRendered(function(){
 
 function drawProgressChart() {
 	r = Meteor.user().profile.return_rate;
-	console.log("return rate", r);
 	start_date = moment(Meteor.user().createdAt);
 	present = moment();
 	var vals = datalength();
     var data = monthlyInvestments(vals[0], vals[1]);
     var monthlabels = monthLabels(vals[0], vals[1]);
-    console.log(vals);
-    console.log(data);
-    console.log(monthlabels);
     var data = {
 	    labels: monthlabels,
 	    datasets: [
