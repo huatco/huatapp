@@ -23,6 +23,7 @@ Goals.schema = new SimpleSchema({
 });
 
 Bug.schema = new SimpleSchema({
+  user: {type: String}, 
   title: { type: String },
   description: { type: String, optional: true },
   time_stamp: {type: Date}
@@ -94,9 +95,9 @@ Meteor.methods({
     Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
   },
   
-  submit_bug: function (title, desc) {
+  submit_bug: function (user, title, desc) {
     
-    var bug = { title: title, description: desc, time_stamp: new Date() };
+    var bug = { user: user, title: title, description: desc, time_stamp: new Date() };
     var bug_context = Bug.schema.namedContext("bug");
     if (bug_context.validate(bug)) {
       Bug.insert(bug);

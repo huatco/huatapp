@@ -7,6 +7,15 @@ AdminConfig = {
   }),     
   collections:
   {
+    Active: {
+      tableColumns: [
+        { label: "status", name: "status" },
+        { label: "from", name: "from" },
+        {label: "to", name: "to"}, 
+        { label: "ip", name: "ip" }, 
+        
+      ]
+    }, 
     Bug: {
       routes: {
         view: {
@@ -16,9 +25,18 @@ AdminConfig = {
       tableColumns: [
         { label: "title", name: "title" }, 
         { label: "description", name: 'description' },
+        { label: "user", name: "user" },
+        
       ]
     }, 
-    Goal_catalog: {}, 
+    Goal_catalog: {
+      tableColumns: [
+        { label: "goal", name: "goal" }, 
+        { label: "keywords", name: 'keywords' },
+        { label: "clicks", name: "clicks" }, 
+        
+      ]
+    }, 
     Beta: {
       routes: {
         view: {

@@ -76,6 +76,8 @@ mfactory:admin-lte@0.0.2
 minifier-css@1.1.9
 minifier-js@1.1.9
 minimongo@1.0.12
+mizzao:timesync@0.3.4
+mizzao:user-status@0.6.6
 mobile-experience@1.0.2
 mobile-status-bar@1.0.10
 modules@0.5.1

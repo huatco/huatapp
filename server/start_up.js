@@ -2,6 +2,14 @@ import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate, INVITATIONS} from
 import { Session } from 'meteor/session'
 
 Beta = new Mongo.Collection("beta");
+Active = new Mongo.Collection("active");
+
+Active.schema = new SimpleSchema({
+    status: { type: String },
+    from: { type: Date },
+    to: {type: Date}, 
+    ip: {type: String, optional: true}
+})
 
 Meteor.methods({
     valid_code: function (value) {
@@ -50,8 +58,45 @@ Meteor.methods({
 
 });
 
+Meteor.users.find({ "status.online": true }).observe({
+    /*
+        added: function(id) {
+            console.log("added", id.status.lastLogin.ipAddr);
+            var obj = {
+                status: "log On",
+                time_stamp: id.status.lastLogin.date,
+                ip: id.status.lastLogin.ipAddr
+            };
+            var context = Active.schema.namedContext("add");
+            if (context.validate(obj)) {
+                Active.insert(obj);
+            }else {
+      console.log(context.invalidKeys());
+      return false;
+    }
+                    
+        },
+        */
+        removed: function (id) {
+            var obj = {
+                status: "log Off",
+                from: id.status.lastLogin.date, 
+                to: new Date(),
+                ip: id.status.lastLogin.ipAddr
+            }
+            console.log("removed", id.status.lastLogin);
+            var context = Active.schema.namedContext("remove");
+            if (context.validate(obj)) {
+                Active.insert(obj);
+            }else {
+      console.log(context.invalidKeys());
+      return false;
+    }
+        }
+});
+    
 Meteor.startup(function () {
-    //populate goal catalog if it's not already populated
+
     for (var i = 0; i < SAMPLE_GOALS.length; i++)
         for (var j = 0; j < SAMPLE_GOALS[i]["goals"].length; j++)
             if (Goal_catalog.find({ goal: SAMPLE_GOALS[i]["goals"][j] }).count() == 0)

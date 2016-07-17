@@ -6,7 +6,7 @@ Template.support.events({
             return;
         }
         var desc = event.target.description.value;
-        Meteor.call("submit_bug", title, desc,
+        Meteor.call("submit_bug", Meteor.user().username, title, desc,
             function (e, result) {document.location.href = "/";}
         );
         alert("Bug Submitted!");

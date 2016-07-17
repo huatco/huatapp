@@ -18,4 +18,8 @@ Meteor.publish("goal", function () {
 
 Meteor.publish("beta", function () {
     return Beta.find({});
+});
+
+Meteor.publish("active", function () {
+    return Active.find({});
 })
