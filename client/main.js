@@ -9,6 +9,7 @@ AccountsTemplates.addFields([
     func: function (value) {
       //if (Meteor.isServer) {
       Meteor.subscribe("beta");
+      Meteor.subscribe("bug");
         var b = Beta.findOne({ code: value });
         if (Beta.find({ code: value }).count() > 0) {
             console.log("B", b.user);

@@ -2,13 +2,12 @@ import {SAMPLE_KEYWORDS} from "../../investment.js"
 
 //Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
-
+Bug = new Mongo.Collection("bug");
 Meteor.call("start_up", function(error){});
 var goal_display_count = 4;
 Template.bucketlist.onCreated(function () {
    this.autorun(() => {
-       this.subscribe("goals");
-       this.subscribe("support");   
+       this.subscribe("goals"); 
     });
 });
 

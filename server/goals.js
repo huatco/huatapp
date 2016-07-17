@@ -2,7 +2,7 @@ import {returnRate, assign_bucket, SAMPLE_KEYWORDS} from "../investment.js"
 
 Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
-Support = new Mongo.Collection("support");
+Bug = new Mongo.Collection("bug");
 
 Goals.schema = new SimpleSchema({
   title: { type: String },
@@ -22,7 +22,7 @@ Goals.schema = new SimpleSchema({
   keywords: {type: String, optional: true}
 });
 
-Support.schema = new SimpleSchema({
+Bug.schema = new SimpleSchema({
   title: { type: String },
   description: { type: String, optional: true },
   time_stamp: {type: Date}
@@ -93,14 +93,16 @@ Meteor.methods({
     Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.rec_keywords": keys}});
     Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.dislike_keywords": []}}); 
   },
-
+  
   submit_bug: function (title, desc) {
+    
     var bug = { title: title, description: desc, time_stamp: new Date() };
-    var bug_context = Support.schema.namedContext("bug");
+    var bug_context = Bug.schema.namedContext("bug");
     if (bug_context.validate(bug)) {
-      Support.insert(bug);
+      Bug.insert(bug);
       return true;
     } else return false;
+    
   }
 }); 
 
