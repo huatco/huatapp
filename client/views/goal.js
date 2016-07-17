@@ -2,6 +2,11 @@
 var investment;
 var periods;
 var start_date;
+Template.goal.onCreated(function () {
+   this.autorun(() => {
+       this.subscribe("goals"); 
+    });
+});
 
 Template.goal.helpers({
 	createDate: function(timestamp) {
@@ -14,7 +19,7 @@ Template.goal.helpers({
 		return date.format("MMMM YYYY");
 	},
 
-	investment: function(goalid){
+	investment: function (goalid) {
 		var goal = Goals.findOne({_id: goalid});
 		var r = Meteor.user().profile.return_rate;
 		start_date = moment(goal.time_stamp);
