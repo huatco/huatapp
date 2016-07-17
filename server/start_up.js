@@ -1,16 +1,6 @@
 import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate, INVITATIONS} from "../investment.js"
 import { Session } from 'meteor/session'
 
-Beta = new Mongo.Collection("beta");
-Active = new Mongo.Collection("active");
-
-Active.schema = new SimpleSchema({
-    status: { type: String },
-    from: { type: Date },
-    to: {type: Date}, 
-    ip: {type: String, optional: true}
-})
-
 Meteor.methods({
     valid_code: function (value) {
         var b = Beta.findOne({ code: value });
@@ -87,11 +77,13 @@ Meteor.users.find({ "status.online": true }).observe({
             console.log("removed", id.status.lastLogin);
             var context = Active.schema.namedContext("remove");
             if (context.validate(obj)) {
-                Active.insert(obj);
-            }else {
-      console.log(context.invalidKeys());
-      return false;
-    }
+                if (obj['to'].getMinutes() - obj['from'].getMinutes() >= 1)
+                    Active.insert(obj);
+            } else {
+                console.log(context.invalidKeys());
+                return false;
+            }
+            
         }
 });
     

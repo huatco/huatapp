@@ -1,38 +1,11 @@
 import {returnRate, assign_bucket, SAMPLE_KEYWORDS} from "../investment.js"
 
-Goals = new Mongo.Collection("goals");
-Goal_catalog = new Mongo.Collection("goal_catalog");
-Bug = new Mongo.Collection("bug");
-
-Goals.schema = new SimpleSchema({
-  title: { type: String },
-  time_stamp: {type: Date, }, 
-  created_year: { type: Number },
-  created_month: { type: Number, min: 1, max: 12 },
-  goal_month: { type: Number, },
-  goal_year: { type: Number, min: 2016},
-  target_amount: { type: Number, },
-  current_amount: {type: Number, },
-  progress: {type: Number, defaultValue: 0},
-  category: {type: String },
-  user: {type: String },
-  details: { type: String, optional: true },
-  current_time: { type: Number },
-  priority: { type: Number },
-  keywords: {type: String, optional: true}
-});
-
-Bug.schema = new SimpleSchema({
-  user: {type: String}, 
-  title: { type: String },
-  description: { type: String, optional: true },
-  time_stamp: {type: Date}
-})
-
-
-
 Meteor.methods({
-
+  click_on_goal: function (goal) {
+    var c = parseInt(Goal_catalog.find({ goal: goal }).clicks); 
+    Goal_catalog.update({ goal: goal }, { $set: { clicks: c + 1 } }); 
+  }, 
+  
   add_goal: function (title, month, year, priority, target_amt, category, desc, tags) {
     var time_stamp = new Date();
     console.log(time_stamp);

@@ -1,5 +1,5 @@
 import {PORTFOLIO_PRICES, PORTFOLIO_DATES, BUCKET_PORTFOLIOS} from "../../investment.js"
-Goals = new Mongo.Collection("goals");
+
 r=0;
 start_date=0;
 present=0;
