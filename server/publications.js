@@ -14,3 +14,7 @@ Meteor.publish("goal", function () {
     var name = Meteor.users.findOne(this.userId);
     return Goals.find({ user: name });
 });
+
+Meteor.publish("beta", function () {
+    return Beta.find({});
+})

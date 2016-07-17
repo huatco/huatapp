@@ -3,7 +3,7 @@ import {SAMPLE_KEYWORDS} from "../../investment.js"
 //Goals = new Mongo.Collection("goals");
 Goal_catalog = new Mongo.Collection("goal_catalog");
 
-//Meteor.call("start_up", function(error){});
+Meteor.call("start_up", function(error){});
 var goal_display_count = 4;
 Template.bucketlist.onCreated(function () {
    this.autorun(() => {

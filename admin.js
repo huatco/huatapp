@@ -8,6 +8,11 @@ AdminConfig = {
   collections:
   {
     Beta: {
+      routes: {
+        view: {
+            waitOn: function () { return Meteor.subscribe('beta'); }
+          },
+      }, 
       tableColumns: [
         { label: "code", name: "code" }, 
         { label: "user", name: 'user' },

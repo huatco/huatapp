@@ -1,6 +1,6 @@
 var pwd = AccountsTemplates.removeField('password');
 AccountsTemplates.removeField('email');
-//Beta = new Mongo.Collection("beta");
+Beta = new Mongo.Collection("beta");
 AccountsTemplates.addFields([
   {
     _id: "invitation",
@@ -8,6 +8,7 @@ AccountsTemplates.addFields([
     displayName: "Invitation Code",
     func: function (value) {
       //if (Meteor.isServer) {
+      Meteor.subscribe("beta");
         var b = Beta.findOne({ code: value });
         if (Beta.find({ code: value }).count() > 0) {
             console.log("B", b.user);
