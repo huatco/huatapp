@@ -2,8 +2,9 @@ Meteor.publish("goals", function(){
     return Goals.find({});
 });
 
-Meteor.publish("support", function () {
-    return Support.find({});
+
+Meteor.publish("bug", function () {
+    return Bug.find({});
 });
 
 Meteor.publish("goal_catalog", function () {

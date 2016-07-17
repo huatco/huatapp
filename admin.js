@@ -7,6 +7,18 @@ AdminConfig = {
   }),     
   collections:
   {
+    Bug: {
+      routes: {
+        view: {
+            waitOn: function () { return Meteor.subscribe('bug'); }
+          },
+      }, 
+      tableColumns: [
+        { label: "title", name: "title" }, 
+        { label: "description", name: 'description' },
+      ]
+    }, 
+    Goal_catalog: {}, 
     Beta: {
       routes: {
         view: {

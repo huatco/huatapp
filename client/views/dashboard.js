@@ -4,7 +4,11 @@ r=0;
 start_date=0;
 present=0;
 
-
+Template.dashboard.onCreated(function () {
+   this.autorun(() => {
+       this.subscribe("goals"); 
+    });
+});
 Template.dashboard.helpers({
 	username: function () {
 		if(!Meteor.user().profile || Meteor.user().profile.account_status < 3)
