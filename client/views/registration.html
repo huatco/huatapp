@@ -1,7 +1,9 @@
 <template name="registration">
 	<div class="regis_container">
 	{{#if basic}}
-		<h1>Some basic information</h1>
+		<h1>Some Basic Information</h1>
+		<hr>
+		<p>Here we will need you to fill in some general details about yourself in order for us to profile you accurately. Do note that all information is kept <strong>strictly confidential</strong>.</p>
 		{{> basic_info}}
 	{{else}}
 		{{#if risk}}
@@ -32,46 +34,38 @@
 
 <template name="basic_info">
 	<form class="basic_info">
-		<div class="row">
-			<fieldset class="large-6 columns">
-			    <legend>Gender</legend>
-			    <input type="radio" name="gender" value="m" id="gender_male" required><label for="gender_male">Male</label>
-			    <input type="radio" name="gender" value="f" id="gender_female"><label for="gender_female">Female</label>
-				<legend>Marital Status</legend>
-			    <input type="radio" name="married" value="m" id="married"><label for="married">Married</label>
-			    <input type="radio" name="single" value="f" id="single"><label for="single">Single</label>
-				<input type="radio" name="other" value="f" id="other"><label for="other">Other</label>
-				<legend>Age Group</legend>
-			    <input type="radio" name="one" value="m" id="one"><label for="one">0-17</label>
-			    <input type="radio" name="two" value="f" id="two"><label for="two">18-29</label>
-				<input type="radio" name="three" value="f" id="three"><label for="three">30-49</label>
-				<input type="radio" name="four" value="f" id="four"><label for="four">>50</label>
-			</fieldset>
+		<div class="registration-basic">
+			<div class="row">
+				<fieldset >
+				    <h3>Gender</h3>
+				    <input type="radio" name="gender" value="m" id="gender_male" required><label for="gender_male">Male</label>
+				    <input type="radio" name="gender" value="f" id="gender_female"><label for="gender_female">Female</label>
+
+					<hr>
+					<h3>Marital Status</h3>
+				    <input type="radio" name="mstatus" value="m" id="married"><label for="married">Married</label>
+				    <input type="radio" name="mstatus" value="f" id="single"><label for="single">Single</label>
+					<input type="radio" name="mstatus" value="f" id="other"><label for="other">Other</label>
+					
+					<hr>
+					<h3>Age Group</h3>
+				    <input type="radio" name="age" value="m" id="one"><label for="one">0-17</label>
+				    <input type="radio" name="age" value="f" id="two"><label for="two">18-29</label>
+					<input type="radio" name="age" value="f" id="three"><label for="three">30-49</label>
+					<input type="radio" name="age" value="f" id="four"><label for="four">>50</label>
+				</fieldset>
+			</div>
+			<div class="row">
+		    	<hr>
+		    	<h3>Net Monthly Income (in SGD)</h3>
+		      	<input type="number" placeholder="3000.00" name="income" />
+			</div>
+			<div class="row">
+		      	<hr>
+		      	<h3>Average Monthly Expenditure (in SGD)</h3>
+		      	<input type="number" placeholder="2000.00" name="expenditure" />
+			</div>
 		</div>
-		<div class="row">
-		    <div class="large-6 columns">
-		      	<label>Net Monthly Income(in SGD)<input type="number" placeholder="3000.00" name="income" /></label>
-		    </div>
-		</div>
-		<div class="row">
-		    <div class="large-6 columns">
-		      	<label>Average Monthly Expenditure(in SGD)<input type="number" placeholder="2000.00" name="expenditure" /></label>
-		    </div>
-		</div>
-		<!--
-		<div class="row">
-		    <div class="large-6 columns">
-		      	<label>Initial Deposit Amount (in SGD)<input type="number" placeholder="$$ 1000.00" name="deposit" /></label>
-		    </div>
-		</div>
-		<div class="row">
-		    <div class="large-6 columns">
-		      	<label>Monthly Increment Amount (in SGD)<input type="number" placeholder="$$ 100.00" name="increment" /></label>
-		    </div>
-		</div>
-		-->
-		<div class="row">
-		  	<input class="button" type="submit" value="Next">
-		</div>
+		<input class="button" id="basic-submit" type="submit" value="Continue >>>">
 	</form>
 </template>

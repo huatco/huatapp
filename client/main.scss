@@ -28,6 +28,11 @@ $primary-color: $huat-pink;
 			text-decoration: none;
 		}
 	}
+
+}
+
+.button {
+	border-radius: 3px;
 }
 
 .top-bar {
@@ -175,25 +180,60 @@ $primary-color: $huat-pink;
 
 .regis_container {
 	margin-left: 100px;
-}
+	width: 50%;
 
-.risk_profile {
-	margin-top: 100px;
-	text-align: center;
-	margin: 100px auto;
-
-	h3 {
-		font-size: 25px;
-		margin-bottom: 40px;
+	h1 {
+		color: $huat-pink;
 	}
 
-	button {
-		font-size: 20px;
-		padding:20px;
-		margin-right: 15px;
+	p {
+		color: $subtle-black;
 	}
 
+	.registration-basic {
+		background-color: #fff;
+		border: 1px solid $inactive-gray;
+		border-radius: 7px;
+		width: 500px;
+		padding: 20px 35px;
+		margin-bottom: 20px;
+
+		h3 {
+			font-size: 20px;
+			color: $subtle-black;
+			font-weight: 300;
+			margin-top: 20px;
+			margin-bottom: 5px;
+		}
+
+	}
+
+	#basic-submit {
+		display: inline-block;
+		position: relative;
+		left: 550px;
+		top: -95px;
+	}
+
+	.risk_profile {
+		margin-top: 100px;
+		text-align: center;
+		margin: 100px auto;
+
+		h3 {
+			font-size: 25px;
+			margin-bottom: 40px;
+		}
+
+		button {
+			font-size: 20px;
+			padding:20px;
+			margin-right: 15px;
+		}
+
+	}
 }
+
 
 .bucket_goal {
 	width: 30%;
@@ -647,7 +687,7 @@ $primary-color: $huat-pink;
 	.profile-header {
 		background-color: $active-black;
 		width: 92%;
-		padding: 20px 25px;
+		padding: 20px 25px 10px 25px;
 
 		h1 {
 			font-size: 50px;
