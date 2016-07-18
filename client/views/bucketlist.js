@@ -1,10 +1,5 @@
 import {SAMPLE_KEYWORDS} from "../../investment.js"
 
-//Goals = new Mongo.Collection("goals");
-Goal_catalog = new Mongo.Collection("goal_catalog");
-Bug = new Mongo.Collection("bug");
-Active = new Mongo.Collection("active");
-
 Meteor.call("start_up", function(error){});
 var goal_display_count = 4;
 Template.bucketlist.onCreated(function () {
@@ -77,6 +72,7 @@ Template.rec_goal.events({
         Session.set("section", 2);
         Session.set("title", e.data.goal_item.goal);
         Session.set("category", e.data.category);
+        Meteor.call("click_on_goal", e.data.goal_item.goal); 
         
     }
 });
