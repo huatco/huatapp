@@ -214,7 +214,7 @@ Template.goal_modal.events({
 
 		console.log(period);
 		realisticPeriod = period;
-		var date = moment().add(period, 'M');
+		var date = moment(Meteor.user().profile.present_time).add(period, 'M');
 		var month = date.month()+1;
 		var year = date.year();
 		$("#month").val(month);
@@ -238,7 +238,7 @@ Template.goal_modal.events({
 	"change #month": function(event, template){
 		var month = $("#month").val();
 		var year = $("#year").val();
-		var present = moment();
+		var present = moment(Meteor.user().profile.present_time);
 		var date = moment([year, month]);
 		console.log("date changed", date);
 		targetPeriod = date.diff(present, 'months');
@@ -248,7 +248,7 @@ Template.goal_modal.events({
 	"change #year": function(event, template){
 		var month = $("#month").val();
 		var year = $("#year").val();
-		var present = moment();
+		var present = moment(Meteor.user().profile.present_time);
 		var date = moment([year, month]);
 		console.log("date changed", date);
 		targetPeriod = date.diff(present, 'months');
@@ -256,12 +256,13 @@ Template.goal_modal.events({
 	},
 
 	"click #reset_date": function(){
-		var date = moment().add(realisticPeriod, 'M');
+		var date = moment(Meteor.user().profile.present_time).add(realisticPeriod, 'M');
 		var month = date.month()+1;
 		var year = date.year();
 		$("#month").val(month)
 		$("#year").val(year);
 		targetPeriod = -1;
+		
 		realismDep.changed();
 	},
 

@@ -80,11 +80,13 @@
         </div>
         <p class="help-text" id="passwordHelpText">Target date is calculated based on your investment amount. <a href="" id="reset_date">Click to reset date.</a></p>
        {{#if realismAmount.show}}
-          <p> In order to reach this target, you need to top up $</p>
-          <div>
-            <input type="text" id="topupamount" value="{{realismAmount.str}}"> SGD. 
-		  	    <a id="topup">Top Up</a>
-            <p id="topups">{{msg}}</p>
+          <div class="topup-panel">
+            <p><em>In order to reach this target, you need to top up</em></p>
+            <div>
+              <input type="text" id="topupamount" value="${{realismAmount.str}}">
+              <a class="button" id="topup">Top Up</a>
+              <p id="topups">{{msg}}</p>
+            </div>
           </div>
       {{/if}}
       </div>

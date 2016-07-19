@@ -40,6 +40,27 @@ $primary-color: $huat-pink;
 	float: right;
 	padding-top: 17px;
 	padding-left: 20px;
+
+	ul {
+		background: none;
+		li {
+			p{
+				color: #fff;
+				background-color: $inactive-gray;
+				font-size: 12px;
+				font-weight: 500;
+				margin-top: -20px;
+				padding: 15px 10px 5px;
+			}
+		}
+	}
+	.profile_button {
+		color: $subtle-black;
+		font-size: 20px;
+		&:hover {
+			color: $huat-pink;
+		}
+	}
 }
 
 .content {
@@ -161,27 +182,6 @@ $primary-color: $huat-pink;
 		font-size: 16px;
 		margin-top: 3px;
 		padding: 0;
-	}
-}
-
-.top-bar {
-	ul {
-		background: none;
-		li {
-			p{
-				color: $shady-gray;
-				font-size: 12px;
-				font-weight: 300;
-				margin-top: 10px;
-			}
-		}
-	}
-	.profile_button {
-		color: $subtle-black;
-		font-size: 20px;
-		&:hover {
-			color: $huat-pink;
-		}
 	}
 }
 
@@ -555,6 +555,13 @@ $primary-color: $huat-pink;
 	height: 560px;
 	width: 70%;
 	overflow-y: hidden;
+	border-radius: 7px;
+
+	.close-button {
+		margin-top: 10px;
+		margin-right: 10px;
+	}
+
 	h2 {
 		font-size: 20px;
 		font-weight: 300;
@@ -596,6 +603,27 @@ $primary-color: $huat-pink;
 
 			textarea {
 				height: 150px;
+			}
+
+			.topup-panel {
+				background-color: $nearly-white;
+				border: 1px solid $inactive-gray;
+				border-radius: 7px;
+				padding: 20px 20px 0px;
+
+				input {
+					background: none;
+					border: none;
+					box-shadow: none;
+					font-size: 25px;
+					color: $huat-pink;
+					width: 110px;
+					display: inline-block;
+				}
+
+				#topup {
+					float: right;
+				}
 			}
 
 		}
@@ -807,5 +835,21 @@ $primary-color: $huat-pink;
 		p {
 			color: $shady-gray;
 		}
+	}
+}
+
+.bug {
+	background-color: #fff;
+	border: 1px solid $inactive-gray;
+	border-radius: 7px;
+	padding: 25px;
+
+	h2 {
+		font-size: 25px;
+		font-weight: 300;
+	}
+
+	textarea {
+		height: 150px;
 	}
 }
