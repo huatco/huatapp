@@ -89,7 +89,6 @@ $primary-color: $huat-pink;
 	height: 100%;
 	.sidebar {
 		background-color: $active-black;
-		border-right: 1px solid $inactive-gray;
 		height: 100%;
 		padding: 0;
 		position: fixed;
@@ -789,11 +788,13 @@ $primary-color: $huat-pink;
 
 	.profile-header {
 		background-color: $active-black;
-		width: 92%;
-		padding: 20px 25px 10px 25px;
+		width: 102%;
+		margin-top: -20px;
+		margin-left: -20px;
+		padding: 30px 35px 10px 40px;
 
 		h1 {
-			font-size: 50px;
+			font-size: 35px;
 			color: $huat-pink;
 		}
 
@@ -824,7 +825,7 @@ $primary-color: $huat-pink;
 		border: 1px solid $inactive-gray;
 		border-radius: 7px;
 		display: inline-block;
-		padding: 20px;
+		padding: 20px 30px;
 		margin: 10px 0;
 
 		h1 {
