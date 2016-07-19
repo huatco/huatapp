@@ -73,7 +73,8 @@ Template.registration.events({
 Template.basic_info.events({
 	"submit .basic_info": function(event) {
       	event.preventDefault();
-
+			var age = event.target.age.value;
+			var marital = event.target.age.value;
       	var gender = event.target.gender.value;
       	var income = event.target.income.value || 0.0;
       	var expenditure = event.target.expenditure.value || 0.0;
@@ -81,9 +82,11 @@ Template.basic_info.events({
       	var increment = event.target.increment ? event.target.increment.value : 0.0;
       	var input_valid = true;
       	Meteor.users.update(Meteor.userId(), {$set: {
-      		"profile.gender": gender,
-      		"profile.income": income,
-      		"profile.expenditure": expenditure,
+				"profile.gender": gender,
+				"profile.marital": marital, 
+				"profile.age": age, 
+				"profile.income": income,
+				"profile.expenditure": expenditure,
       		"profile.amount": deposit,
 			"profile.increment": increment,
 			"profile.account_status": 1

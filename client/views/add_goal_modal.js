@@ -5,7 +5,7 @@ var categoryDep = new Tracker.Dependency;
 var realismDep = new Tracker.Dependency;
 var targetPeriod = -1;
 var realisticPeriod = -1;
-var val = 0;
+var VAL = 0;
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
@@ -112,7 +112,7 @@ Template.goal_modal.helpers({
 			return "";
 		}
 	},
-
+	default_year: function () { return 2017; }, 
 	realismAmount: function(){
 		realismDep.depend();
 		//console.log("Realism", realisticPeriod, targetPeriod);
@@ -125,10 +125,19 @@ Template.goal_modal.helpers({
 			console.log("str", str);
 			return { show: true, str: str };
 		}*/
-		if(targetPeriod==-1){
-			return { show: false, str: "" };
+		if (targetPeriod == -1 || Session.get("reg_state") == 2 || Goals.find({user: Meteor.user().username}).count()==0) {
+			var r = Meteor.user().profile.return_rate;
+			var denom = 0;
+			var date = moment([2017, 1]);
+			targetPeriod = date.diff(present, 'months');
+			  for(i=0; i<targetPeriod; i++){
+				var a = Math.pow(1+r, i);
+				denom += a;
+			}
+			var str = parseFloat(Math.round(VAL/denom * 100) / 100).toFixed(2);
+			return { show: true, str: str };
 		}
-		if(realisticPeriod>targetPeriod || Session.get("reg_state") == 2){
+		if(realisticPeriod>targetPeriod ){
 			// var r = Meteor.user().profile.return_rate;
 			// var goalTable = Meteor.user().profile.goal_table;
 
@@ -167,17 +176,15 @@ Template.goal_modal.helpers({
 function investmentAmt() {
   var r = Meteor.user().profile.return_rate;
   var denom = 0;
-  for(i=0; i<targetPeriod; i++){
-    var a = Math.pow(1+r, i);
-    denom += a;
+  for(var i=0; i<targetPeriod; i++){
+    denom += Math.pow(1+r, i);
   }
-  investment = val/denom;
-  return investment;
+  return VAL/denom;
 };
 
 Template.goal_modal.events({
 	'change #amount': function (event, template) {
-		val = event.target.valueAsNumber;
+		VAL = event.target.valueAsNumber;
 		
 		if (Session.get("reg_state") == 2) {
 			realismDep.changed();
@@ -188,7 +195,7 @@ Template.goal_modal.events({
 		var r = Meteor.user().profile.return_rate;
 		var amount = parseFloat(Meteor.user().profile.amount);
 		var monthlyAdd = parseFloat(Meteor.user().profile.monthly_require);
-		var totalRequire = Meteor.user().profile.total_require + val;
+		var totalRequire = Meteor.user().profile.total_require + VAL;
 		var goalReached = false;
 		while (!goalReached) {
 			if(period in goalTable){

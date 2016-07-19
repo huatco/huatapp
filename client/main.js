@@ -15,7 +15,7 @@ AccountsTemplates.addFields([
 
         if (Beta.find({ code: value }).count() > 0) {
             console.log("B", b.user);
-            if (b.user == "") {
+            if (b.user == "" || b.user == undefined) {
                 console.log("worked");
                 return false;
            }
