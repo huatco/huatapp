@@ -1,4 +1,4 @@
-import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate, INVITATIONS} from "../investment.js"
+import {SAMPLE_GOALS, investmentAmt, targetPeriod, returnRate, INVITATIONS, PILOT_START_DATE} from "../investment.js"
 import { Session } from 'meteor/session'
 
 Meteor.methods({
@@ -20,28 +20,45 @@ Meteor.methods({
         console.log("beta updated");
     },
     start_up: function () {
-        var monthly_requirement = 0
-        var total_requirement = 0
-        var goalTable = {}
-        var goals = Goals.find({ user: Meteor.user().username })
+        var monthly_requirement = 0;
+        var total_requirement = 0;
+        var goalTable = {};
+        var goals = Goals.find({ user: Meteor.user().username });
         var score = Meteor.user().profile.risk_score;
-        var rate = returnRate(score)
+        var rate = returnRate(score);
         
+        var start = PILOT_START_DATE;
+        var present = moment();
+        var diff_days = present.diff(start,"days");
+        var virtual_present = present.add((diff_days*5),"days");
+        var diff_months = virtual_present.diff(start,"months");
+        console.log("goal new val", diff_months);
+
         goals.forEach(function (goal) {
             var amt = investmentAmt(goal.target_amount, goal.time_stamp, goal.goal_month, goal.goal_year, rate);
             var p = targetPeriod(goal.goal_month, goal.goal_year);
-
+            var new_val = diff_months*amt;
+            var new_prog = new_val/goal.target_amount;
             (p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
 
             monthly_requirement += amt;
             total_requirement += parseFloat(goal.target_amount);
-            Goals.update({ _id: goal._id }, { $set: { monthly_amt: amt } });
+            Goals.update({ _id: goal._id }, { 
+                $set: { 
+                    monthly_amt: parseFloat(amt).toFixed(2),
+                    current_amount: new_val,
+                    progress: new_prog,
+                } 
+            });
         });
         Meteor.users.update({ _id: Meteor.user()._id }, {
             $set: {
                 "profile.return_rate": rate,
-                "profile.monthly_require": monthly_requirement, "profile.total_require": total_requirement,
-                "profile.goal_table": goalTable
+                "profile.monthly_require": monthly_requirement, 
+                "profile.total_require": total_requirement,
+                "profile.goal_table": goalTable,
+                "profile.present_time": virtual_present.toISOString(),
+                "profile.amount": monthly_requirement*diff_months,
             }
         });
     }

@@ -81,6 +81,10 @@ Template.topbar.helpers({
   username: function () {
     return Meteor.user() && Meteor.user().username;
   }, 
+  present_date: function() {
+    var date = moment(Meteor.user().profile.present_time);
+    return date.format("dddd, MMMM Do YYYY");
+  }
 });
 
 Template.topbar.events({

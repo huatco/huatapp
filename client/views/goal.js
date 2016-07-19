@@ -21,13 +21,11 @@ Template.goal.helpers({
 
 	investment: function (goalid) {
 		var goal = Goals.findOne({_id: goalid});
-		var r = Meteor.user().profile.return_rate;
 		start_date = moment(goal.time_stamp);
 		var target_date = moment([goal.goal_year, goal.goal_month]);
-		var present = moment();
+		present = moment(Meteor.user().profile.present_time);
 		periods = target_date.diff(start_date, 'months');
 		investment = goal.monthly_amt;
-		console.log("investment", investment);
 		return parseFloat(Math.round(investment * 100) / 100).toFixed(2);
 	},
 
@@ -66,7 +64,7 @@ Template.goalprogressChart.onRendered( function(){
 
 
 function drawChart() {
-	var curr_period = moment().diff(start_date, 'months');
+	var curr_period = moment(Meteor.user().profile.present_time).diff(start_date, 'months');
 	var vals = [curr_period < 5 ? curr_period : 5, periods < 12 ? periods : 12]
     var data2 = monthlyInvestments(vals[0], vals[1]);
     var monthlabels = monthLabels(vals[0], vals[1]);
@@ -108,7 +106,7 @@ function drawChart() {
 
 function monthlyInvestments(a, b) {
 
-	var curr_period = moment().diff(start_date, 'months');
+	var curr_period = moment(Meteor.user().profile.present_time).diff(start_date, 'months');
 	var investments = [];
 	var data = [];
 	var curr = 0;
@@ -118,7 +116,7 @@ function monthlyInvestments(a, b) {
 		curr = val;
 	}
 
-	var data_start = moment().diff(start_date, 'months') - a;
+	var data_start = moment(Meteor.user().profile.present_time).diff(start_date, 'months') - a;
 
 	for(i=0; i<b; i++){
 		data.push(investments[data_start]);
@@ -131,7 +129,7 @@ function monthlyInvestments(a, b) {
 
 function monthLabels(a,b) {
 	var labels = [];
-	var m = moment();
+	var m = moment(Meteor.user().profile.present_time);
 	var curr = m.month() - a;
 	for (var i = 0; i < b; i++) {
 		var mon = curr%12;

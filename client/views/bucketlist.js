@@ -106,7 +106,7 @@ Template.bucket_goal.helpers({
 
     remainder: function(goalid) {
         var goal = Goals.findOne({_id: goalid});
-        var start = moment();
+        var start = moment(Meteor.user().profile.present_time);
         var end = moment([goal.goal_year, goal.goal_month]);
         var difference = end.diff(start, 'months');
         return difference;

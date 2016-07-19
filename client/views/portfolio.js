@@ -47,7 +47,7 @@ Template.returnsChart.onRendered( function(){
 function drawReturnsChart() {
     r = Meteor.user().profile.return_rate;
     start_date = moment(Meteor.user().createdAt);
-    present = moment();
+    present = moment(Meteor.user().profile.present_time);
     var vals = datalength();
     var data = monthlyInvestments(vals[0], vals[1]);
     var monthlabels = monthLabels(vals[0], vals[1]);
@@ -106,7 +106,7 @@ function monthlyInvestments(a, b) {
 
 function monthLabels(a,b) {
     var labels = [];
-    var m = moment();
+    var m = moment(Meteor.user().profile.present_time);
     var curr = m.month() - a;
     for (var i = 0; i < b; i++) {
         var mon = curr%12;
