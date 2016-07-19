@@ -27,6 +27,7 @@ Template.goal.helpers({
 		var present = moment();
 		periods = target_date.diff(start_date, 'months');
 		investment = goal.monthly_amt;
+		console.log("investment", investment);
 		return parseFloat(Math.round(investment * 100) / 100).toFixed(2);
 	},
 
@@ -37,6 +38,11 @@ Template.goal.helpers({
     progress_percent: function(goalid) {
     	var goal = Goals.findOne({_id: goalid});
     	return +(goal.progress)*100;
+    },
+
+    goaltags: function(keywords) {
+    	var tags = keywords.split(",");
+    	return tags;
     },
 });
 

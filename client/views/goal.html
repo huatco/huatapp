@@ -23,6 +23,13 @@
 				<p>Target: {{targetDate goal_month goal_year}}</p>
 				<p>Category: {{category}}</p>
 				<p>Priority: {{priority}}</p>
+				<div>
+					{{#each tag in (goaltags keywords)}}
+						<div class="goaltag">{{tag}}</div>
+					{{else}}
+						
+					{{/each}}
+				</div>
 			</div>
 		</div>
 
