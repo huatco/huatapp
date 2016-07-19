@@ -2,6 +2,7 @@
 var investment;
 var periods;
 var start_date;
+var curr_period;
 Template.goal.onCreated(function () {
    this.autorun(() => {
        this.subscribe("goals"); 
@@ -64,7 +65,7 @@ Template.goalprogressChart.onRendered( function(){
 
 
 function drawChart() {
-	var curr_period = moment(Meteor.user().profile.present_time).diff(start_date, 'months');
+	curr_period = moment(Meteor.user().profile.present_time).diff(start_date, 'months');
 	var vals = [curr_period < 5 ? curr_period : 5, periods < 12 ? periods : 12]
     var data2 = monthlyInvestments(vals[0], vals[1]);
     var monthlabels = monthLabels(vals[0], vals[1]);
@@ -103,10 +104,7 @@ function drawChart() {
 
 };
 
-
 function monthlyInvestments(a, b) {
-
-	var curr_period = moment(Meteor.user().profile.present_time).diff(start_date, 'months');
 	var investments = [];
 	var data = [];
 	var curr = 0;
@@ -119,8 +117,12 @@ function monthlyInvestments(a, b) {
 	var data_start = moment(Meteor.user().profile.present_time).diff(start_date, 'months') - a;
 
 	for(i=0; i<b; i++){
-		data.push(investments[data_start]);
-		data_start+=1;
+		if(typeof investments[data_start] === 'undefined') {
+			data.push(0);
+		}else{
+			data.push(investments[data_start]);
+			data_start+=1;
+		}
 	}
 
 	return data;
