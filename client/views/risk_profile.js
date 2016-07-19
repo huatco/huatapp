@@ -1,4 +1,4 @@
-import {assign_bucket, RATES, returnRate} from "../../investment.js"
+import {assign_bucket, RATES, returnRate,  BUCKET_PORTFOLIOS} from "../../investment.js"
 var score = 0;
 Session.set({"step": 0, "bucket": 1});
 var q2 = [
@@ -96,3 +96,35 @@ Template.risk_profile.events ({
 		regDep.changed();
 	},
 });
+
+function getPortfolioData(vals, labels){
+	data = [];
+	colours = ['#e50b4f', '#ccc', '#1A90B2', '#3a3a3c', '#f85130'];
+	for(var i=0; i<vals.length; i++){
+		asset = {
+			value: vals[i],
+	        color: colours[i],
+	        highlight: "#f2f2f2",
+	        label: labels[i],
+		};
+		data.push(asset);
+	}
+	return data;
+};
+
+Template.bucketChart.onRendered(function(){
+	drawBucketChart();
+});
+
+function drawBucketChart() {
+	var bucket = Session.get("bucket");
+	var bucketvals = BUCKET_PORTFOLIOS[bucket];
+	var labels = BUCKET_PORTFOLIOS[0];
+	var data = getPortfolioData(bucketvals, labels);
+	var options = { 
+        responsive: true,
+        maintainAspectRatio: true
+    };
+	var ctx = document.getElementById("bucketChart").getContext("2d");
+	var myNewChart = new Chart(ctx).Doughnut(data, options);
+};

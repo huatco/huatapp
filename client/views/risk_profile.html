@@ -5,11 +5,24 @@
 				<button type="button" class="button opt1">{{question.option1}}</button>
 				<button type="button" class="button opt2">{{question.option2}}</button>
 		{{else}}
-			<h3>Your Risk bucket is:</h3>
-			<h2>Bucket {{bucket}}</h2>
-			<h3>Your average annual rate of returns will be:</h3>
-			<h2>{{returns}} %</h2>
-			<button class="button submit_risk">Next</button>
+			<h3>Your Risk Assessment Results:</h3>
+			<div class="row results">
+				<div class="small-12 large-5 columns">
+					{{> bucketChart}}
+					<p>Portfolio Breakdown {{>tooltip desc="This chart gives a breakdown of various ratios of assets that make up your investment portfolio."}}</p>
+				</div>
+				<div class="small-12 large-7 columns">
+					<p>Your Risk Bucket {{>tooltip desc="Your risk bucket determines the assets that will make up your investment portfolio"}}</p>
+					<h2>Bucket {{bucket}}</h2>
+					<p>Your Average Rate of Returns {{>tooltip desc="The average percentage you gain yearly from your portfolio, based on the current market prices."}}</p>
+					<h2>{{returns}} %</h2>
+				</div>
+			</div>
+			<button class="button submit_risk">Continue >>></button>
 		{{/if}}
 	</div>
+</template>
+
+<template name="bucketChart">
+	<canvas id="bucketChart" height="150" width="150"></canvas>
 </template>

@@ -216,19 +216,75 @@ $primary-color: $huat-pink;
 	}
 
 	.risk_profile {
-		margin-top: 100px;
-		text-align: center;
-		margin: 100px auto;
+		background-color: #fff;
+		border: 1px solid $inactive-gray;
+		border-radius: 7px;
+		padding: 20px 35px;
+		text-align: left;
 
 		h3 {
-			font-size: 25px;
-			margin-bottom: 40px;
+			font-size: 20px;
+			color: $subtle-black;
+			font-weight: 300;
+			margin-top: 20px;
+			margin-bottom: 25px;
 		}
 
 		button {
+			color: $huat-pink;
+			background-color: $nearly-white;
+			border: 1px solid $huat-pink;
+			display: inline-block;
 			font-size: 20px;
+			line-height: 25px;
+			margin: 10px 15px;
+			min-height: 100px;
 			padding:20px;
-			margin-right: 15px;
+			width: 210px;
+
+			&:first-child {
+			}
+
+			&:hover {
+				background-color: $huat-pink;
+				color: #fff;
+			}
+
+			&.submit_risk {
+				min-height: 0;
+				margin-top: 35px;
+				margin-right: -35px;
+				width: auto;
+				padding: 7px 10px;
+				font-size: 15px;
+				float: right;
+
+			}
+		}
+
+		.results {
+			h2 {
+				color: $huat-pink;
+				font-weight: 300;
+				margin-bottom: 25px;
+			}
+
+			p {
+				color: $shady-gray;
+				margin-top: 0;
+				margin-bottom: 10px;
+			} 
+
+			.large-5 {
+				p {
+					margin-top: 20px;
+					text-align: center;
+				}
+			}
+
+			.large-7 {
+				padding-left: 50px;
+			}
 		}
 
 	}
@@ -298,15 +354,17 @@ $primary-color: $huat-pink;
 .recommended {
 	display: inline-block;
 	margin-right: 5px;
+	margin-bottom: 10px;
 	width: 30%;
 	border: 1px solid $inactive-gray;
+	vertical-align: top;
 
 	.header {
-		background-color: #fff;
+		background-color: $subtle-black;
 		padding: 10px 20px;
 
 		h4 {
-			color: $shady-gray;
+			color: $inactive-gray;
 			font-size: 20px;
 		}
 
@@ -318,7 +376,7 @@ $primary-color: $huat-pink;
 
 	.deletekey1 {
 		background: none;
-		color: $inactive-gray;
+		color: $shady-gray;
 		float: right;
 		font-size: 20px;
 		padding: 5px;
@@ -333,7 +391,7 @@ $primary-color: $huat-pink;
 		padding: 5px 15px;
 
 		a {
-			font-size: 15px;
+			font-size: 16px;
 			color: $subtle-black;
 
 			&:hover {
@@ -468,6 +526,15 @@ $primary-color: $huat-pink;
 		:hover {
 			color: $huat-pink;
 		}
+	}
+	.goaltag {
+		display: inline-block;
+		background-color: $huat-pink;
+		color: #fff;
+		border-radius: 4px;
+		margin-top: 5px;
+		padding: 4px 7px;
+		font-size: 12px;
 	}
 }
 

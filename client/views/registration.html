@@ -8,14 +8,15 @@
 	{{else}}
 		{{#if risk}}
 			<h1>Getting to know you better</h1>
+			<hr>
+			<p>The following questions will allow us to access your risk tolerance better. Be honest and spontaneous while answering these questions, as they will give us a better gauge of your risk profile.</p>
 			{{> risk_profile}}
 		{{else}}
 			{{#if goal}}
-				<h1>
-				<a data-open="add_goal_modal">Click to create your First Goal</a>
+				<h1>Create your First Goal</h1>
 				<hr>
+				<p>You are now ready to add your first goal. You can either select one the goals from our catalogue, or <a data-open="add_goal_modal">define your own goal</a>.</p>
 				{{> recommendation}}
-				</h1>
 				{{> add_goal_modal gg=goal_item}}
 			{{/if}}
 			{{#if done}}
