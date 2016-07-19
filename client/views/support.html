@@ -1,28 +1,39 @@
 <template name="support">
-    <h1>Contact us if you find a bug!</h1>
+    <h1>Help and Support</h1>
     <hr>
-    <form class="bug">
-        <div class="row">
-    		<div class="large-6 columns">
-                <label>Title 
-                    <input type="text" name="title" />
-                </label>
-    		</div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <p>We understand that our platform is not perfect and seek your help in making it better.</p>
+            <p>If you face any issues, errors or bugs during your interaction with the platform, please make use of the <strong>Error Report Form</strong> to give us a detailed description of the problem you are facing.</p>
+            <p>If you are unsure how to use a particular feature or aspect of the platform, please refer to the tutorial (downladable link below) to give you a better idea.</p>
+            <a href="" class="button">Download the Tutorial here</a>
+            <p>If the problem still persists, drop us an email at: <a href="">zikang_han@mymail.sutd.edu.sg</a></p>
         </div>
+        <div class="small-12 large-6 columns">
+            <form class="bug">
+                <h2>Error Report Form</h2>
+                <hr>
+                <div class="row">
+            		<div class="large-12 columns">
+                        <label>Title 
+                            <input type="text" name="title" />
+                        </label>
+            		</div>
+                </div>
+                <div class="row">
+            		<div class="large-12 columns">
+                    <label>Description
+                        <textarea type="text" name="description"> </textarea>
+                    </label>
+            		</div>
+                </div>
 
-        <div class="row">
-    		<div class="large-6 columns">
-            <label>Description
-                <textarea type="text" name="description"> </textarea>
-            </label>
-    		</div>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <input type='submit' value="Submit" class="button"/>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <div class="row">
-            <div class="large-6 columns">
-                <input type='submit' value="Submit" class="button"/>
-            </div>
-        </div>
-    </form>
-
+    </div>
 </template>
