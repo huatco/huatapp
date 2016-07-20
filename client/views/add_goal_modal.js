@@ -139,7 +139,7 @@ Template.goal_modal.helpers({
 			var str = parseFloat(Math.round(VAL/denom * 100) / 100).toFixed(2);
 			return { show: true, str: str };
 		}
-		if(realisticPeriod>targetPeriod ){
+		if(activeNext==0){
 			var newval = investmentAmt();
 			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
 			if (!isFinite(str)) str = "Not Available";
@@ -196,10 +196,11 @@ Template.goal_modal.events({
 		var month = date.month()+1;
 		var year = date.year();
 		$("#month").val(month);
-		document.getElementById('month').style.backgroundColor = "yellow";
+		// document.getElementById('month').style.backgroundColor = "yellow";
 		$("#year").val(year);
-		document.getElementById('year').style.backgroundColor = "yellow";
+		// document.getElementById('year').style.backgroundColor = "yellow";
 	},
+
 	"click #topup": function(e, t){
 		e.preventDefault();
    		e.stopPropagation()

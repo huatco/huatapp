@@ -37,7 +37,7 @@ Meteor.methods({
         var total_units = 0;
 
         goals.forEach(function (goal) {
-            var amt = investmentAmt(goal.target_amount, goal.time_stamp, goal.goal_month, goal.goal_year, rate);
+            var amt = goal.monthly_amt;
             var p = targetPeriod(goal.goal_month, goal.goal_year);
             var units = 0;
 
@@ -56,7 +56,6 @@ Meteor.methods({
             Goals.update({ _id: goal._id }, { 
                 $set: { 
                     units: units,
-                    monthly_amt: parseFloat(amt).toFixed(2),
                     current_amount: new_val,
                     progress: new_prog,
                 } 
