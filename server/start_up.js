@@ -30,7 +30,7 @@ Meteor.methods({
         var start = PILOT_START_DATE;
         var present = moment();
         var diff_days = present.diff(start,"days");
-        var virtual_present = present.add((diff_days*5),"days");
+        var virtual_present = present.add((diff_days*14),"days");
         var diff_months = virtual_present.diff(start,"months");
         console.log("goal new val", diff_months);
 

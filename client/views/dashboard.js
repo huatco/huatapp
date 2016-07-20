@@ -147,6 +147,7 @@ function drawProgressChart() {
 
 	var vals = datalength();
     var data = monthlyInvestments(vals[0], vals[1]);
+    console.log(data);
     var monthlabels = monthLabels(vals[0], vals[1]);
     var data = {
 	    labels: monthlabels,
@@ -194,8 +195,12 @@ function monthlyInvestments(a, b) {
 	var data_start = present.diff(start_date, 'months') - a;
 
 	for(i=0; i<b; i++){
-		data.push(investments[data_start]);
-		data_start+=1;
+		if(typeof investments[data_start] === 'undefined') {
+			data.push(0);
+		}else{
+			data.push(investments[data_start]);
+			data_start+=1;
+		}
 	}
 
 	return data;
