@@ -52,9 +52,12 @@ Template.goal.events({
 
 	"click .delete_goal": function(event, template) {
         var goalid = template.data._id;
-        Goals.remove(goalid);
-        //Meteor.call("call_python", function(error) {});
-        Router.go('/bucketlist')
+		var r = confirm("Deleting a goal may incur a 10% penalty, are you sure you want to proceed? ");
+		if (r) {
+			Goals.remove(goalid);
+			//Meteor.call("call_python", function(error) {});
+			Router.go('/bucketlist');
+		}
     },
 });
 
