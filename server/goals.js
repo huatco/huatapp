@@ -1,4 +1,4 @@
-import {returnRate, assign_bucket, SAMPLE_KEYWORDS} from "../investment.js"
+import {returnRate, assign_bucket, SAMPLE_KEYWORDS, investmentAmt} from "../investment.js"
 
 Meteor.methods({
   click_on_goal: function (goal) {
@@ -8,12 +8,15 @@ Meteor.methods({
   
   add_goal: function (title, month, year, priority, target_amt, category, desc, tags) {
     var time_stamp = new Date();
+    var ror = Meteor.user().profile.return_rate;
+    var amount = parseFloat(investmentAmt(parseFloat(target_amt), time_stamp, parseInt(month), parseInt(year), ror));
     console.log(time_stamp);
     console.log(tags);
     console.log(time_stamp.getYear());
     var new_goal = {
       title: title,
       time_stamp: time_stamp,
+      monthly_amt: amount, 
       created_year: time_stamp.getYear(),
       created_month: time_stamp.getMonth(),
       goal_month: parseInt(month),
