@@ -3,9 +3,11 @@ Session.set("section", 1);
 var goalAddDep = new Tracker.Dependency;
 var categoryDep = new Tracker.Dependency;
 var realismDep = new Tracker.Dependency;
+var nextDep = new Tracker.Dependency;
 var targetPeriod = -1;
 var realisticPeriod = -1;
 var VAL = 0;
+var activeNext = 1;
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
@@ -85,6 +87,16 @@ Template.goal_modal.helpers({
 		if (val == currentVal)return "active";
 		return null;
 	},
+
+	isDisabled: function() {
+		nextDep.depend();
+		if(activeNext==0) {
+			return "disabled";
+		}else {
+			return "";
+		}
+	},
+
 	predefinedTags: function(gg){
 		categoryDep.depend();
 		$(".tags").importTags('');
@@ -115,16 +127,6 @@ Template.goal_modal.helpers({
 	default_year: function () { return 2017; }, 
 	realismAmount: function(){
 		realismDep.depend();
-		//console.log("Realism", realisticPeriod, targetPeriod);
-		/*
-		if (Session.get("reg_state") == 2) {
-			var newval = investmentAmt();
-			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
-			if (!isFinite(str)) str = "Not Available";
-			if (isNaN(str)) str = "Not Available";
-			console.log("str", str);
-			return { show: true, str: str };
-		}*/
 		if (targetPeriod == -1 || Session.get("reg_state") == 2 || Goals.find({user: Meteor.user().username}).count()==0) {
 			var r = Meteor.user().profile.return_rate;
 			var denom = 0;
@@ -138,30 +140,6 @@ Template.goal_modal.helpers({
 			return { show: true, str: str };
 		}
 		if(realisticPeriod>targetPeriod ){
-			// var r = Meteor.user().profile.return_rate;
-			// var goalTable = Meteor.user().profile.goal_table;
-
-			// var numsum = val;
-			// var densum = 0;
-			// for(var key in goalTable){
-			// 	numsum+= parseFloat(goalTable[key]);
-			// }
-			// var periodList = Object.keys(goalTable);
-			// var maxPeriod = Math.max.apply(null, periodList);
-
-			// if(maxPeriod<targetPeriod){
-			// 	maxPeriod = targetPeriod;
-			// }
-			// console.log()
-			// for(var i=0; i<maxPeriod; i++){
-			// 	densum+= Math.pow(1+r, i);
-			// }
-
-			// var newval = numsum/densum;
-			// newval -= Meteor.user().profile.monthly_require;
-			// console.log("num amt", numsum, densum, newval);
-			// //document.getElementById("topup").style.visibility = "visible";
-			// console.log(Math.round(newval * 100) / 100);
 			var newval = investmentAmt();
 			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
 			if (!isFinite(str)) str = "Not Available";
@@ -231,8 +209,9 @@ Template.goal_modal.events({
 		console.log("increment", increment);
 		console.log("amount", amount);
 		var current = amount + increment;
-		Session.set("msg", "Top up successful. Topup amount: " + increment);
-		$("#topupamount").val("0");
+		Session.set("msg", "Top up successful!");
+		activeNext=1;
+		nextDep.changed();
 		//alert("Top up successful.");
 	}, 
 	"change #month": function(event, template){
@@ -243,6 +222,8 @@ Template.goal_modal.events({
 		console.log("date changed", date);
 		targetPeriod = date.diff(present, 'months');
 		realismDep.changed();
+		activeNext=0;
+		nextDep.changed();
 	},
 
 	"change #year": function(event, template){
@@ -253,6 +234,8 @@ Template.goal_modal.events({
 		console.log("date changed", date);
 		targetPeriod = date.diff(present, 'months');
 		realismDep.changed();
+		activeNext=0;
+		nextDep.changed();
 	},
 
 	"click #reset_date": function(){
@@ -262,7 +245,7 @@ Template.goal_modal.events({
 		$("#month").val(month)
 		$("#year").val(year);
 		targetPeriod = -1;
-		
+
 		realismDep.changed();
 	},
 

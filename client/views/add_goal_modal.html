@@ -83,7 +83,7 @@
           <div class="topup-panel">
             <p><em>In order to reach this target, you need to top up</em></p>
             <div>
-              <input type="text" id="topupamount" value="${{realismAmount.str}}">
+              $<input type="text" id="topupamount" value="{{realismAmount.str}}">
               <a class="button" id="topup">Top Up</a>
               <p id="topups">{{msg}}</p>
             </div>
@@ -112,6 +112,6 @@
         </div>
       </fieldset>
       <button type="button" class="button previous"><i class="fa fa-chevron-left"></i>Back</button>
-    <input type="{{submitValue}}" class="button next" value="Next">
+    <input type="{{submitValue}}" class="button next {{isDisabled}}" value="Next">
   </form>
 </template>
