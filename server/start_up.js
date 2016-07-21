@@ -55,8 +55,9 @@ Meteor.methods({
             }
 
             var new_val = parseFloat(units*portfolio_value);
-            var new_prog = new_val/goal.target_amount;
-            (p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
+            var new_prog = new_val / goal.target_amount;
+            if (isNaN(new_prog)) new_prog = 0;
+            //(p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
 
             monthly_requirement += amt;
             total_requirement += parseFloat(goal.target_amount);
@@ -77,7 +78,7 @@ Meteor.methods({
                 "profile.portfolio_value": portfolio_value,
                 "profile.monthly_require": monthly_requirement, 
                 "profile.total_require": total_requirement,
-                "profile.goal_table": goalTable,
+                //"profile.goal_table": goalTable,
                 "profile.present_time": virtual_present.toISOString(),
                 "profile.units": total_units,
                 "profile.amount": total_units*portfolio_value,
