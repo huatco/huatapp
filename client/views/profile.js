@@ -35,8 +35,8 @@ Template.profile.helpers({
       return parseFloat(Math.round(amt * 100) / 100).toFixed(2);
     },
     riskscore: function() {
-      var amt = Meteor.user().profile.riskscore;
-      return amt;
+      var amt = (Meteor.user().profile.riskscore+70)/140;
+      return (amt*100).toFixed(2);
     },
 });
 
