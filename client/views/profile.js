@@ -1,6 +1,8 @@
 Template.profile.helpers({
 	// var userId = Meteor.userId();
-	username: function () {
+  username: function () {
+    if(!Meteor.user() || !Meteor.user().profile || Meteor.user().profile.account_status < 3)
+            document.location.href = '/registration'; 
  		return Meteor.user() && Meteor.user().username;
   	},
   	email: function () {

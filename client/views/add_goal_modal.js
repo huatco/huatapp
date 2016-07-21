@@ -205,7 +205,7 @@ Template.goal_modal.events({
    		e.stopPropagation()
 		var increment = parseFloat($("#topupamount").val());
 		var amount = parseFloat(Meteor.user().profile.increment) || 0;
-		Meteor.call("topup", [amount + increment]);
+		Meteor.call("topup", amount + increment);
 		console.log("increment", increment);
 		console.log("amount", amount);
 		var current = amount + increment;

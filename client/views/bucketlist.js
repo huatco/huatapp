@@ -12,8 +12,8 @@ Template.bucketlist.helpers({
     goals: function () {
         //return Meteor.subscribe("goal");
         
-            if (!Meteor.user().profile || Meteor.user().profile.account_status < 3)
-                document.location.href = '/registration';
+        if(!Meteor.user() || !Meteor.user().profile || !Meteor.user().profile.account_status || Meteor.user().profile.account_status < 3)
+            document.location.href = '/registration'; 
             var this_user = Meteor.user().username;
             return Goals.find({ user: this_user });
         

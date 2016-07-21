@@ -4,7 +4,9 @@ start_date=0;
 present=0;
 
 Template.portfolio.helpers({
-    returnRate: function(){
+    returnRate: function () {
+        if(!Meteor.user() || !Meteor.user().profile.account_status || Meteor.user().profile.account_status < 3)
+            document.location.href = '/registration'; 
         var rate =  Meteor.user().profile.return_rate*100;
         return rate.toFixed(3);
     },
