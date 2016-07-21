@@ -151,11 +151,11 @@ function investmentAmt() {
 	for(var i=0; i<target; i++){
 		denom += Math.pow(1+r, i);
 	}
-	var v = parseFloat(Session.get("goal_var"));
+	var v = parseFloat(Session.get("goal_val"));
 	var newval = v / denom;
 	var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
-	if (!isFinite(str)) str = "Not Available";
-	if (isNaN(str)) str = "Not Available";
+	if (!isFinite(str)) str = "-";
+	if (isNaN(str)) str = "-";
 	return str;
 };
 
@@ -163,41 +163,6 @@ Template.goal_modal.events({
 	'change #amount': function (event, template) {
 		VAL = event.target.valueAsNumber;
 		Session.set("goal_val", event.target.valueAsNumber);
-		if (Session.get("reg_state") == 2) {
-			realismDep.changed();
-			return;
-		}
-		var goalTable = Meteor.user().profile.goal_table;
-		var period = 1;
-		var r = Meteor.user().profile.return_rate;
-		var amount = parseFloat(Meteor.user().profile.amount);
-		var monthlyAdd = parseFloat(Meteor.user().profile.monthly_require);
-		var totalRequire = Meteor.user().profile.total_require + VAL;
-		var goalReached = false;
-		while (!goalReached) {
-			if(period in goalTable){
-				amount = amount - goalTable[period.toString()] + monthlyAdd*(Math.pow(1+r,period-1));
-				totalRequire -= goalTable[period.toString()];
-			}else {
-				amount = amount + monthlyAdd*(Math.pow(1+r,period-1));
-			}
-
-			if(amount>totalRequire){
-				goalReached= true;
-			}else {
-				period+=1;
-			}
-		}
-
-		console.log(period);
-		realisticPeriod = period;
-		var date = moment(Meteor.user().profile.present_time).add(period, 'M');
-		var month = date.month()+1;
-		var year = date.year();
-		$("#month").val(month);
-		// document.getElementById('month').style.backgroundColor = "yellow";
-		$("#year").val(year);
-		// document.getElementById('year').style.backgroundColor = "yellow";
 	},
 
 	"click #topup": function(e, t){
