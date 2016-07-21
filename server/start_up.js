@@ -40,22 +40,31 @@ Meteor.methods({
             var amt = goal.monthly_amt;
             var p = targetPeriod(goal.goal_month, goal.goal_year);
             var units = 0;
-
-            for(var i=0; i<diff_days; i+=2){
-                units += amt/(PRICES[bucket][i]);
+            var goal_start = moment(goal.time_stamp).diff(start,"days");
+            var loop_start = 0;
+            if(goal_start>0){
+                loop_start = goal_start + (goal_start%2);
             }
 
-            var new_val = units*portfolio_value;
+            console.log("start & end", loop_start, diff_days);
+            
+            if(loop_start<diff_days){
+                for(var i=0; i<diff_days; i+=2){
+                    units += amt/(PRICES[bucket][i]);
+                }
+            }
+
+            var new_val = parseFloat(units*portfolio_value);
             var new_prog = new_val/goal.target_amount;
             (p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
 
             monthly_requirement += amt;
             total_requirement += parseFloat(goal.target_amount);
             total_units += units;
-
+            console.log("units", units);
             Goals.update({ _id: goal._id }, { 
                 $set: { 
-                    units: units,
+                    units: parseFloat(units),
                     current_amount: new_val,
                     progress: new_prog,
                 } 
