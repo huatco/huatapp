@@ -32,10 +32,14 @@
 					<div class="small-6 columns">
 						<h1>{{stockPercent}}%</h1>
 						<p>Equity Assets{{>tooltip desc="Riskier assets that provide marginally higher returns."}}</p>
+						<h1>{{total_units}}</h1>
+						<p>Units Owned{{>tooltip desc="Total units of the portfolio that you own."}}</p>
 					</div>
 					<div class="small-6 columns">
 						<h1>{{bondPercent}}%</h1>
 						<p>Fixed Income Bonds{{>tooltip desc="Low risk investment tools with relatively lower returns"}}</p>
+						<h1>${{portfolio_value}}</h1>
+						<p>Portfolio Value{{>tooltip desc="Current value of the portfolio based on the market fluctuations."}}</p>
 					</div>
 				</div>
 			</div>
