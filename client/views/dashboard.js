@@ -27,7 +27,8 @@ Template.dashboard.helpers({
     },
 
     currentProgress: function() {
-    	var total = Meteor.user().profile.total_require;
+		var total = Meteor.user().profile.total_require;
+		if (total == 0) return "0";
     	var current = parseFloat(Meteor.user().profile.amount);
     	var percent = (current/total)*100;
     	return percent.toFixed(2);
