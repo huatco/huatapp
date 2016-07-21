@@ -12,10 +12,10 @@ AccountsTemplates.addFields([
       console.log(handle);
       console.log(handle.ready());
       if (handle.ready()) {
-        var b = Beta.findOne({ code: value });
-        console.log(Beta.findOne({ code: value }).count());
+        var b = Beta.find({ code: value });
+        console.log(Beta.find({ code: value }).count());
 
-        if (Beta.findOne({ code: value }).count() > 0) {
+        if (Beta.find({ code: value }).count() > 0) {
           console.log("B", b.user);
           if (b.user == "" || b.user == undefined) {
             console.log("worked");
