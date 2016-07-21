@@ -10,9 +10,10 @@ var VAL = 0;
 var activeNext = 1;
 Session.set("month", '1');
 Session.set("year", '2017');
-k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
+Session.set("goal_val", '0');
 
 Template.add_goal_modal.onRendered(function () {
+	activeNext = 1;
 	Session.set("msg", "");
 	if (Session.get("category")) Session.set("section", 2);
 	$(window).on('closed.zf.reveal', function (sth) { 
@@ -71,6 +72,8 @@ Template.goal_modal.helpers({
 		goalAddDep.depend();
 		if (section == Session.get("section"))
 			return "active";
+		activeNext = 1;
+		$("#amount").val(0.00);
 		return null;
 	},
 	msg:function(){
@@ -145,8 +148,10 @@ function investmentAmt() {
 	var denom = 0;
 	var year = Session.get("year");
 	var month = Session.get("month");
-	var date = moment([year, month]);
+	var date = moment([parseInt(year), parseInt(month)]);
+	var present = moment(Meteor.user().profile.present_time);
 	var target = date.diff(present, 'months');
+	console.log(target);
 	var r = Meteor.user().profile.return_rate;
 	for(var i=0; i<target; i++){
 		denom += Math.pow(1+r, i);
@@ -211,7 +216,7 @@ Template.goal_modal.events({
 		var date = moment(Meteor.user().profile.present_time).add(realisticPeriod, 'M');
 		var month = date.month()+1;
 		var year = date.year();
-		$("#month").val(month)
+		$("#month").val(month);
 		$("#year").val(year);
 		targetPeriod = -1;
 
