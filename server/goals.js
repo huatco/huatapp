@@ -17,7 +17,7 @@ Meteor.methods({
       title: title,
       time_stamp: time_stamp,
       monthly_amt: amount, 
-      created_year: time_stamp.getYear(),
+      created_year: time_stamp.getFullYear(),
       created_month: time_stamp.getMonth(),
       goal_month: parseInt(month),
       goal_year: parseInt(year),

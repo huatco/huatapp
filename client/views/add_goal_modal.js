@@ -73,7 +73,7 @@ Template.goal_modal.helpers({
 		if (section == Session.get("section"))
 			return "active";
 		activeNext = 1;
-		$("#amount").val(0.00);
+		
 		return null;
 	},
 	msg:function(){
@@ -256,6 +256,7 @@ Template.goal_modal.events({
 					title, month, year, priority, target_amt, category, desc, tags,
 					function (e, result) {
 						if (result) {
+							$("#amount").val(0.00);
 							if (Session.get("reg_state") == 2) {
 								Session.set("reg_state", 3);
 								Meteor.users.update(Meteor.userId(), {
