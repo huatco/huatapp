@@ -8,6 +8,8 @@ var targetPeriod = -1;
 var realisticPeriod = -1;
 var VAL = 0;
 var activeNext = 1;
+Session.set("month", '1');
+Session.set("year", '2017');
 k = ["Education", "Lifestyle", "Life Plans", "Life Milestone", "Sports", "Nature", "Travel", "Skills", "Fan activities"];
 
 Template.add_goal_modal.onRendered(function () {
@@ -128,23 +130,11 @@ Template.goal_modal.helpers({
 	realismAmount: function(){
 		realismDep.depend();
 		if (targetPeriod == -1 || Session.get("reg_state") == 2 || Goals.find({user: Meteor.user().username}).count()==0) {
-			var r = Meteor.user().profile.return_rate;
-			var denom = 0;
-			var date = moment([2017, 1]);
-			targetPeriod = date.diff(present, 'months');
-			  for(i=0; i<targetPeriod; i++){
-				var a = Math.pow(1+r, i);
-				denom += a;
-			}
-			var str = parseFloat(Math.round(VAL/denom * 100) / 100).toFixed(2);
+			var str = investmentAmt();
 			return { show: true, str: str };
 		}
 		if(activeNext==0){
-			var newval = investmentAmt();
-			var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
-			if (!isFinite(str)) str = "Not Available";
-			if (isNaN(str)) str = "Not Available";
-			console.log("str", str);
+			var str = investmentAmt();
 			return { show: true, str: str };
 		}
 	}
@@ -152,18 +142,27 @@ Template.goal_modal.helpers({
 });
 
 function investmentAmt() {
-  var r = Meteor.user().profile.return_rate;
-  var denom = 0;
-  for(var i=0; i<targetPeriod; i++){
-    denom += Math.pow(1+r, i);
-  }
-  return VAL/denom;
+	var denom = 0;
+	var year = Session.get("year");
+	var month = Session.get("month");
+	var date = moment([year, month]);
+	var target = date.diff(present, 'months');
+	var r = Meteor.user().profile.return_rate;
+	for(var i=0; i<target; i++){
+		denom += Math.pow(1+r, i);
+	}
+	var v = parseFloat(Session.get("goal_var"));
+	var newval = v / denom;
+	var str = parseFloat(Math.round(newval * 100) / 100).toFixed(2);
+	if (!isFinite(str)) str = "Not Available";
+	if (isNaN(str)) str = "Not Available";
+	return str;
 };
 
 Template.goal_modal.events({
 	'change #amount': function (event, template) {
 		VAL = event.target.valueAsNumber;
-		
+		Session.set("goal_val", event.target.valueAsNumber);
 		if (Session.get("reg_state") == 2) {
 			realismDep.changed();
 			return;
@@ -218,6 +217,8 @@ Template.goal_modal.events({
 	"change #month": function(event, template){
 		var month = $("#month").val();
 		var year = $("#year").val();
+		Session.set("month", month);
+		Session.set("year", year);
 		var present = moment(Meteor.user().profile.present_time);
 		var date = moment([year, month]);
 		console.log("date changed", date);
@@ -230,6 +231,8 @@ Template.goal_modal.events({
 	"change #year": function(event, template){
 		var month = $("#month").val();
 		var year = $("#year").val();
+		Session.set("month", month);
+		Session.set("year", year);
 		var present = moment(Meteor.user().profile.present_time);
 		var date = moment([year, month]);
 		console.log("date changed", date);
