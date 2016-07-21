@@ -13,27 +13,27 @@ Template.portfolio.helpers({
 
     bondPercent: function(){
         var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
-        return bucket[0];
+        return (bucket[0]*100).toFixed(2);
     },
 
     stockPercent: function(){
         var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
-        return bucket[1];
+        return (bucket[1]*100).toFixed(2);
     },
 
     annualReturn: function(){
-        var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
-        return bucket[2];
+        var rate =  Meteor.user().profile.return_rate*1200;
+        return rate.toFixed(3);
     },
 
     volatilityRate: function(){
         var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
-        return bucket[3];
+        return (bucket[2]*100).toFixed(2);
     },
 
     expenseRatio: function(){
         var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
-        return bucket[4];
+        return bucket[3];
     },
 });
 Template.portfolio.onRendered(function () {
