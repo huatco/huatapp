@@ -1,6 +1,7 @@
 var pwd = AccountsTemplates.removeField('password');
 AccountsTemplates.removeField('email');
-
+var handle = Meteor.subscribe("beta");
+Meteor.subscribe("bug");
 AccountsTemplates.addFields([
   {
     _id: "invitation",
@@ -8,20 +9,22 @@ AccountsTemplates.addFields([
     displayName: "Invitation Code",
     func: function (value) {
       //if (Meteor.isServer) {
-      Meteor.subscribe("beta");
-      Meteor.subscribe("bug");
-      var b = Beta.findOne({ code: value });
-      console.log(Beta.find({ code: value }).count());
+      console.log(handle);
+      console.log(handle.ready());
+      if (handle.ready()) {
+        var b = Beta.findOne({ code: value });
+        console.log(Beta.findOne({ code: value }).count());
 
-        if (Beta.find({ code: value }).count() > 0) {
-            console.log("B", b.user);
-            if (b.user == "" || b.user == undefined) {
-                console.log("worked");
-                return false;
-           }
-        } 
+        if (Beta.findOne({ code: value }).count() > 0) {
+          console.log("B", b.user);
+          if (b.user == "" || b.user == undefined) {
+            console.log("worked");
+            return false;
+          }
+        }
         console.log("not working");
-        return true; 
+        return true;
+      }
     }, 
     errStr: "Invitation code is not valid. If you've used this code, please sign in. ",
     required: true,

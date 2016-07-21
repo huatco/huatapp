@@ -3,8 +3,9 @@ regDep = new Tracker.Dependency;
 
 Template.registration.helpers({
 	basic: function () {
-		Meteor.call("update_beta");
+		
 		regDep.depend();
+		if (Meteor.user().profile.account_status == 0) return true;
 		if (!Meteor.user().profile) return true;
 		if (Meteor.user()['profile']['account_status'])
 			Session.set("reg_state", Meteor.user()['profile']['account_status']);
@@ -12,7 +13,8 @@ Template.registration.helpers({
 		if (Session.get("reg_state") == 0) {
 			console.log("basic");
 			return true;
-		} console.log(this);
+		}
+		console.log("basic", this);
 		return false;
 	},
 	goal_item: function () {
@@ -71,10 +73,11 @@ Template.registration.events({
 });
 
 Template.basic_info.events({
-	"submit .basic_info": function(event) {
+	"submit .basic_info": function (event) {
+		Meteor.call("update_beta");
       	event.preventDefault();
 			var age = event.target.age.value;
-			var marital = event.target.age.value;
+			var marital = event.target.marital.value;
       	var gender = event.target.gender.value;
       	var income = event.target.income.value || 0.0;
       	var expenditure = event.target.expenditure.value || 0.0;
