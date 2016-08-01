@@ -35,6 +35,15 @@ Template.portfolio.helpers({
         var bucket = BUCKET_VALUES[Meteor.user().profile.bucket];
         return bucket[3];
     },
+
+    total_units: function(){
+        var units = Meteor.user().profile.units;
+        return units.toFixed(2);
+    },
+
+    portfolio_value: function(){
+        return (Meteor.user().profile.portfolio_value).toFixed(2);
+    },
 });
 Template.portfolio.onRendered(function () {
 if(!Meteor.user().profile || Meteor.user().profile.account_status<3)
