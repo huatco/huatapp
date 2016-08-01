@@ -139,12 +139,12 @@ Meteor.startup(function () {
                         "A": 0, "B": 0, "C": 0
                     });
       
-
+    /*
     if (Beta.find({}).count() == 0) {
         for (var i = 0; i < 50; i++) {
             Beta.insert({ code: INVITATIONS[i], user: "" });
         }
         Beta.insert({ code: "testtesttest", user: "" });
-    }
+    }*/
     
 });

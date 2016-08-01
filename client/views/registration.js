@@ -5,8 +5,8 @@ Template.registration.helpers({
 	basic: function () {
 		
 		regDep.depend();
-		if (Meteor.user().profile.account_status == 0) return true;
 		if (!Meteor.user().profile) return true;
+		if (Meteor.user().profile.account_status == 0) return true;
 		if (Meteor.user()['profile']['account_status'])
 			Session.set("reg_state", Meteor.user()['profile']['account_status']);
 		else return true;
@@ -31,7 +31,7 @@ Template.registration.helpers({
 	},
 	done: function () {
 		regDep.depend();
-		if (Meteor.user()['profile']['account_status'])
+		if (Meteor.user().profile.account_status)
 			Session.set("reg_state", Meteor.user()['profile']['account_status']);	
 		if (Session.get("reg_state") == 2) {
 			if (Goals.find({ user: Meteor.user().username }).count() > 0) {
@@ -74,7 +74,7 @@ Template.registration.events({
 
 Template.basic_info.events({
 	"submit .basic_info": function (event) {
-		Meteor.call("update_beta");
+		//Meteor.call("update_beta");
       	event.preventDefault();
 			var age = event.target.age.value;
 			var marital = event.target.marital.value;

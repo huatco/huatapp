@@ -3,6 +3,7 @@ AccountsTemplates.removeField('email');
 var handle = Meteor.subscribe("beta");
 Meteor.subscribe("bug");
 AccountsTemplates.addFields([
+  /*
   {
     _id: "invitation",
     type: "text",
@@ -28,7 +29,7 @@ AccountsTemplates.addFields([
     }, 
     errStr: "Invitation code is not valid. If you've used this code, please sign in. ",
     required: true,
-  }, 
+  },  */
   {
     _id: "username",
     type: "text",
