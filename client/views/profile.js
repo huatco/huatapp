@@ -41,18 +41,18 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
-	"click .increase": function() {
-		var current = +(Meteor.user().profile.amount);
-		var amt = +(Meteor.user().profile.increment);
-		var newval = current+amt;
-		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
-    Meteor.call("call_python", function(error) {});
+	"click #plus_time": function() {
+		var time = moment(Meteor.user().profile.present_time);
+    var new_time = time.add(14, 'days');
+    Meteor.users.update({ _id: Meteor.user()._id }, {
+        $set: {"profile.present_time": new_time.toISOString()}
+    });
 	},
-	"click .decrease": function() {
-		var current = +(Meteor.user().profile.amount);
-		var amt = +(Meteor.user().profile.increment);
-		var newval = current-amt;
-		Meteor.users.update(Meteor.userId(), {$set: {"profile.amount": newval}});
-    Meteor.call("call_python", function(error) {});
+	"click #minus_time": function() {
+		var time = moment(Meteor.user().profile.present_time);
+    var new_time = time.subtract(14, 'days');
+    Meteor.users.update({ _id: Meteor.user()._id }, {
+        $set: {"profile.present_time": new_time.toISOString()}
+    });
 	}
 });

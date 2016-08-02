@@ -818,6 +818,20 @@ $primary-color: $huat-pink;
 			}
 		}
 
+		.time-acceleration {
+			width: 60%;
+			text-align: center;
+			h3 {
+				font-size: 20px;
+				color: $huat-pink;
+				margin-top: 5px;
+			}
+			button {
+				font-size: 18px;
+				font-weight: 700;
+			}
+		}
+
 	}
 
 	.profile-goal {
