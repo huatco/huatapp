@@ -11,7 +11,6 @@ Template.dashboard.onCreated(function () {
 });
 Template.dashboard.helpers({
 	username: function () {
-		console.log(Meteor.user());
         if(!Meteor.user() || !Meteor.user().profile || !Meteor.user().profile.account_status || Meteor.user().profile.account_status < 3)
             document.location.href = '/registration'; 
 		return Meteor.user() && Meteor.user().username;

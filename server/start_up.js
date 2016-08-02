@@ -25,39 +25,34 @@ Meteor.methods({
         var goalTable = {};
         var goals = Goals.find({ user: Meteor.user().username });
         
-        var start = PILOT_START_DATE;
         var present = moment();
-        var diff_days = present.diff(start,"days");
-        var virtual_present = present.add((diff_days*14),"days");
-        var diff_months = virtual_present.diff(start,"months");
-
+        var virtual_present;
+        if(Meteor.user().profile.present_time == undefined){
+            virtual_present = present;
+        }else {
+            virtual_present = moment(Meteor.user().profile.present_time);
+        }
+        var diff_days = Math.ceil(virtual_present.diff(present,"days")/14);
+        var diff_months = virtual_present.diff(present,"months");
+        console.log("diffdays", diff_days, diff_months);
         var bucket = Meteor.user().profile.bucket;
         var rate = (ROR[bucket][diff_days]);
         var portfolio_value = PRICES[bucket][diff_days];
         var total_units = 0;
 
+        console.log("rate and port", rate, portfolio_value)
+
         goals.forEach(function (goal) {
             var amt = goal.monthly_amt;
             var p = targetPeriod(goal.goal_month, goal.goal_year);
             var units = 0;
-            var goal_start = moment(goal.time_stamp).diff(start,"days");
-            var loop_start = 0;
-            if(goal_start>0){
-                loop_start = goal_start + (goal_start%2);
-            }
-
-            console.log("start & end", loop_start, diff_days);
             
-            if(loop_start<diff_days){
-                for(var i=0; i<diff_days; i+=2){
-                    units += amt/(PRICES[bucket][i]);
-                }
+            for(var i=0; i<diff_days; i+=2){
+                units += amt/(PRICES[bucket][i]);
             }
 
             var new_val = parseFloat(units*portfolio_value);
             var new_prog = new_val / goal.target_amount;
-            if (isNaN(new_prog)) new_prog = 0;
-            //(p in goalTable) ? goalTable[p] += goal.target_amount : goalTable[p] = goal.target_amount;
 
             monthly_requirement += amt;
             total_requirement += parseFloat(goal.target_amount);
@@ -78,7 +73,6 @@ Meteor.methods({
                 "profile.portfolio_value": portfolio_value,
                 "profile.monthly_require": monthly_requirement, 
                 "profile.total_require": total_requirement,
-                //"profile.goal_table": goalTable,
                 "profile.present_time": virtual_present.toISOString(),
                 "profile.units": total_units,
                 "profile.amount": total_units*portfolio_value,
