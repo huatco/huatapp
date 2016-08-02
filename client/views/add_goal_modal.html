@@ -82,7 +82,7 @@
         <p>...</p>
        {{#if realismAmount.show}}
           <div class="topup-panel">
-            <p><em>In order to reach this target, you need to top up</em></p>
+            <p><em>In order to reach this target, you need to increase your monthly investment by{{>tooltip desc="This is the additional value that you will be investing monthly in order to meet this goal."}}</em></p>
             <div>
               $<input type="text" id="topupamount" value="{{realismAmount.str}}">
               <a class="button" id="topup">Top Up</a>

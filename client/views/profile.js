@@ -56,5 +56,12 @@ Template.profile.events({
         $set: {"profile.present_time": new_time.toISOString()}
     });
     document.location.href = '/';
-	}
+	},
+  "click #reset_time": function() {
+    var new_time = moment();
+    Meteor.users.update({ _id: Meteor.user()._id }, {
+        $set: {"profile.present_time": new_time.toISOString()}
+    });
+    document.location.href = '/';
+  },
 });
