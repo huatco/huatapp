@@ -47,6 +47,7 @@ Template.profile.events({
     Meteor.users.update({ _id: Meteor.user()._id }, {
         $set: {"profile.present_time": new_time.toISOString()}
     });
+    document.location.href = '/';
 	},
 	"click #minus_time": function() {
 		var time = moment(Meteor.user().profile.present_time);
@@ -54,5 +55,6 @@ Template.profile.events({
     Meteor.users.update({ _id: Meteor.user()._id }, {
         $set: {"profile.present_time": new_time.toISOString()}
     });
+    document.location.href = '/';
 	}
 });
